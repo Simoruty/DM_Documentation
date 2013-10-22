@@ -1,7 +1,7 @@
 \section{Business Understanding}
 Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del progetto dal punto di vista del business.
 
-\subsection{Background}
+\subsection{Background}\label{Background}
 Ogni giorno, vengono inviate circa 25 milioni di email indesiderate, chiamate anche email di spam. Tale cifra corrisponde a quasi il 10 \% di tutte le email inviate nel mondo; inoltre, indagini svolte sull'argomento, rivelano che generalmente il 40 \% delle email ricevute giornalmente dai dipendenti di molte imprese risultano essere email di spam, arrivando in alcuni casi, anche al 90 \%.
 Queste percentuali risultano essere molto elevate principalmente a causa della facile diffusione delle proprie caselle di posta verso qualunque tipo di contatto, diventando cosi bersagli di messaggi promozionali di qualunque tipo. Questa inondazione di messaggi di spam quindi genera due problemi principali:
 \begin{itemize}
@@ -38,9 +38,38 @@ Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellat
 \subsubsection{Task di Data Mining}
 	Il task da realizzare è di tipo \textit{predittivo}, in particolar modo, sarà un task di \textit{classificazione}. L'obiettivo sarà quindi quello di creare un classificatore che sia in grado di etichettare correttamente le nuove email come \textit{spam} o \textit{nospam} sulla base del training set dato in pasto al classificatore. 
 \subsection{Criteri di successo}
+	Al fine di valutare l'efficacia del classificatore, 
+	
+	
+	Ziel ist es, die Anzahl der durch den Filter hindurch gelassenen Spam-Mails zu minimieren, wobei eine wesentliche Bedingung lautet:
+	Unter den ausgefilterten E-Mails dürfen sich maximal 1,0 \% Nicht-Spam-Mails (bezogen auf die Gesamtzahl von Nicht-Spam-Mails) befinden. Achtung: Sollte die eingereichte Lösung diese Bedingung nicht erfüllen, wird die Lösung nicht gewertet!
+	
+	Folgende Data-Mining-Aufgabe ist zu bearbeiten.
+	
+	Anhand der Trainingsmenge ist ein Klassifikator zu generieren,
+	der auf die exemplarisch ausgewählten 11.177 zu klassifizierenden
+	E-Mails anzuwenden ist und oben beschriebenes Problem löst.
+	
+	Der Klassifikator muss demnach folgende
+	Bedingungen erfüllen:
+	1. Die Anzahl der Spam-Mails, welche den Filter passieren,
+	muss minimiert werden.
+	2. Unter den ausgefilterten E-Mails dürfen sich maximal 1,0 \%
+	Nicht-Spam-Mails (bezogen auf die Gesamtzahl von Nicht-Spam-Mails)
+	befinden.
+	
+	Achtung: Für die Optimierung des Klassifikators ist zwingend
+	die oben angegebene 2. Bedingung (1 \% Klausel) zu
+	beachten! Sollte die eingereichte Lösung diese Bedingung
+	nicht erfüllen, wird die Lösung nicht gewertet!
 
 \subsection{Glossario dei termini}
 
 \subsection{Analisi Costi-Benefici}
+
+Per quanto riguarda i costi inerenti al processo di KDD, l'unico costo che si avrà, sarà in termini di risorse temporali utilizzate per la realizzazione e relativa verifica dei risultati che il classificatore produrrà.
+
+Invece, i benefici che si otterranno da questo processo, saranno quelli che andranno a sopperire a ciò che è stato detto in precedenza nel paragrafo \ref{Background}.
+
 
 \subsection{Piano di Progetto}
