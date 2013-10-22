@@ -1,0 +1,61 @@
+\section{Business Understanding}
+Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del progetto dal punto di vista del business.
+
+\subsection{Background}
+Il contesto di 
+
+Il problema delle richieste consumati ( pubblicità ) e-mail , di solito con contenuti discutibili , è ben nota e la posizione del ricevitore probabilmente abbastanza disperata . Nonostante appropriate norme legislative persecuzione drastica in senso giuridico è difficilmente praticabile .
+Per le persone con numerosi contatti esterni tramite e-mail , e quindi una corrispondente distribuzione del loro indirizzo , la situazione può anche rappresentare un modo che, non solo i messaggi di posta elettronica desiderati ma anche molte volte le e-mail più promozionali ( spam) nella casella di posta al giorno .
+
+Il ricevitore è ora di fronte il problema per lui per separare le email importanti dai messaggi di spam che non sono sempre evidenti a prima vista , in quanto tale , - un processo noioso e che richiede tempo .
+
+Il primo desiderio di automatizzare il rilevamento di spam e la loro selezione , ha portato nel corso degli anni a vari progetti di software e di prodotti commerciali con più o meno artificiale "intelligenza" e una corrispondente apertura alare di efficienza . Uno dei più noti posta - filtro più è l' open source software SpamAssassin ( tm ), che deve fornire la loro idoneità per la pratica in molte università e aziende per il test .
+Fondamento essenziale di un filtro di posta buona è la sua capacità di classificare i messaggi di posta elettronica sulla base di diverse caratteristiche controllate e riconosciuto e, quindi, per rendere l'assegnazione di spam o non-spam con una corrispondente alta probabilità. La qualità di un filtro di posta è e cade con la qualità del suo algoritmo di classificazione.
+
+"Die Problematik unverlangt zugesendeter (Werbe-) E-Mails, mit zumeist fraglichem Inhalt, ist weithin bekannt und die Lage der Empfänger wohl recht aussichtslos. Trotz entsprechender Gesetzes- regelungen ist eine drastische Verfolgung im juristischen Sinne kaum praktikabel. 
+Für Personen mit zahlreichen Außenkontakten per E-Mail und damit einer entsprechenden Verbreitung ihrer Adresse kann sich die Situation sogar so darstellen, dass pro Tag nicht nur die gewünschten E-Mails sondern auch das Mehrfache an Werbe-E-Mails (Spam) im Postfach liegen.
+
+Der Empfänger steht nun vor dem Problem, die für ihn wichtigen  E-Mails von den Spam-Mails, die ja nicht immer auf den ersten Blick als solche zu erkennen sind, zu trennen - ein lästiges und zeitraubendes Verfahren.
+
+Der frühe Wunsch, die Erkennung von Spam-Mails und deren Auslese zu automatisieren, führte über die letzten Jahre zu verschiedenen Software-Projekten und auch kommerziellen Produkten mit mehr oder weniger künstlicher "Intelligenz" und einer entsprechenden Spann- weite an Effizienz. Einer der wohl bekanntesten Mail-Filter ist die Open-Source Software SpamAssassin(tm), der ihre Praxis- tauglichkeit schon in vielen Hochschulen und Unternehmen unter Beweis stellen muss. 
+Wichtiges Kernstück eines guten Mail-Filters ist seine Fähigkeit, E-Mails auf Grund verschiedenster kontrollierter und erfasster Merkmale zu klassifizieren und somit mit einer entsprechend hohen Wahrscheinlichkeit die Zuordnung Spam oder Nicht-Spam zu treffen. Die Qualität eines Mail-Filters steht und fällt somit mit der Güte seines Klassifikationsalgorithmus. " 
+
+\subsubsection{Risorse}
+La principale risorsa utilizzata è l'hardware del sistema utilizzato per eseguire l'algoritmo di data mining, in particolar modo, un sistema Windows con un Quad-Core Intel 2.20 GHz e 4 GB di Ram.
+Il tool di data mining scelto è WEKA (Waikato Environment for Knowledge Analysis ) \cite{WEKA}:
+una popolare suite di software per il machine learning scritto in Java e sviluppato nell'Università di Waikato (Nuova Zelanda). I motivi che hanno portato alla scelta di questa suite, ricade nel fatto che tale software è :
+\begin{itemize}
+	\item Liberamente scaricabile dal sito \footnote{Weka site: \url{http://www.cs.waikato.ac.nz/ml/weka/downloading.html}};
+    \item Portabile, in quanto totalmente implementato utilizzando java;
+    \item Ampia gamma di tecniche di preprocessing e modellazione dei dati;
+    \item Facile da usare grazie alla GUI;
+\end{itemize}
+
+Per quanto riguarda il personale umano, l'unica risorsa umana interpellata nella sperimentazione è lo sperimentatore stesso.
+
+ \subsubsection{Vincoli}
+ Excluding the only assumption that data are freely available  their accessibility is ensured by the fact that they were published on-line  there are no other requirements, assumptions and constraints such as security, legal or privacy issues, or budget and resources constraints.
+
+Non sono presenti vincoli temporali o problemi legali che devono essere considerati durante il processo di KDD.
+
+\subsubsection{Assunzioni}
+
+Si assume che i dati di cui si intende disporre siano liberamente accessibili e che non siano falsi o errati.
+
+\subsection{Obiettivi di Business}
+Attraverso l'utilizzo delle email ricevute dagli utenti nel corso degli anni, 
+Using the existing characteristics of a customer's initial order, such as order quantity per type
+of goods, title and delivery weight, the task is to indentify those customers that could be
+encouraged to buy again if a voucher worth ¿ 5.00 is send to them. Obviously, the customers
+who receive a voucher should be those who could not have decided to re-order by themselves,
+as not to incur a loss. The aim is therefore sending vouchers only to selected customers.
+
+\subsubsection{Task di Data Mining}
+
+\subsection{Criteri di successo}
+
+\subsection{Glossario dei termini}
+
+\subsection{Analisi Costi-Benefici}
+
+\subsection{Piano di Progetto}

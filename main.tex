@@ -1,0 +1,92 @@
+\documentclass[a4paper,12pt,oneside,onecolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[round,numbers]{natbib}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.9]{beramono}
+\usepackage{microtype}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usetikzlibrary{arrows,shapes}
+\tikzstyle{actor edge} = [red!90]
+\tikzstyle{director edge} = [blue!90]
+\usepackage{scalefnt}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+
+\long\def\symbolfootnote[#1]#2{\begingroup%
+\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+\usepackage[italian]{babel}
+\usepackage{caption}
+\captionsetup[table]{name=\textbf{Tabella}}
+\captionsetup[figure]{name=\textbf{Figura}}
+
+%\usepackage{tocloft}
+%\cftpagenumbersoff{figure}
+
+\title{Documentazione Data Mining} % Title
+\author{Simone \textsc{Rutigliano} }
+\date{\today}
+
+%\usepackage[sans,nowrite,infront,standard,swapnames]{frontespizio}
+
+\begin{document}
+%	\begin{frontespizio}
+%		\fontoptionnormal 
+%		\Universita {Bari}
+%		\Logo [1.5cm]{./images/logo}
+%		\Facolta {Scienze Matematiche, Fisiche e Naturali}
+%		\Corso [Laurea]{Informatica Magistrale}
+%		\Titoletto {Accesso Intelligente all'Informazione ed \\ Elaborazione del Linguaggio Naturale}
+%		\Titolo {Linked Open Data for content-based recommender systems}
+%		\NCandidato{Studenti}
+%		\Candidato{Luciano Quercia\\Simone Rutigliano}
+%		\Annoaccademico {2012-2013}
+%		\preparefrontpagestandard	%Frontespizio
+%	\end{frontespizio}
+
+	%\maketitle
+	\tableofcontents
+
+	\begingroup
+	\renewcommand\numberline[1]{}
+	\listoffigures
+	\endgroup
+
+	\begingroup
+	\renewcommand\numberline[1]{}
+	\listoftables
+	\endgroup
+
+	\newpage
+
+	\input{introduction}
+	\clearpage
+	\input{BusinessUnderstanding}
+	\clearpage
+	\input{DataUnderstanding}
+	\clearpage
+    \input{DataPreparation}
+	\clearpage
+    \input{Modeling}
+	\clearpage
+    \input{Evaluation}
+	\clearpage
+    \input{Deployment}
+	\clearpage
+    \input{Conclusion}
+	\clearpage
+    \bibliographystyle{abbrvnat}
+	\bibliography{mybib}
+
+\end{document}
