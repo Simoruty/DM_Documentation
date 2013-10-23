@@ -1,7 +1,7 @@
-\section{Business Understanding}
+\chapter{Business Understanding}
 Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del progetto dal punto di vista del business.
 
-\subsection{Background}\label{Background}
+\section{Background}\label{Background}
 Ogni giorno, vengono inviate circa 25 milioni di email indesiderate, chiamate anche email di spam. Tale cifra corrisponde a quasi il 10 \% di tutte le email inviate nel mondo; inoltre, indagini svolte sull'argomento, rivelano che generalmente il 40 \% delle email ricevute giornalmente dai dipendenti di molte imprese risultano essere email di spam, arrivando in alcuni casi, anche al 90 \%.
 Queste percentuali risultano essere molto elevate principalmente a causa della facile diffusione delle proprie caselle di posta verso qualunque tipo di contatto, diventando cosi bersagli di messaggi promozionali di qualunque tipo. Questa inondazione di messaggi di spam quindi genera due problemi principali:
 \begin{itemize}
@@ -9,11 +9,10 @@ Queste percentuali risultano essere molto elevate principalmente a causa della f
 \item Perdita di tempo abbastanza considerevole da parte del ricevente nel filtrare queste email.
 \end{itemize}
 
-
 Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di queste email di spam, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam in maniera tutto sommato efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
-SpamAssassin è considerato uno dei filtri antispam più efficaci, specialmente se usato congiuntamente con un database antispam.\cite{wiki:xxx}
+SpamAssassin è considerato uno dei filtri antispam più efficaci, specialmente se usato congiuntamente con un database antispam.\cite{wiki:SpamAssassin}
 
-\subsubsection{Risorse}
+\subsection{Risorse}
 La principale risorsa utilizzata è l'hardware del sistema utilizzato per eseguire l'algoritmo di data mining, in particolar modo, un sistema Windows con un Quad-Core Intel i7 2.00 GHz e 4 GB di Ram.
 Il tool di data mining scelto è WEKA (\textbf{W}aikato \textbf{E}nvironment for \textbf{K}nowledge \textbf{A}nalysis) \cite{WEKA}:
 una popolare suite di software per il machine learning scritta in Java e sviluppata nell'Università di Waikato (Nuova Zelanda); è stato deciso di utilizzare tale suite, in quanto il software porta con sè i seguenti vantaggi :
@@ -26,19 +25,19 @@ una popolare suite di software per il machine learning scritta in Java e svilupp
 
 Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellata nella sperimentazione è lo sperimentatore stesso.
 
-\subsubsection{Vincoli}
+\subsection{Vincoli}
 	Non sono presenti nè vincoli temporali, nè problemi legali legati alla diffusione del dataset in questione.
 
-\subsubsection{Assunzioni}
+\subsection{Assunzioni}
 	Si assume che i dati di cui si intende disporre siano liberamente accessibili e che non siano falsi o errati.
 
-\subsection{Obiettivi di Business}
+\section{Obiettivi di Business}
 	Secondo quanto detto in precedenza, l'obiettivo di business di questo progetto consiste nell'individuazione delle email di spam attraverso l'utilizzo di tecniche di Data Mining.
 
-\subsubsection{Task di Data Mining}
+\subsection{Task di Data Mining}
 	Il task da realizzare è di tipo \textit{predittivo}, in particolar modo, sarà un task di \textit{classificazione}. L'obiettivo sarà quindi quello di creare un classificatore che sia in grado di etichettare correttamente le nuove email come \textit{spam} o \textit{nospam} sulla base del training set dato in pasto al classificatore. 
 
-\subsection{Criteri di successo}
+\section{Criteri di successo}
 	Il processo di KDD andrà a buon fine qualora siano rispettate due condizioni:
 	\begin{itemize}
 		\item 	Nel risultato del filtraggio, il numero di email di tipo non-spam contenute in questo risultato, deve essere limitato 	all' 1\% della totalità;
@@ -46,12 +45,12 @@ Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellat
 		\item	Minimizzare il numero di messaggi di spam che passeranno attraverso il filtro.
 	\end{itemize}
 
-\subsection{Glossario dei termini}
-\textit{Messaggi di spam} :  
+\section{Glossario dei termini}
+\textbf{Messaggi di spam}: "\textit{Lo spamming, detto anche fare spam o spammare, è l'invio di messaggi indesiderati (generalmente commerciali). Può essere attuato attraverso qualunque sistema di comunicazione, ma il più usato è Internet, attraverso messaggi di posta elettronica, chat, tag board o forum.}" (cit. Wikipedia)	\cite{wiki:Spam}
 
-\subsection{Analisi Costi-Benefici}
+\section{Analisi Costi-Benefici}
 Per quanto riguarda i costi inerenti al processo di KDD, l'unico costo che si avrà, sarà in termini di risorse temporali utilizzate per la realizzazione e relativa verifica dei risultati che il classificatore produrrà.
 
 Invece, i benefici che si otterranno da questo processo, saranno quelli che andranno a sopperire a ciò che è stato detto in precedenza nel paragrafo \ref{Background}.
 
-\subsection{Piano di Progetto}
+\section{Piano di Progetto}
