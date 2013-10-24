@@ -2,20 +2,12 @@
 \section{Raccolta dei dati}
 Il dataset preso in esame essendo oggetto della DMC 2003 Competition, è liberamente scaricabile dal sito \url{http://www.data-mining-cup.de/en/review/dmc-2003/}.
 \section{Descrizione dei dati}
-Training set: 8000 Istanze 834 Attributi = 833 + Target
-data\_dmc2003\_train.txt ... Trainingsmenge, 8.000 Datensätze, das
-Zielmerkmal (Spam-Mail) heißt "target".
-(yes = Spam-Mail, no = Nicht-Spam-Mail)
-Das ID Merkmal heißt "id".
+Il dataset è composto da 8000 istanze rappresentanti le email, ed ognuna di queste è caratterizzata da 833 attributi, a cui si va ad aggiungere l'attributo \textit{target}, il quale va ad etichettare l'istanza come \textit{spam} o \textit{no-spam}.Ogni istanza è identificata tramite un \textit{id} numerico atto a rendere univoca l'email classificata. Esempi di attributi utilizzati a rappresentare le istanze delle email sono le seguenti:
+%Training set: 8000 Istanze 834 Attributi = 833 + Target
+%data\_dmc2003\_train.txt ... 
 
-
-Test set: 11177 Istanze da classificare 833 Attributi
-Zwei Textdateien werden zur Verfügung gestellt:
-
-data\_dmc2003\_class.txt ... Daten von 11.177 E-Mails, die zu
-klassifizieren sind, enthält bis auf "target" die gleichen
-Merkmale wie data\_dmc2003\_train.txt.
-
+%Test set: 11177 Istanze da classificare 833 Attributi
+%data\_dmc2003\_train.txt.
 
 \begin{tabular}{ c | c | c}
 	\textbf{Nome attributo} & \textbf{Tipo} & \textbf{Sottotipo} \\
@@ -42,6 +34,10 @@ Merkmale wie data\_dmc2003\_train.txt.
 	\vdots  &  \vdots  &  \vdots  \\
 	\end{tabular}
 
+
+Tutti gli attributi, ad esclusione dell'\textit{id} e del \textit{target}, sono di tipo categorico nominale booleano, esso assumerà valore 0 qualora l'email non dovesse averlo, 1 il viceversa.
+
+Il dataset, inoltre, è distribuito in un formato testuale.
 \section{Verifica della qualità dei dati}
 
 Bewertung der Ergebnisse
