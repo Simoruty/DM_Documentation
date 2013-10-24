@@ -1,10 +1,65 @@
 \chapter{Data Understanding}
-
 \section{Raccolta dei dati}
-
+Il dataset preso in esame essendo oggetto della DMC 2003 Competition, è liberamente scaricabile dal sito \url{http://www.data-mining-cup.de/en/review/dmc-2003/}.
 \section{Descrizione dei dati}
+Training set: 8000 Istanze 834 Attributi = 833 + Target
+data\_dmc2003\_train.txt ... Trainingsmenge, 8.000 Datensätze, das
+Zielmerkmal (Spam-Mail) heißt "target".
+(yes = Spam-Mail, no = Nicht-Spam-Mail)
+Das ID Merkmal heißt "id".
+
+
+Test set: 11177 Istanze da classificare 833 Attributi
+Zwei Textdateien werden zur Verfügung gestellt:
+
+data\_dmc2003\_class.txt ... Daten von 11.177 E-Mails, die zu
+klassifizieren sind, enthält bis auf "target" die gleichen
+Merkmale wie data\_dmc2003\_train.txt.
+
+
+\begin{tabular}{ c | c | c}
+	\textbf{Nome attributo} & \textbf{Tipo} & \textbf{Sottotipo} \\
+	\hline
+	id & Categorico & Nominale \\ 
+	ACCEPT\_CREDIT\_CARDS & Categorico & Nominale \\ 
+	ACCOUNT\_CLICK & Categorico & Nominale \\ 
+	ACT\_NOW & Categorico & Nominale \\ 
+	ADDRESSES\_ON\_CD & Categorico & Nominale \\ 
+	ADULT\_SITE & Categorico & Nominale \\ 
+	ADVERT\_CODE & Categorico & Nominale \\ 
+	ADVERT\_CODE2 & Categorico & Nominale \\ 
+	ALL\_CAPS\_HEADER & Categorico & Nominale \\ 
+	ALL\_CAP\_PORN & Categorico & Nominale \\ 
+	ALL\_NATURAL & Categorico & Nominale \\ 
+	ALTA\_BUSCADORES\_ES & Categorico & Nominale \\ 
+	AMATEUR\_PORN & Categorico & Nominale \\ 
+	AMAZING & Categorico & Nominale \\ 
+	AMAZING\_STUFF & Categorico & Nominale \\ 
+	ANOTHER\_NET\_AD & Categorico & Nominale \\ 
+	AOL\_USERS\_LINK & Categorico & Nominale \\ 
+	APPLY\_ONLINE & Categorico & Nominale \\ 
+	APPROVED\_BY & Categorico & Nominale \\ 
+	\vdots  &  \vdots  &  \vdots  \\
+	\end{tabular}
 
 \section{Verifica della qualità dei dati}
+
+Bewertung der Ergebnisse
+------------------------
+
+Der Jury ist bekannt, welche von den 11.177 zu klassifizierenden
+E-Mails tatsächlich Nicht-Spam-Mail oder Spam-Mail ist. Genauer
+gesagt, stammen alle Daten aus einer Stichprobe von insgesamt
+19.177 E-Mails.
+
+Die eingesandten Ergebnisse werden mit der bekannten Information über
+die tatsächliche Zuordnung der E-Mails verglichen und der Anteil der
+nicht ausgefilterten Spam-Mails bestimmt. Gleichzeitig wird der Anteil
+der ausgefilterten Nicht-Spam-Mails ermittelt und die Einhaltung
+der 1 \% Klausel (siehe oben) überprüft. Sieger ist der Teilnehmer
+oder die Teilnehmerin, welche(r) unter Einhaltung der 1 \% Klausel die
+wenigsten Spam-Mails zustellt. Teilnehmer, die die 1 \% Klausel ver-
+letzen, werden nicht gewertet.
 
 \section{Esportazione dei dati}
 
