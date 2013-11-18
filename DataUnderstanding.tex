@@ -1,7 +1,14 @@
 \chapter{Data Understanding}
-\section{Raccolta dei dati}
-Il dataset preso in esame essendo oggetto della DMC 2003 Competition, è liberamente scaricabile dal sito \url{http://www.data-mining-cup.de/en/review/dmc-2003/}.
 
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./images/CRISPDM_2.png}
+	\caption{CRISP-DM - Data Understanding}
+	\label{CRISPDM_2}
+\end{figure}
+
+\section{Raccolta dei dati}
+Il dataset preso in esame essendo oggetto della DMC 2003 Competition, è liberamente scaricabile dal sito \url{http://www.data-mining-cup.de/en/review/dmc-2003/}. 
 
 \section{Descrizione dei dati}
 Il dataset è composto da 8000 istanze rappresentanti le email. Ogni istanza è caratterizzata da 834 attributi, di cui uno \textit{target}, atto ad etichettare l'istanza come \textit{spam} o \textit{no-spam}, ed un attributo identificativo numerico (\textit{id}). Esempi di attributi utilizzati a rappresentare le istanze delle email sono le seguenti:
@@ -42,6 +49,22 @@ Il dataset, inoltre, è distribuito in un formato testuale.
 
 
 \section{Verifica della qualità dei dati}
+
+Il dataset contiene dati di buona qualità in quanto garantiscono le seguenti qualità:
+
+\begin{itemize}
+	\item \textbf{Accuratezza}:
+	\item \textbf{Consistenza}:
+	\item \textbf{Attualità dei dati}:
+\end{itemize}
+
+Accuratezza: I valori contenuti nei tre database non sono cambiati nel tempo a parte per quanto riguarda il database WEBKB che potrebbe avere subito un aggiornamento nel tempo, trattandosi di pagine web. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
+Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
+
+Consistenza: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE in tutti i database.
+
+Attualità dei dati: I dati non sono aggiornati al 2013 (anno attuale), ma risalgono tutti ad anni passati. Nel caso di IMDB i dati sono aggiornati al 2009, nel caso di UWCSE i dati sono aggiornati al 2004 e nel caso di WEBKB
+i dati sono aggiornati al 1997. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
 
 Bewertung der Ergebnisse
 ------------------------
