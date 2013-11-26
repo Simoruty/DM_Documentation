@@ -17,6 +17,15 @@
 
 
 \section{Feature Selection}
+By Rino:
+For this purpose, WEKA provides the CfsSubsetEval [5] operator which evaluates the worth of
+a subset of attributes by considering the individual correlation of each of them with the class
+attribute. The research in the space of attribute subsets can be accomplished basically through
+a best rst strategy which searches by greedy hillclimbing augmented with a backtracking facil-
+ity. Best rst may start with the empty set of attributes and search forward, or start with the
+full set of attributes and search backward, or start at any point and search in both directions.
+
+
 By Weka:
 Evaluates the worth of a subset of attributes by considering the individual predictive ability of each feature along with the degree of redundancy between them.
 NAME

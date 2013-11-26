@@ -53,12 +53,14 @@ Il dataset, inoltre, è distribuito in un formato testuale.
 Il dataset contiene dati di buona qualità in quanto garantiscono le seguenti qualità:
 
 \begin{itemize}
-	\item \textbf{Accuratezza}:
+	\item \textbf{Accuratezza}: 
 	\item \textbf{Consistenza}:
+	\item \textbf{Completezza}: Il dataset contiene molti missing values
 	\item \textbf{Attualità dei dati}:
 \end{itemize}
 
 Accuratezza: I valori contenuti nei tre database non sono cambiati nel tempo a parte per quanto riguarda il database WEBKB che potrebbe avere subito un aggiornamento nel tempo, trattandosi di pagine web. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
+
 Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
 
 Consistenza: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE in tutti i database.
@@ -93,7 +95,7 @@ I dati contenuti nei tre database sono quasi sempre di alta qualità, ma è bene
 	\item a;
 \end{itemize}
 
-Accuratezza: I valori contenuti nei tre database non sono cambiati nel tempo a parte per quanto riguarda il database WEBKB che potrebbe avere subito un aggiornamento nel tempo, trattandosi di pagine web. Ad ogni modo ciò non rappresenta un problema visto che l'obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
+
 Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
 IMDB:nella relazione "movies" assume valore nullo l'attributo "budget" (l'informazione non è disponibile).
 UWCSE: nella relazione "persons" spesso assume valore nullo l'attributo "phase" (quando la persona è una matricola o un professore) e nella relazione "prof" talvolta assume valore nullo l'attributo "position" (non è specificata la posizione del professore). 
