@@ -53,57 +53,49 @@ Il dataset, inoltre, è distribuito in un formato testuale.
 Il dataset contiene dati di buona qualità in quanto garantiscono le seguenti qualità:
 
 \begin{itemize}
-	\item \textbf{Accuratezza}: 
-	\item \textbf{Consistenza}:
-	\item \textbf{Completezza}: Il dataset contiene molti missing values
-	\item \textbf{Attualità dei dati}:
-\end{itemize}
-
-Accuratezza: I valori contenuti nei tre database non sono cambiati nel tempo a parte per quanto riguarda il database WEBKB che potrebbe avere subito un aggiornamento nel tempo, trattandosi di pagine web. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
-
-Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
-
-Consistenza: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE in tutti i database.
-
-Attualità dei dati: I dati non sono aggiornati al 2013 (anno attuale), ma risalgono tutti ad anni passati. Nel caso di IMDB i dati sono aggiornati al 2009, nel caso di UWCSE i dati sono aggiornati al 2004 e nel caso di WEBKB
-i dati sono aggiornati al 1997. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
-
-Bewertung der Ergebnisse
-------------------------
-
-Der Jury ist bekannt, welche von den 11.177 zu klassifizierenden
-E-Mails tatsächlich Nicht-Spam-Mail oder Spam-Mail ist. Genauer
-gesagt, stammen alle Daten aus einer Stichprobe von insgesamt
-19.177 E-Mails.
-
-Die eingesandten Ergebnisse werden mit der bekannten Information über
-die tatsächliche Zuordnung der E-Mails verglichen und der Anteil der
-nicht ausgefilterten Spam-Mails bestimmt. Gleichzeitig wird der Anteil
-der ausgefilterten Nicht-Spam-Mails ermittelt und die Einhaltung
-der 1 \% Klausel (siehe oben) überprüft. Sieger ist der Teilnehmer
-oder die Teilnehmerin, welche(r) unter Einhaltung der 1 \% Klausel die
-wenigsten Spam-Mails zustellt. Teilnehmer, die die 1 \% Klausel ver-
-letzen, werden nicht gewertet.
-
-La giuria non è noto quali classificare le e-mail è in realtà la posta o spam 11.177 non-spam. In particolare, tutti i dati provengono da un campione totale di 19.177 messaggi di posta elettronica.
-
-I risultati presentati sono confrontati con le informazioni note circa l'assegnazione effettiva delle e-mail e determinata la percentuale di spam non filtrati. Allo stesso tempo, la percentuale di filtrato non spam viene rilevato e il rispetto della clausola 1 \% (vedi sopra) selezionata. Il vincitore è il partecipante o la partecipante, che (r) manda le mail di spam in meno rispetto alla clausola 1 \%. I partecipanti, la clausola 1 \% ferire non saranno conteggiati.
-
-
-I dati contenuti nei tre database sono quasi sempre di alta qualità, ma è bene soffermarsi sulle caratteristiche che questi devono avere:
-\begin{itemize}
-	\item a;
+	\item \textbf{Accuratezza}: Il dataset rispecchia perfettamente i dati reali, sono quindi da considerarsi accurati;
+	\item \textbf{Completezza}: Considerati i numerosi missing values presenti, molte tuple non sono complete;
+	\item \textbf{Consistenza}: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE;
+	\item \textbf{Attualità dei dati}: I dati sono aggiornati all'anno 2003, anno in cui è stata indetta la KDD Cup nel quale è stato utilizzato questo dataset. Il che potrebbe portare ad una classificazione errata qualora dal 2003 ad oggi, le email di spam fossero cambiate in termini di attributi caratterizzanti queste ultime.
+	%Attualità dei dati: I dati non sono aggiornati al 2013 (anno attuale), ma risalgono tutti ad anni passati. Nel caso di IMDB i dati sono aggiornati al 2009, nel caso di UWCSE i dati sono aggiornati al 2004 e nel caso di WEBKB	i dati sono aggiornati al 1997. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.
 \end{itemize}
 
 
-Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
-IMDB:nella relazione "movies" assume valore nullo l'attributo "budget" (l'informazione non è disponibile).
-UWCSE: nella relazione "persons" spesso assume valore nullo l'attributo "phase" (quando la persona è una matricola o un professore) e nella relazione "prof" talvolta assume valore nullo l'attributo "position" (non è specificata la posizione del professore). 
-Consistenza: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE in tutti i database. 
-Attualità dei dati: I dati non sono aggiornati al 2013 (anno attuale), ma risalgono tutti ad anni passati. 
-Nel caso di IMDB i dati sono aggiornati al 2009, nel caso di UWCSE i dati sono aggiornati al 2004 e nel caso di WEBKB i dati sono aggiornati al 1997. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.Non sono richiesti dati esterni da integrare nelle tre basi di dati.
+%Bewertung der Ergebnisse
+%------------------------
+%
+%Der Jury ist bekannt, welche von den 11.177 zu klassifizierenden
+%E-Mails tatsächlich Nicht-Spam-Mail oder Spam-Mail ist. Genauer
+%gesagt, stammen alle Daten aus einer Stichprobe von insgesamt
+%19.177 E-Mails.
+%
+%Die eingesandten Ergebnisse werden mit der bekannten Information über
+%die tatsächliche Zuordnung der E-Mails verglichen und der Anteil der
+%nicht ausgefilterten Spam-Mails bestimmt. Gleichzeitig wird der Anteil
+%der ausgefilterten Nicht-Spam-Mails ermittelt und die Einhaltung
+%der 1 \% Klausel (siehe oben) überprüft. Sieger ist der Teilnehmer
+%oder die Teilnehmerin, welche(r) unter Einhaltung der 1 \% Klausel die
+%wenigsten Spam-Mails zustellt. Teilnehmer, die die 1 \% Klausel ver-
+%letzen, werden nicht gewertet.
+%
+%La giuria non è noto quali classificare le e-mail è in realtà la posta o spam 11.177 non-spam. In particolare, tutti i dati provengono da un campione totale di 19.177 messaggi di posta elettronica.
+%
+%I risultati presentati sono confrontati con le informazioni note circa l'assegnazione effettiva delle e-mail e determinata la percentuale di spam non filtrati. Allo stesso tempo, la percentuale di filtrato non spam viene rilevato e il rispetto della clausola 1 \% (vedi sopra) selezionata. Il vincitore è il partecipante o la partecipante, che (r) manda le mail di spam in meno rispetto alla clausola 1 \%. I partecipanti, la clausola 1 \% ferire non saranno conteggiati.
+%
+%
+%I dati contenuti nei tre database sono quasi sempre di alta qualità, ma è bene soffermarsi sulle caratteristiche che questi devono avere:
+%\begin{itemize}
+%	\item a;
+%\end{itemize}
+%
+%
+%Completezza: Non sempre tutti i dati sono disponibili. Ci sono alcuni missing values nei tre database.
+%IMDB:nella relazione "movies" assume valore nullo l'attributo "budget" (l'informazione non è disponibile).
+%UWCSE: nella relazione "persons" spesso assume valore nullo l'attributo "phase" (quando la persona è una matricola o un professore) e nella relazione "prof" talvolta assume valore nullo l'attributo "position" (non è specificata la posizione del professore). 
+%Consistenza: I dati sono rappresentati uniformemente nella base di dati. I valori TRUE/FALSE - 0/1 - SI/NO sono stati inseriti utilizzando la sintassi TRUE/FALSE in tutti i database. 
+%Attualità dei dati: I dati non sono aggiornati al 2013 (anno attuale), ma risalgono tutti ad anni passati. 
+%Nel caso di IMDB i dati sono aggiornati al 2009, nel caso di UWCSE i dati sono aggiornati al 2004 e nel caso di WEBKB i dati sono aggiornati al 1997. Ad ogni modo ciò non rappresenta un problema visto che l’obiettivo del KDD process è quello di valutare due versioni di un algoritmo di Data Mining.Non sono richiesti dati esterni da integrare nelle tre basi di dati.
 
-\section{Esportazione dei dati}
-Per ognuno dei tre database saranno mostrati di seguito alcuni grafici che mostrano l’andamento di alcuni attributi.
-
+\section{Esplorazione dei dati}
+I dati essendo dei valori booleani indicando la presenza/assenza della feature per quel dato, sono da considerarsi di tipo categorico nominale; Il che porta a poter utilizzare solo grafici in grado di rappresentare la frequenza con cui una feature è presente sui dati. A tale scopo, verranno utilizzati essenzialmente degli istogrammi sugli attributi aventi meno missing value. 
 
