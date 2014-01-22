@@ -1,5 +1,5 @@
 \chapter{Business Understanding}
-Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del progetto dal punto di vista del business. Per fare ciò si deciso di utilizzare prettamente la documentazione allegata al dataset.
+Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del progetto dal punto di vista del business. Per fare ciò, si è deciso di utilizzare prettamente la documentazione allegata al dataset.
 
 \begin{figure}[hbtp]
 	\centering
@@ -10,19 +10,19 @@ Questa fase si focalizza sulla individuazione degli obiettivi e i requisiti del 
 
 \section{Background}\label{Background}
 Ogni giorno, vengono inviate circa 25 milioni di email indesiderate, chiamate anche email di spam. Tale cifra corrisponde a quasi il 10 \% di tutte le email inviate nel mondo; inoltre, indagini svolte sull'argomento, rivelano che generalmente il 40 \% delle email ricevute giornalmente dai dipendenti di molte imprese risultano essere email di spam, arrivando in alcuni casi, anche al 90 \%.
-Queste percentuali risultano essere molto elevate principalmente a causa della facile diffusione delle proprie caselle di posta verso qualunque tipo di contatto, diventando cosi bersagli di messaggi promozionali di qualunque tipo. Questa inondazione di messaggi di spam quindi genera due problemi principali:
+Queste percentuali risultano essere molto elevate principalmente a causa della facile diffusione delle proprie caselle di posta verso qualunque tipo di contatto, diventando cosi bersagli di messaggi promozionali di qualunque tipo. Questa sovraccarico di spam genera principalmente due problemi:
 \begin{itemize}
 \item Saturazione della propria casella di posta, anche se al giorno d'oggi si dispone di una capienza elevata;
 \item Perdita di tempo abbastanza considerevole da parte del ricevente nel filtrare queste email.
 \end{itemize}
 
-Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di queste email di spam, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam in maniera tutto sommato efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
+Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di queste email di spam, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam in maniera tutto sommato efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, ma supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
 SpamAssassin è considerato uno dei filtri antispam più efficaci, specialmente se usato congiuntamente con un database antispam.\cite{wiki:SpamAssassin}
 
 \subsection{Risorse}
-La principale risorsa utilizzata è l'hardware del sistema utilizzato per eseguire l'algoritmo di data mining, in particolar modo, un sistema Windows con un Quad-Core Intel i7 2.00 GHz e 4 GB di Ram.
+La principale risorsa in uso è l'hardware del sistema utilizzato per eseguire l'algoritmo di data mining, in particolar modo, un sistema Windows con un Quad-Core Intel i7 2.00 GHz avente 4 GB di Ram.
 Il tool di data mining scelto è WEKA (\textbf{W}aikato \textbf{E}nvironment for \textbf{K}nowledge \textbf{A}nalysis) \cite{WEKA}:
-una popolare suite di software per il machine learning scritta in Java e sviluppata nell'Università di Waikato (Nuova Zelanda); è stato deciso di utilizzare tale suite, in quanto il software porta con sè i seguenti vantaggi :
+una popolare suite di software per il machine learning scritta in Java sviluppata dall'Università di Waikato (Nuova Zelanda); è stato deciso di utilizzare tale suite, in quanto il software porta con sè i seguenti vantaggi :
 \begin{itemize}
 	\item Liberamente scaricabile dal sito \footnote{Weka site: \url{http://www.cs.waikato.ac.nz/ml/weka/downloading.html}};
     \item Portabile, in quanto totalmente implementato in java;
@@ -47,7 +47,8 @@ Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellat
 \section{Criteri di successo}
 	Il processo di KDD andrà a buon fine qualora siano rispettate due condizioni:
 	\begin{itemize}
-		\item 	Nel risultato del filtraggio, il numero di email di tipo non-spam contenute in questo risultato, deve essere limitato 	all' 1\% della totalità;
+		\item 	Nel set di email ottenute dopo aver effettuato il filtraggio, potranno essere ammesse fino ad un massimo dell'1 \% di email di spam;
+				%Nel risultato del filtraggio, il numero di email di spam deve essere limitato all' 1\% della totalità;
 				%Condizione necessaria: filtrare le email con un massimo dell'1\% di spam accettato.				
 		\item	Minimizzare il numero di messaggi di spam che passeranno attraverso il filtro.
 	\end{itemize}
