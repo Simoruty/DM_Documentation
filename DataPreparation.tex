@@ -7,15 +7,18 @@
 	\label{CRISPDM_3}
 \end{figure}
 
-
+In questa fase si andranno a modellare i dati presenti nel dataset al fine di poter essere efficiente.
 
 \section{Criteri di Inclusione/Esclusione dei dati}
 
+La totalità dei dati presenti nel dataset verrà utilizzata per il processo di KDD.
 
 \section{Selezione dei dati}
 
+
 \section{Campionamento}
 
+Non verrà fatto nessun campionamento sui dati.
 
 \section{Feature Selection}
 By Rino:
@@ -66,6 +69,35 @@ lookupCacheSize -- Set the maximum size of the lookup cache of evaluated subsets
 searchTermination -- Set the amount of backtracking. Specify the number of 
 
 startSet -- Set the start point for the search. This is specified as a comma seperated list off attribute indexes starting at 1. It can include ranges. Eg. 1,2,5-9,17.
+
+
+Time taken to build model: 7.26 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances        7898               98.725  \%
+Incorrectly Classified Instances       102                1.275  \%
+Kappa statistic                          0.9731
+Mean absolute error                      0.0164
+Root mean squared error                  0.1072
+Relative absolute error                  3.4493 \%
+Root relative squared error             21.996  \%
+Total Number of Instances             8000     
+
+=== Detailed Accuracy By Class ===
+
+TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+0.979     0.007      0.988     0.979     0.984      0.99     yes
+0.993     0.021      0.987     0.993     0.99       0.99     no
+Weighted Avg.    0.987     0.016      0.987     0.987     0.987      0.99 
+
+=== Confusion Matrix ===
+
+a    b   <-- classified as
+3046   66 |    a = yes
+36 4852 |    b = no
+
 
 \section{Data Cleaning}
 
