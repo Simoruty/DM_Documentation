@@ -101,24 +101,14 @@ I dati essendo dei valori booleani indicando la presenza/assenza della feature p
 
 \begin{figure}[hbtp]
  	\centering
- 	\includegraphics[width=0.4\textwidth]{./images/histogram/target.png}
- 	\caption{Istogramma attributo Target}
- 	\label{TargetHist}
+ 	\includegraphics[width=0.9\textwidth]{./images/Histogram_No.png}
+ 	\caption{Istogramma attributi - Classe No}
+ 	\label{NoHist}
 \end{figure}
 
-\begin{tikzpicture}
-  \begin{axis}[
-  symbolic x coords={Yes,No},
-  xtick=data,
-  bar width=100pt,
-  ]
-  \addplot[ybar,fill=blue] coordinates {
-  	(Yes,   3112)
-  };
-  \addplot[ybar,fill=red] coordinates {
-  	(No,   4888)
-  };
-  \end{axis}
-  \end{tikzpicture}
-  
- %TODO Fare instogrammi in latex
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./images/Histogram_Yes.png}
+	\caption{Istogramma attributi - Classe Yes}
+	\label{YesHist}
+\end{figure}
