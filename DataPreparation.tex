@@ -20,53 +20,16 @@ Visto l'esiguo quantitativo di istanze disponibili, non è stato fatto nessun ca
 
 \section{Feature Selection}
 
-Per quanto riguarda la fase di feature selection, si è deciso di effettuare una selezione tra gli attributi presenti in quanto molti di questi risultano essere nulli nella maggior parte delle istanze presenti nel dataset, il che potrebbe, non solo non portare benefici al processo, ma potrebbe addirittura portare a rumore che causerebbe una errata predizione.
-Come algoritmo scelto per effettuare la feature selection, si è utilizzato il \textit{CfsSubsetEval}, il quale valuta il "worth" del subset degli attributi considerando la singola correlazione di ognuno con l'attributo di classe. La ricerca nello spazio del subset degli attributi può essere realizzato essenzialmente attraverso la strategia best first la quale cerca \textbf{by greedy hillclimbing augmented with a backtracking facility.
-La best first may start with the empty set of attributes and search forward, or start with the full set of attributes and search backward, or start at any point and search in both directions.}
+Per quanto riguarda la fase di feature selection, si è deciso di effettuare una selezione tra gli attributi presenti in quanto molti di questi presentano valori nulli nella maggior parte delle istanze del dataset. Questo potrebbe, non solo non portare benefici al processo, ma anche peggiorare l'efficienza dell'algoritmo.
 
-By Weka:
-Evaluates the worth of a subset of attributes by considering the individual predictive ability of each feature along with the degree of redundancy between them.
-NAME
-weka.attributeSelection.CfsSubsetEval
+Come algoritmo di feature selection, si è scelto il \textit{CfsSubsetEval}, il quale valuta il miglior subset degli attributi considerando la singola correlazione di ognuno con l'attributo di classe. Si sceglierà il subset con la più alta correlazione con l'attributo di classe, ma allo stesso tempo, con una bassa correlazione con gli altri attributi. La ricerca nello spazio del subset degli attributi viene realizzata attraverso la strategia best first cercando di avvicinarsi ad un risultato ottimale in maniera greedy tagliando lo spazio di ricerca con la tecnica del backtracking.\cite{Hall1998}
 
-SYNOPSIS
-CfsSubsetEval :
-
-Evaluates the worth of a subset of attributes by considering the individual predictive ability of each feature along with the degree of redundancy between them.
-
-Subsets of features that are highly correlated with the class while having low intercorrelation are preferred.
-
-For more information see:
-
-M. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
-
-
-By Wiki:
-CFS Feature Set Evaluation
-
-CFS is a correlation-based filter method CFS from [Hal98]. It gives high scores to subsets that include features
-that are highly correlated to the class attribute but have low correlation to each other Let S be an attribute
-subset that has k attributes, rcf models the correlation of the attributes to the class attribute, rff the
-intercorrelation between attributes.
-
-
-NAME
-weka.attributeSelection.BestFirst
-
-SYNOPSIS
-BestFirst:
-
-Searches the space of attribute subsets by greedy hillclimbing augmented with a backtracking facility. Setting the number of consecutive non-improving nodes allowed controls the level of backtracking done. Best first may start with the empty set of attributes and search forward, or start with the full set of attributes and search backward, or start at any point and search in both directions (by considering all possible single attribute additions and deletions at a given point).
-
-
-OPTIONS
-direction -- Set the direction of the search.
-
-lookupCacheSize -- Set the maximum size of the lookup cache of evaluated subsets. This is expressed as a multiplier of the number of attributes in the data set. (default = 1).
-
-searchTermination -- Set the amount of backtracking. Specify the number of 
-
-startSet -- Set the start point for the search. This is specified as a comma seperated list off attribute indexes starting at 1. It can include ranges. Eg. 1,2,5-9,17.
+L'algoritmo può operare in tre modi:
+\begin{itemize}
+	\item partire da un insieme di feature vuoto e incrementarlo aggiungendo le feature più predittive;
+	\item partire dall'insieme contenente tutte le feature e ridurlo eliminando le feature meno predittive;
+	\item partire da un qualsiasi punto e muoversi in entrambe le direzioni aggiungendo e rimuovendo feature.
+\end{itemize}
 
 \section{Data Cleaning}
 
