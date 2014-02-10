@@ -17,43 +17,52 @@ Classifier for building 'Functional trees', which are classification trees  that
 modelType -- The type of FT model. 0, for FT, 1, for FTLeaves, and 2, for FTInner
 
 \paragraph{Functional Trees}
-Given a set of examples and an attribute constructor, the general algorithm used to build a
-functional tree is presented in figure 1. This algorithm is similar to many others, except in the constructive phase (steps 2 and 3). Here a function is built and mapped to new attributes.
-There are some aspects of this algorithm that should be made explicit. In step 2, a model
-is built using the constructor function. This is done using only the examples that fall at
-this node. Later, in step 3, the model is mapped to new attributes. The constructor function
-should be a classifier or a regressor depending on the type of the problem. In the former
-the number of new attributes is equal to the number of classes1, in the latter the constructor
-function is mapped to one new attribute. In step 3, each new attribute is computed as the
-value predicted by the constructed function for each example. In the classification setting,
-each new attribute-value is the probability that the example belongs to one class given by
-the constructed model.
-The merit of each newattribute is evaluated using the merit-function of the univariate tree,
-and in competition with the original attributes (step 4).2 The model built by our algorithm
-has two types of decision nodes: those based on a test of one of the original attributes,
-and those based on the values of the constructor function. When using generalized linear
-models (GLM) as the attribute constructor, each new attribute is a linear combination of
-the original attributes. Decision nodes based on constructed attributes define a multivariate
-decision surface.
-Once a tree has been built, it is pruned back. The general algorithm to prune the tree is
-presented in figure 2. The tree is traversed using a bottom-up, post-order strategy. For each
-non-leaf node two quantities are estimated: the static error and the backed-up error. Static
-error is an estimation of the error as if the node were a leaf. Backed-up error is the weighted
-sum of the estimation of the errors of all subtrees of the current node. The estimation of
-the error of each branch is weighted by the probability that an example follows the branch.
-If backed-up error is greater or equal than static error, then the node is replaced by a leaf
-with the majority class of the node.
-The fundamental aspect of the pruning algorithm is the error estimation in step 1. At each
-node, we need to estimate the probability of error given the error in the sample of examples
-that fall at this node. The probability of error cannot be determined exactly. For a given
-confidence level we can obtain a confidence interval [Lcf ;Ucf ] that with probability 1−cf
-contains the true error. As in Quinlan (1993a), we use the upper limit of the confidence
+Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale è mostrato di seguito. Questo algoritmo è molto simile a molti altri, fatta eccezione nella fase di costruzione (Fasi 2 e 3). Qui viene creata una nuova funzione e mappata ai nuovi attributi creati. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Nella fase 2, il modello viene costruito usando la funzione costruttore. Questo viene fatto usando solo gli esempi che ricadono in questo nodo. Successivamente, nella fase 3, il modello viene mappato ai nuovi attributi. La funzione costruttore deve essere o un classificatore o un regressore in base alla tipologia di problema. Il numero dei nuovi attributi da creare, sarà uguale al numero delle classi che si hanno a disposizione; Infine, la funzione costruttore \textbf{is mapped to one new attribute}. Nella fase 3, ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo attributo-valore sarà la probabilità che quell'esempio appartenga ad una delle classi date dal modello costruito.
+Il valore di ogni nuovo attributo viene valutato usando la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi (Fase 4). Il modello costruito dall'algoritmo ha due tipi di nodi decisionali: Quelli basati sul test di uno degli attributi originali, e quelli basati sul valore della funzione costruttore. Quando si usa un modello lineare generalizzato (GLM) come costruttore di attributi, ogni nuovo attributo è una combinazione lineare degli attributi originali. I nodi decisionali basati sugli attributi costruiti, definiscono un piano di decisione multivariato.
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./images/FunctionGrowTree.JPG}
+	\caption{Function GrowTree}
+\end{figure}
+
+\textbf{Function GrowTree(Dataset, Constructor)}
+\begin{enumerate}
+	\item If $Stop\_Criterion(DataSet)$
+	\begin{itemize}
+		\item Return a Leaf Node with a constant value.
+	\end{itemize}
+	\item Construct a model $\Phi$ using Constructor
+	\item For each example $\vec{x} \in DataSet$
+	\begin{itemize}
+		\item Compute $\hat y = \Phi(\vec{x})$
+		\item Extend $\vec{x}$ with new attributes $\hat y$.
+	\end{itemize}
+	\item Select the attribute of original as well as of newly constructed attributes that maximizes some merit-function \label{selection}
+	\item For each partition $i$ of the DataSet using the selected attribute
+	\begin{itemize}
+		\item $Tree_{i} = GrowTree (Dataset_{i},Constructor)$
+	\end{itemize}
+	\item Return a $Tree$, as a decision node based on the selected attribute, contaning the $\Phi$ model, and descendants $Tree_{i}$.
+\end{enumerate}
+\textbf{End Function}
+
+Una volta creato l'albero, si passa alla fase di potatura. L'algoritmo generale di potatura verrà mostrato in seguito. L'albero viene visitato usando un approccio bottom-up (Post-visita). Per ogni nodo non foglia vengono stimati due valori quantitativi: 
+\begin{itemize}
+	\item Errore statico;
+	\item Errore di "Backed-up"
+\end{itemize}
+L'\textbf{errore statico} è la stima dell'errore se il nodo fosse foglia.
+L'\textbf{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di "Backed-up" è più grande o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore dato dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo. La probabilità dell'errore non può essere determinato esattamente. Per un dato livello di confidenza, otteniamo un intervallo di confidenza [Lcf; Ucf] con una probabilità di 1-cf che contenga l'errore reale.
+
+
+As in Quinlan (1993a), we use the upper limit of the confidence
 interval Ucf as a pessimistic estimation for the true error.
 The confidence interval for the error depends on the loss-function used. In classification
 problems, and under the 0-1 loss, the error is governed by a Binomial distribution (Mitchell,
 1997). In regression problems, and for the squared error loss the variance of the error for
 a given example follows a χ2 distribution. For a set of examples the sum of χ2 can be
-approximated using a Normal distribution (Bhattacharyya & Johnson, 1977). For each
+approximated using a Normal distribution (Bhattacharyya \& Johnson, 1977). For each
 node, the upper limit of the confidence interval is obtained from the sample error using
 the appropriate distribution. A similar procedure is used to estimate the constructor error
 (step 3).
@@ -63,33 +72,30 @@ a constant, and constructor leaves that predict the value of the constructor fun
 We obtain different conceptual models by simplifying our algorithm. Two interesting
 simplifications are described in the following sub-sections.
 
-%\begin{figure}[hbtp]
-%	\centering
-%	\includegraphics[width=0.9\textwidth]{./images/FunctionGrowTree.JPG}
-%	\caption{Function GrowTree}
-%\end{figure}
-
-\textbf{Function GrowTree(Dataset, Constructor)}
-	\begin{enumerate}
-		\item If $Stop\_Criterion(DataSet)$
-		\begin{itemize}
-			\item Return a Leaf Node with a constant value.
-		\end{itemize}
-		\item Construct a model $\Phi$ using Constructor
-		\item For each example $\vec{x} \in DataSet$
-		\begin{itemize}
-			\item Compute $\hat y = \Phi(\vec{x})$
-			\item Extend $\vec{x}$ with new attributes $\hat y$.
-		\end{itemize}
-		\item Select the attribute of original as well as of newly constructed attributes that maximizes some merit-function \label{selection}
-		\item For each partition $i$ of the DataSet using the selected attribute
-		\begin{itemize}
-			\item $Tree_{i} = GrowTree (Dataset_{i},Constructor)$
-		\end{itemize}
-		\item Return a $Tree$, as a decision node based on the selected attribute, contaning the $\Phi$ model, and descendants $Tree_{i}$.
-	\end{enumerate}
-\textbf{End Function}
-
+%Given a set of examples and an attribute constructor, the general algorithm used to build a
+%functional tree is presented in figure 1. This algorithm is similar to many others, except in the constructive phase (steps 2 and 3). Here a function is built and mapped to new attributes.
+%There are some aspects of this algorithm that should be made explicit. In step 2, a model
+%is built using the constructor function. This is done using only the examples that fall at
+%this node. Later, in step 3, the model is mapped to new attributes. The constructor function
+%should be a classifier or a regressor depending on the type of the problem. In the former
+%the number of new attributes is equal to the number of classes(At different nodes the system considers different number of classes depending on the class distribution of the
+%examples that fall at this node.), in the latter the constructor
+%function is mapped to one new attribute. In step 3, each new attribute is computed as the
+%value predicted by the constructed function for each example. In the classification setting,
+%each new attribute-value is the probability that the example belongs to one class given by
+%the constructed model.
+%The merit of each new attribute is evaluated using the merit-function of the univariate tree,
+%and in competition with the original attributes (step 4). The model built by our algorithm
+%has two types of decision nodes: those based on a test of one of the original attributes,
+%and those based on the values of the constructor function. When using generalized linear
+%models (GLM) as the attribute constructor, each new attribute is a linear combination of
+%the original attributes. Decision nodes based on constructed attributes define a multivariate
+%decision surface. 
+%%Once a tree has been built, it is pruned back. The general algorithm to prune the tree is presented in figure 2. The tree is traversed using a bottom-up, post-order strategy. For each non-leaf node two quantities are estimated: the static error and the backed-up error. Static error is an estimation of the error as if the node were a leaf. Backed-up error is the weighted sum of the estimation of the errors of all subtrees of the current node. The estimation of the error of each branch is weighted by the probability that an example follows the branch. If backed-up error is greater or equal than static error, then the node is replaced by a leaf with the majority class of the node.
+%The fundamental aspect of the pruning algorithm is the error estimation in step 1. At each
+%node, we need to estimate the probability of error given the error in the sample of examples
+%that fall at this node. The probability of error cannot be determined exactly. For a given
+%confidence level we can obtain a confidence interval [Lcf ;Ucf ] that with probability 1−cf contains the true error. 
 
 % \begin{figure}[hbtp]
 % 	\centering
