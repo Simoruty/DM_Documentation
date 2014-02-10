@@ -16,9 +16,10 @@ La totalità dei dati presenti nel dataset verrà utilizzata per il processo di 
 \section{Selezione dei dati}
 
 \section{Campionamento}
-Visto l'esiguo quantitativo di istanze disponibili, non è stato fatto nessun campionamento.
+Visto il quantitativo di istanze disponibili (8000 istanze), non è stato fatto nessun campionamento.
 
 \section{Feature Selection}
+\label{Feature Selection}
 
 Per quanto riguarda la fase di feature selection, si è deciso di effettuare una selezione tra gli attributi presenti in quanto molti di questi presentano valori nulli nella maggior parte delle istanze del dataset. Questo potrebbe, non solo non portare benefici al processo, ma anche peggiorare l'efficienza dell'algoritmo.
 
@@ -26,8 +27,8 @@ Come algoritmo di feature selection, si è scelto il \textit{CfsSubsetEval}, il 
 
 L'algoritmo può operare in tre modi:
 \begin{itemize}
-	\item partire da un insieme di feature vuoto e incrementarlo aggiungendo le feature più predittive;
-	\item partire dall'insieme contenente tutte le feature e ridurlo eliminando le feature meno predittive;
+	\item partire da un insieme di feature vuoto e incrementarlo aggiungendo le più predittive;
+	\item partire dall'insieme contenente tutte le feature e ridurlo eliminando quelle meno predittive;
 	\item partire da un qualsiasi punto e muoversi in entrambe le direzioni aggiungendo e rimuovendo feature.
 \end{itemize}
 
