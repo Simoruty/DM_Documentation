@@ -17,6 +17,34 @@
 \usepackage{amsfonts}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{listings}
+
+\lstset{ %
+	basicstyle=\scriptsize\rmfamily,    
+	breakatwhitespace=true,
+	breaklines=true,                 
+	commentstyle=\color{green!50!black}, 
+	escapeinside={\%*}{*)},          
+	extendedchars=true,              
+	frame=none,                    % adds a frame around the code
+	keepspaces=false,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\bfseries\color{blue!50!black},       % keyword style
+	language=Pascal,                 % the language of the code
+	morekeywords={for,output,each,return},
+	deletekeywords={new, function, and, set, of, with, record, array},                        
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=3pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{red}, % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                
+	showstringspaces=false,         
+	showtabs=false,                  
+	tabsize=10,                       % sets default tabsize to 2 spaces
+	mathescape=true,
+	columns=fullflexible,
+	aboveskip=1pt, 
+	belowskip=1pt,
+}
 
 \long\def\symbolfootnote[#1]#2{\begingroup%
 \def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}

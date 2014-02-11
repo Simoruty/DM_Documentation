@@ -35,7 +35,7 @@ L'algoritmo può operare in tre modi:
 \section{Data Cleaning}
 
 \section{Construct Data}
-
+\label{SMOTE}
 Al fine aumentare il quantitativo informativo del dataset, sono state generate nuove istanze attraverso l'utilizzo dell'algoritmo \textit{SMOTE}. L'algoritmo permette di ricampionare il dataset in maniera supervisionata utilizzando la \textbf{S}ynthetic \textbf{M}inority \textbf{O}versampling \textbf{TE}chnique. 
 \cite{Chawla02smote:synthetic}. Questa tecnica combina l'\textbf{Information Oversampling} della classe minorante, con la \textbf{Random Undersampling} della classe maggiorante.SMOTE currently yields the best results as far as re-sampling and modifying the probabilistic estimate techniques go (Chawla, 2003).
 The original dataset must fit entirely in memory. The amount of SMOTE and number of nearest neighbors may be specified.
