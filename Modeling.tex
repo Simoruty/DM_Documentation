@@ -122,12 +122,14 @@ Si ottengono cosi due modelli concettualmente differenti in base a questa differ
 %We obtain different conceptual models by simplifying our algorithm. Two interesting simplifications are described in the following sub-sections.
 
 \paragraph{Alberi funzionali ai soli nodi foglia}
+\label{Alberi funzionali ai soli nodi foglia}
 Utilizzando l'approccio FT-Leaves, il modello funzionale non viene utilizzato nei test per effettuare lo splitting, ma solo ed esclusivamente nelle foglie. In questo approccio, si restringe la selezione degli attributi di test, ai soli attributi originali.
 Questo è l'approccio utilizzato ad esempio nell'M5 di Quinlan \cite{Quinlan93combininginstance-based}, e nel sistema NBtree \cite{Kohavi1996}. 
 Tuttavia, ad ogni nodo viene costruita la funzione costruttore che verrà poi utilizzata nella fase di pruning dell'albero. In questo modo, tutti i nodi decisionali sono basati sugli attributi di partenza. I nodi foglia potrebbero contenere il modello costruttore. Un nodo foglia conterrà il modello costruttore se e solo se nell'algoritmo di pruning l'errore stimato del modello costruttore è inferiore sia al "backed-up-error" che all'errore statico. Un albero funzionale FT-Leaves divide lo spazio di input in Iper-rettagoli. I dati in ogni regione vengono adattati usando la funzione costruttore.
 %Nevertheless we still build, at each node, the constructor function. The model built by the constructor function is used later in the pruning phase. In this way, all decision nodes are based on the original attributes. Leaf nodes could contain a constructor model. A leaf node contains a constructor model if and only if in the pruning algorithm the estimated error of the constructor model is lower than both the Backed-up-error and the Static error. A FT-Leaves functional tree divides the input space into hyper-rectangles. The data in each region could be fitted with the constructor function.
 
 \paragraph{Alberi funzionali ai soli nodi intermedi}
+\label{Alberi funzionali ai soli nodi intermedi}
 Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra il "Backed-up-Error" e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE (\cite{conf/icml/Gama97}). Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
 %\paragraph{Functional inner nodes only} We denote as FT-Inner the approach to functional trees where the multivariate models are used exclusively at decision nodes (internal nodes) and not used as classifiers in leaves. In our algorithm, restricting the pruning algorithm to choose only between the Backed-up-Error and the Static error generates this kind of model. In this case all leaves predict a constant value. This is the strategy used in systems like LMDT (Utgoff & Brodley, 1991), OC1 (Murthy, Kasif, & Salzberg, 1994), LTREE (Gama, 1997), and QUEST (Loh & Shih, 1997). A FT-Inner functional tree divides the input space into oblique decision surfaces. The data in each region is fitted with a constant that minimizes the given loss function. %
 
@@ -1211,8 +1213,8 @@ I risultati estratti da weka sono i seguenti:
 		\multicolumn{1}{c}{\textit{\textbf{Weighted Avg.}}} & \multicolumn{1}{c}{0,99} & \multicolumn{1}{c}{0,01} & \multicolumn{1}{c}{0,99} & \multicolumn{1}{c}{0,99} & \multicolumn{1}{c}{0,989} & \multicolumn{1}{c}{0,995} & \multicolumn{1}{c}{} &  \\
 		\end{tabular}%
 	}
-		\label{tab:FTExtendFiltered}%
-		\caption{Result weka}
-		\end{table}%
+	\label{tab:FTExtendFiltered}%
+	\caption{Result weka}
+\end{table}%
 
 Come si evince dalla tabella riassuntiva, in questa configurazione si è ottenuta una percentuale di classificazione corretta pari al 99,0101 \% ed un 0,9899 \% di probabilità di commettere errori nella classificazione.
