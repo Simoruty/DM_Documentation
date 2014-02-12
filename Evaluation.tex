@@ -393,7 +393,8 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni:
 \section{Considerazioni}
 Riepilogando, le migliori performance sul dataset utilizzato si ottengono applicando il ricampionamento, non eliminando le feature ed utilizzando come modello un albero decisionale avente solo costanti alle foglie.
 Da questo si deduce che gli attributi eliminati nella feature selection pur contenendo molti missing value, non apportano rumori alla classificazione.
-Un'altra considerazione da fare, riguarda il campionamento; 
+Un'altra considerazione da fare, riguarda il campionamento; Il bilanciamento del dataset ha apportato dei benefici considerevoli alla classificazione portando ad un incremento del quasi +1 \% nella maggior parte delle configurazioni aventi SMOTE.
+
 \begin{table}[htbp]
 	\begin{tabular}{ll}
 		SMOTE - Senza CFSubsetEval - FT-Leaves	& 99.2441 \\
@@ -406,8 +407,8 @@ Un'altra considerazione da fare, riguarda il campionamento;
 		SMOTE - Senza CFSubsetEval - FT-Inner & 98.8571 \\
 		Senza SMOTE - CFSubsetEval - FT-Leaves & 98.7625 \\
 		Senza SMOTE - CFSubsetEval - FT & 98.7250 \\
-		Senza SMOTE - CFSubsetEval - FT-Inner & 98.7 \\
-		Senza SMOTE - Senza CFSubsetEval - FT-Inner & 98.5 \\
+		Senza SMOTE - CFSubsetEval - FT-Inner & 98.7000 \\
+		Senza SMOTE - Senza CFSubsetEval - FT-Inner & 98.5000 \\
 	\end{tabular}
 \end{table}
 
