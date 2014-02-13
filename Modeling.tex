@@ -140,6 +140,7 @@ Tuttavia, ad ogni nodo viene costruita la funzione costruttore che verrà poi ut
 Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra l'errore di  Backed-up e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE (\cite{conf/icml/Gama97}). Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
 %\paragraph{Functional inner nodes only} We denote as FT-Inner the approach to functional trees where the multivariate models are used exclusively at decision nodes (internal nodes) and not used as classifiers in leaves. In our algorithm, restricting the pruning algorithm to choose only between the Backed-up-Error and the Static error generates this kind of model. In this case all leaves predict a constant value. This is the strategy used in systems like LMDT (Utgoff & Brodley, 1991), OC1 (Murthy, Kasif, & Salzberg, 1994), LTREE (Gama, 1997), and QUEST (Loh & Shih, 1997). A FT-Inner functional tree divides the input space into oblique decision surfaces. The data in each region is fitted with a constant that minimizes the given loss function. %
 \paragraph{Alberi funzionali ibridi}
+\label{FT Hybrid}
 Combinando i due approcci descritti nei paragrafi precedenti, si ottiene un approccio ibrido nel quale è possibile avere il modello costruttore sia alle foglie che ai nodi intermedi senza nessun vincolo nè in fase di costruzione, nè in fase di potatura. Questo approccio prende il nome di \emph{FT model}.
 
 \paragraph{Predire usando gli alberi funzionali}
@@ -164,7 +165,12 @@ I parametri impostati per l'algoritmo Functional Tree in weka, saranno i seguent
 	\end{center}
 \end{table}
 
-Modello costruito sul training set epurato da attributi in seguito all'esecuzione dell'algoritmo \emph{CfsSubsetEval} definito nel paragrafo \ref{Feature Selection} e espanso il numero di istanze tramite \emph{SMOTE} definito nel paragrafo \ref{SMOTE}.
+Il modello seguente è stato costruito usando:
+\begin{itemize}
+	\item Approccio ibrido FT \ref{FT Hybrid};
+	\item Feature selection fatta con CfsSubsetEval \ref{Feature Selection};
+	\item Sampling fatto con SMOTE \ref{SMOTE}.
+\end{itemize}
 
 \lstset{style=customWeka}
 \begin{lstlisting}
@@ -178,40 +184,66 @@ Relation:     SPAM-weka.filters.supervised.instance.SMOTE-C0-K5-P100.0
 Instances:    11112
 Attributes:   53
 
-id							APPROVED_BY
-BASE64_ENC_TEXT				BIG_FONT
-CLICK_BELOW					CRON_ENV
-CTYPE_JUST_HTML				DATE_IN_FUTURE_06_12
-DATE_IN_PAST_06_12			DIET
-DOMAIN_4U2					EXCHANGE_SERVER
-EXCUSE_14					EXCUSE_3
-FAILURE_NOTICE_2			FORGED_HOTMAIL_RCVD
-FORGED_YAHOO_RCVD			FROM_ENDS_IN_NUMS
-HTML_FONT_COLOR_GRAY		HTML_FONT_INVISIBLE
-HTML_WITH_BGCOLOR			INVALID_DATE
-KNOWN_MAILING_LIST			LINES_OF_YELLING
-MAILTO_TO_REMOVE			MAY_BE_FORGED
-MIME_HTML_NO_CHARSET		MISSING_MIMEOLE
-MORTGAGE_OBFU				MSG_ID_ADDED_BY_MTA_2
-NORMAL_HTTP_TO_IP			NO_REAL_NAME
-ONLY_COST					PLING_QUERY
-QUOTED_EMAIL_TEXT			REMOVE_PAGE
-RESENT_TO					RISK_FREE
-SAVE_MONEY					SIGNATURE_LONG_DENSE
-SIGNATURE_SHORT_SPARSE		SPAM_PHRASE_00_01
-SPAM_PHRASE_08_13			SUBJECT_MONTH
-SUBJ_ALL_CAPS				TRACKER_ID
-UNSUB_PAGE					USER_AGENT_PINE
-USER_AGENT_TONLINE			USER_IN_WHITELIST
-WEB_BUGS					X_ACCEPT_LANG
+id
+APPROVED_BY
+BASE64_ENC_TEXT
+BIG_FONT
+CLICK_BELOW
+CRON_ENV
+CTYPE_JUST_HTML
+DATE_IN_FUTURE_06_12
+DATE_IN_PAST_06_12			
+DIET
+DOMAIN_4U2					
+EXCHANGE_SERVER
+EXCUSE_14					
+EXCUSE_3
+FAILURE_NOTICE_2			
+FORGED_HOTMAIL_RCVD
+FORGED_YAHOO_RCVD			
+FROM_ENDS_IN_NUMS
+HTML_FONT_COLOR_GRAY		
+HTML_FONT_INVISIBLE
+HTML_WITH_BGCOLOR			
+INVALID_DATE
+KNOWN_MAILING_LIST			
+LINES_OF_YELLING
+MAILTO_TO_REMOVE			
+MAY_BE_FORGED
+MIME_HTML_NO_CHARSET		
+MISSING_MIMEOLE
+MORTGAGE_OBFU				
+MSG_ID_ADDED_BY_MTA_2
+NORMAL_HTTP_TO_IP			
+NO_REAL_NAME
+ONLY_COST					
+PLING_QUERY
+QUOTED_EMAIL_TEXT			
+REMOVE_PAGE
+RESENT_TO					
+RISK_FREE
+SAVE_MONEY					
+SIGNATURE_LONG_DENSE
+SIGNATURE_SHORT_SPARSE		
+SPAM_PHRASE_00_01
+SPAM_PHRASE_08_13			
+SUBJECT_MONTH
+SUBJ_ALL_CAPS				
+TRACKER_ID
+UNSUB_PAGE					
+USER_AGENT_PINE
+USER_AGENT_TONLINE			
+USER_IN_WHITELIST
+WEB_BUGS					
+X_ACCEPT_LANG
 target
 
 Test mode:10-fold cross-validation
 
 \end{lstlisting}
 
-
 \lstset{style=custWeka2}
+
 \begin{lstlisting}
 === Classifier model (full training set) ===
 
@@ -1210,7 +1242,7 @@ I risultati estratti da weka sono i seguenti:
 		\end{tabular}%
 	}
 	\label{tab:FTExtendFiltered}%
-	\caption{Result weka}
+	%\caption{Result weka}
 \end{table}%
 
 Come si evince dalla tabella riassuntiva, in questa configurazione si è ottenuta una percentuale di classificazione corretta pari al 99,0101 \% ed un 0,9899 \% di probabilità di commettere errori nella classificazione.
