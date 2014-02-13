@@ -11,10 +11,16 @@
 Ai fini della classificazione, si è deciso di modellare il dataset realizzando un albero di decisione funzionale. In particolare si è utilizzato l'algoritmo \textbf{FT} (\textit{\textbf{F}unctional \textbf{T}ree}).
 
 \section{Rappresentazione del Modello}
+L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla costruzione di alberi 'funzionali', i quali potrebbero avere funzioni di regressione logistica ai nodi e/o alle foglie interne. L'algoritmo, cosi come descritto in \cite{Gama2004}, è in grado di gestire:
+\begin{itemize}
+	\item variabili target (binarie o multi-classe);
+	\item attributi numerici;
+	\item attributi nominali;
+	\item missing values.
+\end{itemize}
+%Classifier for building 'Functional trees', which are classification trees  that could have logistic regression functions at the inner nodes and/or leaves. The algorithm can deal with binary and multi-class target variables, numeric and nominal attributes and missing values.\cite{Gama2004}
 
-Classifier for building 'Functional trees', which are classification trees  that could have logistic regression functions at the inner nodes and/or leaves. The algorithm can deal with binary and multi-class target variables, numeric and nominal attributes and missing values.\cite{Gama2004}
-
-\paragraph{Functional Trees}
+\paragraph{Alberi Funzionali}
 Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale è mostrato di seguito. Questo algoritmo è molto simile a molti altri, fatta eccezione nella fase di costruzione (Fasi 3 e 4). Qui viene creata una nuova funzione e mappata ai nuovi attributi creati. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Nella fase 3, il modello viene costruito usando la funzione costruttore. Questo viene fatto usando solo gli esempi che ricadono in questo nodo. Successivamente, nella fase 4, il modello viene mappato ai nuovi attributi. La funzione costruttore deve essere o un classificatore o un regressore in base alla tipologia di problema. Il numero dei nuovi attributi da creare, sarà uguale al numero delle classi che si hanno a disposizione; Infine, la funzione costruttore è mappata ad un nuovo attributo. Nella fase 3, ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo attributo-valore sarà la probabilità che quell'esempio appartenga ad una delle classi date dal modello costruito.
 Il valore di ogni nuovo attributo viene valutato usando la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi (Fase 7). Il modello costruito dall'algoritmo ha due tipi di nodi decisionali: Quelli basati sul test di uno degli attributi originali, e quelli basati sul valore della funzione costruttore. Quando si usa un modello lineare generalizzato (GLM) come costruttore di attributi, ogni nuovo attributo è una combinazione lineare degli attributi originali. I nodi decisionali basati sugli attributi costruiti, definiscono un piano di decisione multivariato.
 
@@ -23,6 +29,8 @@ Il valore di ogni nuovo attributo viene valutato usando la funzione di merito di
 %	\includegraphics[width=0.9\textwidth]{./images/FunctionGrowTree.JPG}
 %	\caption{Function GrowTree}
 %\end{figure}
+
+\lstset{style=customAlg}
 \begin{algorithm}
 	\caption{Function GrowTree(Dataset, Constructor)}
 	\begin{lstlisting}
@@ -63,10 +71,10 @@ Il valore di ogni nuovo attributo viene valutato usando la funzione di merito di
 Una volta creato l'albero, si passa alla fase di potatura. L'algoritmo generale di potatura verrà mostrato in seguito. L'albero viene visitato usando un approccio bottom-up (Post-visita). Per ogni nodo non foglia vengono stimati due valori quantitativi: 
 \begin{itemize}
 	\item Errore statico;
-	\item Errore di "Backed-up"
+	\item Errore di Backed-up.
 \end{itemize}
 L'\textbf{errore statico} è la stima dell'errore se il nodo fosse foglia.
-L'\textbf{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di "Backed-up" è più grande o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore dato dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo. La probabilità dell'errore non può essere determinato esattamente. Per un dato livello di confidenza, otteniamo un intervallo di confidenza [$L_{cf}$; $U_{cf}$] con una probabilità di 1-$cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$) sta ad indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita usato. In caso di classificazione, con perdita 0-1, l'errore segue una distribuzione Binomiale (\cite{mitchellbook}). Per ogni nodo, il limite superiore dell'intervallo di confidenza si ottiene dall'errore di campionamento della distribuzione.
+L'\textbf{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di backed-up è più grande o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore dato dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo. La probabilità dell'errore non può essere determinato esattamente. Per un dato livello di confidenza, otteniamo un intervallo di confidenza [$L_{cf}$; $U_{cf}$] con una probabilità di 1-$cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$) sta ad indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita usato. In caso di classificazione, con perdita 0-1, l'errore segue una distribuzione Binomiale (\cite{mitchellbook}). Per ogni nodo, il limite superiore dell'intervallo di confidenza si ottiene dall'errore di campionamento della distribuzione.
 Una procedura simile viene usata per stimare l'errore di costruzione. (Fase 4)
 
 % \begin{figure}[hbtp]
@@ -124,13 +132,15 @@ Si ottengono cosi due modelli concettualmente differenti in base a questa differ
 \label{Alberi funzionali ai soli nodi foglia}
 Utilizzando l'approccio FT-Leaves, il modello funzionale non viene utilizzato nei test per effettuare lo splitting, ma solo ed esclusivamente nelle foglie. In questo approccio, si restringe la selezione degli attributi di test, ai soli attributi originali.
 Questo è l'approccio utilizzato ad esempio nell'M5 di Quinlan \cite{Quinlan93combininginstance-based}, e nel sistema NBtree \cite{Kohavi1996}. 
-Tuttavia, ad ogni nodo viene costruita la funzione costruttore che verrà poi utilizzata nella fase di pruning dell'albero. In questo modo, tutti i nodi decisionali sono basati sugli attributi di partenza. I nodi foglia potrebbero contenere il modello costruttore. Un nodo foglia conterrà il modello costruttore se e solo se nell'algoritmo di pruning l'errore stimato del modello costruttore è inferiore sia al "backed-up-error" che all'errore statico. Un albero funzionale FT-Leaves divide lo spazio di input in Iper-rettagoli. I dati in ogni regione vengono adattati usando la funzione costruttore.
+Tuttavia, ad ogni nodo viene costruita la funzione costruttore che verrà poi utilizzata nella fase di pruning dell'albero. In questo modo, tutti i nodi decisionali sono basati sugli attributi di partenza. I nodi foglia potrebbero contenere il modello costruttore. Un nodo foglia conterrà il modello costruttore se e solo se nell'algoritmo di pruning l'errore stimato del modello costruttore è inferiore sia all'errore di backed-up che all'errore statico. Un albero funzionale FT-Leaves divide lo spazio di input in iper-rettagoli. I dati in ogni regione vengono adattati usando la funzione costruttore.
 %Nevertheless we still build, at each node, the constructor function. The model built by the constructor function is used later in the pruning phase. In this way, all decision nodes are based on the original attributes. Leaf nodes could contain a constructor model. A leaf node contains a constructor model if and only if in the pruning algorithm the estimated error of the constructor model is lower than both the Backed-up-error and the Static error. A FT-Leaves functional tree divides the input space into hyper-rectangles. The data in each region could be fitted with the constructor function.
 
 \paragraph{Alberi funzionali ai soli nodi intermedi}
 \label{Alberi funzionali ai soli nodi intermedi}
-Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra il "Backed-up-Error" e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE (\cite{conf/icml/Gama97}). Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
+Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra l'errore di  Backed-up e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE (\cite{conf/icml/Gama97}). Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
 %\paragraph{Functional inner nodes only} We denote as FT-Inner the approach to functional trees where the multivariate models are used exclusively at decision nodes (internal nodes) and not used as classifiers in leaves. In our algorithm, restricting the pruning algorithm to choose only between the Backed-up-Error and the Static error generates this kind of model. In this case all leaves predict a constant value. This is the strategy used in systems like LMDT (Utgoff & Brodley, 1991), OC1 (Murthy, Kasif, & Salzberg, 1994), LTREE (Gama, 1997), and QUEST (Loh & Shih, 1997). A FT-Inner functional tree divides the input space into oblique decision surfaces. The data in each region is fitted with a constant that minimizes the given loss function. %
+\paragraph{Alberi funzionali ibridi}
+Combinando i due approcci descritti nei paragrafi precedenti, si ottiene un approccio ibrido nel quale è possibile avere il modello costruttore sia alle foglie che ai nodi intermedi senza nessun vincolo nè in fase di costruzione, nè in fase di potatura. Questo approccio prende il nome di \emph{FT model}.
 
 \paragraph{Predire usando gli alberi funzionali}
 Una volta ultimato l'algoritmo di creazione dell'albero (crescita e successiva potatura), questo viene usato per predire il valore di un attributo target su un esempio non classificato. Per fare ciò, l'esempio attraversa l'albero funzionale in modalità top-down (dal nodo radice al nodo foglia). Ad ogni nodo decisionale (inner node) dell'albero, il set di attributi dell'esempio viene esteso usando la funzione costruttore creata a quel nodo. Dopo questa espansione, il test decisionale del nodo viene applicato definendo il percorso che l'esempio dovrà seguire. Una volta che si raggiungerà un nodo foglia, l'esempio verrà classificato o alla costante associata al nodo foglia, oppure alla funzione costruttrice creata a quel nodo.
@@ -151,1036 +161,1023 @@ I parametri impostati per l'algoritmo Functional Tree in weka, saranno i seguent
 		useAIC & False \\
 		weightTrimBeta & 0.0 \\
 	\end{tabular}
-	\caption{Parametri FT}
 	\end{center}
 \end{table}
 
-Modello costruito sul training set epurato da attributi in seguito all'esecuzione dell'algoritmo \textit{CfsSubsetEval} definito nel paragrafo \ref{Feature Selection} e espanso il numero di istanze tramite \textit{SMOTE} definito nel paragrafo \ref{SMOTE}.
+Modello costruito sul training set epurato da attributi in seguito all'esecuzione dell'algoritmo \emph{CfsSubsetEval} definito nel paragrafo \ref{Feature Selection} e espanso il numero di istanze tramite \emph{SMOTE} definito nel paragrafo \ref{SMOTE}.
 
-%=== Run information ===
-%
-%Scheme:weka.classifiers.trees.FT -I 15 -F 0 -M 15 -W 0.0
-%Relation:     SPAM-weka.filters.supervised.instance.SMOTE-C0-K5-P100.0-S1-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval-Sweka.attributeSelection.BestFirst -D 1 -N 5
-%Instances:    11112
-%Attributes:   53
-%id
-%APPROVED_BY
-%BASE64_ENC_TEXT
-%BIG_FONT
-%CLICK_BELOW
-%CRON_ENV
-%CTYPE_JUST_HTML
-%DATE_IN_FUTURE_06_12
-%DATE_IN_PAST_06_12
-%DIET
-%DOMAIN_4U2
-%EXCHANGE_SERVER
-%EXCUSE_14
-%EXCUSE_3
-%FAILURE_NOTICE_2
-%FORGED_HOTMAIL_RCVD
-%FORGED_YAHOO_RCVD
-%FROM_ENDS_IN_NUMS
-%HTML_FONT_COLOR_GRAY
-%HTML_FONT_INVISIBLE
-%HTML_WITH_BGCOLOR
-%INVALID_DATE
-%KNOWN_MAILING_LIST
-%LINES_OF_YELLING
-%MAILTO_TO_REMOVE
-%MAY_BE_FORGED
-%MIME_HTML_NO_CHARSET
-%MISSING_MIMEOLE
-%MORTGAGE_OBFU
-%MSG_ID_ADDED_BY_MTA_2
-%NORMAL_HTTP_TO_IP
-%NO_REAL_NAME
-%ONLY_COST
-%PLING_QUERY
-%QUOTED_EMAIL_TEXT
-%REMOVE_PAGE
-%RESENT_TO
-%RISK_FREE
-%SAVE_MONEY
-%SIGNATURE_LONG_DENSE
-%SIGNATURE_SHORT_SPARSE
-%SPAM_PHRASE_00_01
-%SPAM_PHRASE_08_13
-%SUBJECT_MONTH
-%SUBJ_ALL_CAPS
-%TRACKER_ID
-%UNSUB_PAGE
-%USER_AGENT_PINE
-%USER_AGENT_TONLINE
-%USER_IN_WHITELIST
-%WEB_BUGS
-%X_ACCEPT_LANG
-%target
-%Test mode:10-fold cross-validation
-%
-%=== Classifier model (full training set) ===
-%
-%FT tree 
-%------------------
-%
-%N0#1 <= 0.618916
-%|   id <= 372407
-%|   |   N0#3 <= 0.156641: FT_1:15/60 (4856)
-%|   |   N0#3 > 0.156641
-%|   |   |   N0#5 <= 0.825819
-%|   |   |   |   N0#6 <= 0.513027: Class=1
-%|   |   |   |   N0#6 > 0.513027: FT_3:15/90 (32)
-%|   |   |   N0#5 > 0.825819: FT_4:15/75 (121)
-%|   id > 372407: Class=0
-%N0#1 > 0.618916
-%|   N0#11 <= 0.865508: FT_6:15/45 (34)
-%|   N0#11 > 0.865508
-%|   |   N0#13 <= 0.995526
-%|   |   |   N0#14 <= 0.973489: FT_7:15/75 (68)
-%|   |   |   N0#14 > 0.973489: FT_8:15/75 (267)
-%|   |   N0#13 > 0.995526: Class=0
-%
-%Number of Leaves  : 	9
-%
-%Size of the Tree : 	17
-%FT_N0#1:
-%Class 0 :
-%-1.07 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 2.03 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 2.17 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[INVALID_DATE] * 1.11 +
-%[MISSING_MIMEOLE] * 1.1  +
-%[RESENT_TO] * 1.14 +
-%[SPAM_PHRASE_00_01] * -1.44 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%1.07 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -2.03 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -2.17 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[INVALID_DATE] * -1.11 +
-%[MISSING_MIMEOLE] * -1.1 +
-%[RESENT_TO] * -1.14 +
-%[SPAM_PHRASE_00_01] * 1.44 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%
-%FT_N0#3:
-%Class 0 :
-%-1.52 + 
-%[id] * 0    +
-%[APPROVED_BY] * -0.53 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 4.01 +
-%[DATE_IN_FUTURE_06_12] * 1.09 +
-%[DIET] * 1.37 +
-%[EXCHANGE_SERVER] * -0.52 +
-%[EXCUSE_3] * 0.92 +
-%[FORGED_HOTMAIL_RCVD] * 1.32 +
-%[FORGED_YAHOO_RCVD] * 1.39 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[HTML_FONT_COLOR_GRAY] * -0.97 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -0.68 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.87 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[ONLY_COST] * 1.44 +
-%[PLING_QUERY] * 1.32 +
-%[QUOTED_EMAIL_TEXT] * -1.06 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 2.03 +
-%[RISK_FREE] * 1.65 +
-%[SPAM_PHRASE_00_01] * -0.76 +
-%[SPAM_PHRASE_08_13] * 1.31 +
-%[SUBJECT_MONTH] * -0.46 +
-%[TRACKER_ID] * 1.3  +
-%[USER_AGENT_PINE] * -1.26 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -1.37
-%
-%Class 1 :
-%1.52 + 
-%[id] * 0    +
-%[APPROVED_BY] * 0.53 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -4.01 +
-%[DATE_IN_FUTURE_06_12] * -1.09 +
-%[DIET] * -1.37 +
-%[EXCHANGE_SERVER] * 0.52 +
-%[EXCUSE_3] * -0.92 +
-%[FORGED_HOTMAIL_RCVD] * -1.32 +
-%[FORGED_YAHOO_RCVD] * -1.39 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[HTML_FONT_COLOR_GRAY] * 0.97 +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 0.68 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.87 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[ONLY_COST] * -1.44 +
-%[PLING_QUERY] * -1.32 +
-%[QUOTED_EMAIL_TEXT] * 1.06 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -2.03 +
-%[RISK_FREE] * -1.65 +
-%[SPAM_PHRASE_00_01] * 0.76 +
-%[SPAM_PHRASE_08_13] * -1.31 +
-%[SUBJECT_MONTH] * 0.46 +
-%[TRACKER_ID] * -1.3 +
-%[USER_AGENT_PINE] * 1.26 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 1.37
-%
-%FT_1:
-%Class 0 :
-%-1.95 + 
-%[id] * 0    +
-%[APPROVED_BY] * -1.04 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 4.97 +
-%[CRON_ENV] * -0.54 +
-%[CTYPE_JUST_HTML] * 31.85 +
-%[DATE_IN_FUTURE_06_12] * 1.09 +
-%[DIET] * 1.37 +
-%[EXCHANGE_SERVER] * -0.52 +
-%[EXCUSE_3] * 0.92 +
-%[FORGED_HOTMAIL_RCVD] * 1.32 +
-%[FORGED_YAHOO_RCVD] * 2.9  +
-%[FROM_ENDS_IN_NUMS] * 0.36 +
-%[HTML_FONT_COLOR_GRAY] * -0.97 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -0.68 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MORTGAGE_OBFU] * 2.78 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.87 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[ONLY_COST] * 1.44 +
-%[PLING_QUERY] * 1.32 +
-%[QUOTED_EMAIL_TEXT] * -1.58 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 2.03 +
-%[RISK_FREE] * 1.65 +
-%[SPAM_PHRASE_00_01] * -0.48 +
-%[SPAM_PHRASE_08_13] * 1.31 +
-%[SUBJECT_MONTH] * -1.83 +
-%[TRACKER_ID] * 5.74 +
-%[USER_AGENT_PINE] * -2.01 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -1.37
-%
-%Class 1 :
-%1.95 + 
-%[id] * 0    +
-%[APPROVED_BY] * 1.04 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -4.97 +
-%[CRON_ENV] * 0.54 +
-%[CTYPE_JUST_HTML] * -31.85 +
-%[DATE_IN_FUTURE_06_12] * -1.09 +
-%[DIET] * -1.37 +
-%[EXCHANGE_SERVER] * 0.52 +
-%[EXCUSE_3] * -0.92 +
-%[FORGED_HOTMAIL_RCVD] * -1.32 +
-%[FORGED_YAHOO_RCVD] * -2.9 +
-%[FROM_ENDS_IN_NUMS] * -0.36 +
-%[HTML_FONT_COLOR_GRAY] * 0.97 +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 0.68 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MORTGAGE_OBFU] * -2.78 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.87 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[ONLY_COST] * -1.44 +
-%[PLING_QUERY] * -1.32 +
-%[QUOTED_EMAIL_TEXT] * 1.58 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -2.03 +
-%[RISK_FREE] * -1.65 +
-%[SPAM_PHRASE_00_01] * 0.48 +
-%[SPAM_PHRASE_08_13] * -1.31 +
-%[SUBJECT_MONTH] * 1.83 +
-%[TRACKER_ID] * -5.74 +
-%[USER_AGENT_PINE] * 2.01 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 1.37
-%
-%FT_N0#5:
-%Class 0 :
-%-0.59 + 
-%[APPROVED_BY] * -0.53 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 4.01 +
-%[DATE_IN_FUTURE_06_12] * 1.09 +
-%[DIET] * 2.22 +
-%[EXCHANGE_SERVER] * -1.6 +
-%[EXCUSE_3] * 0.92 +
-%[FORGED_HOTMAIL_RCVD] * 1.32 +
-%[FORGED_YAHOO_RCVD] * 0.96 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[HTML_FONT_COLOR_GRAY] * -1.85 +
-%[HTML_FONT_INVISIBLE] * -1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -2.32 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[ONLY_COST] * 2.25 +
-%[PLING_QUERY] * 2.37 +
-%[QUOTED_EMAIL_TEXT] * -1.06 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 2.03 +
-%[RISK_FREE] * 2.57 +
-%[SPAM_PHRASE_00_01] * -0.33 +
-%[SPAM_PHRASE_08_13] * 1.31 +
-%[SUBJECT_MONTH] * -0.46 +
-%[TRACKER_ID] * 1.3  +
-%[USER_AGENT_PINE] * -3.23 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -1.37
-%
-%Class 1 :
-%0.59 + 
-%[APPROVED_BY] * 0.53 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -4.01 +
-%[DATE_IN_FUTURE_06_12] * -1.09 +
-%[DIET] * -2.22 +
-%[EXCHANGE_SERVER] * 1.6  +
-%[EXCUSE_3] * -0.92 +
-%[FORGED_HOTMAIL_RCVD] * -1.32 +
-%[FORGED_YAHOO_RCVD] * -0.96 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[HTML_FONT_COLOR_GRAY] * 1.85 +
-%[HTML_FONT_INVISIBLE] * 1    +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 2.32 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[ONLY_COST] * -2.25 +
-%[PLING_QUERY] * -2.37 +
-%[QUOTED_EMAIL_TEXT] * 1.06 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -2.03 +
-%[RISK_FREE] * -2.57 +
-%[SPAM_PHRASE_00_01] * 0.33 +
-%[SPAM_PHRASE_08_13] * -1.31 +
-%[SUBJECT_MONTH] * 0.46 +
-%[TRACKER_ID] * -1.3 +
-%[USER_AGENT_PINE] * 3.23 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 1.37
-%
-%FT_N0#6:
-%Class 0 :
-%-0.78 + 
-%[APPROVED_BY] * -0.53 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 11.29 +
-%[CTYPE_JUST_HTML] * 4.01 +
-%[DATE_IN_FUTURE_06_12] * 0.23 +
-%[DATE_IN_PAST_06_12] * 0.7  +
-%[DIET] * 2.22 +
-%[EXCHANGE_SERVER] * -1.6 +
-%[EXCUSE_14] * 2.03 +
-%[EXCUSE_3] * 1.57 +
-%[FORGED_HOTMAIL_RCVD] * 1.32 +
-%[FORGED_YAHOO_RCVD] * 0.96 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[HTML_FONT_COLOR_GRAY] * -2.78 +
-%[HTML_FONT_INVISIBLE] * -1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -2.32 +
-%[LINES_OF_YELLING] * -1.36 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[ONLY_COST] * 2.25 +
-%[PLING_QUERY] * 2.37 +
-%[QUOTED_EMAIL_TEXT] * -1.06 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 1.43 +
-%[RISK_FREE] * 2.57 +
-%[SPAM_PHRASE_00_01] * -0.33 +
-%[SPAM_PHRASE_08_13] * 0.76 +
-%[SUBJECT_MONTH] * 0.89 +
-%[SUBJ_ALL_CAPS] * 1.53 +
-%[TRACKER_ID] * 2.21 +
-%[USER_AGENT_PINE] * -3.23 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -1.37
-%
-%Class 1 :
-%0.78 + 
-%[APPROVED_BY] * 0.53 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -11.29 +
-%[CTYPE_JUST_HTML] * -4.01 +
-%[DATE_IN_FUTURE_06_12] * -0.23 +
-%[DATE_IN_PAST_06_12] * -0.7 +
-%[DIET] * -2.22 +
-%[EXCHANGE_SERVER] * 1.6  +
-%[EXCUSE_14] * -2.03 +
-%[EXCUSE_3] * -1.57 +
-%[FORGED_HOTMAIL_RCVD] * -1.32 +
-%[FORGED_YAHOO_RCVD] * -0.96 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[HTML_FONT_COLOR_GRAY] * 2.78 +
-%[HTML_FONT_INVISIBLE] * 1    +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 2.32 +
-%[LINES_OF_YELLING] * 1.36 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[ONLY_COST] * -2.25 +
-%[PLING_QUERY] * -2.37 +
-%[QUOTED_EMAIL_TEXT] * 1.06 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -1.43 +
-%[RISK_FREE] * -2.57 +
-%[SPAM_PHRASE_00_01] * 0.33 +
-%[SPAM_PHRASE_08_13] * -0.76 +
-%[SUBJECT_MONTH] * -0.89 +
-%[SUBJ_ALL_CAPS] * -1.53 +
-%[TRACKER_ID] * -2.21 +
-%[USER_AGENT_PINE] * 3.23 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 1.37
-%
-%
-%FT_3:
-%Class 0 :
-%-0.52 + 
-%[id] * 0    +
-%[APPROVED_BY] * -0.53 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * -0.51 +
-%[CLICK_BELOW] * 11.29 +
-%[CTYPE_JUST_HTML] * 6.32 +
-%[DATE_IN_FUTURE_06_12] * 0.23 +
-%[DATE_IN_PAST_06_12] * 0.7  +
-%[DIET] * 2.22 +
-%[EXCHANGE_SERVER] * -1.6 +
-%[EXCUSE_14] * 2.03 +
-%[EXCUSE_3] * 1.57 +
-%[FORGED_HOTMAIL_RCVD] * -1.03 +
-%[FORGED_YAHOO_RCVD] * 0.96 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[HTML_FONT_COLOR_GRAY] * -2.78 +
-%[HTML_FONT_INVISIBLE] * -1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -2.32 +
-%[LINES_OF_YELLING] * -1.36 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * 1.66 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[NO_REAL_NAME] * 0.58 +
-%[ONLY_COST] * 2.25 +
-%[PLING_QUERY] * 2.37 +
-%[QUOTED_EMAIL_TEXT] * -1.06 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 1.43 +
-%[RISK_FREE] * 2.57 +
-%[SPAM_PHRASE_00_01] * 0.41 +
-%[SPAM_PHRASE_08_13] * 0.76 +
-%[SUBJECT_MONTH] * 0.89 +
-%[SUBJ_ALL_CAPS] * 1.53 +
-%[TRACKER_ID] * 2.21 +
-%[USER_AGENT_PINE] * -3.23 +
-%[WEB_BUGS] * -1.56 +
-%[X_ACCEPT_LANG] * -1.37
-%
-%Class 1 :
-%0.52 + 
-%[id] * 0    +
-%[APPROVED_BY] * 0.53 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * 0.51 +
-%[CLICK_BELOW] * -11.29 +
-%[CTYPE_JUST_HTML] * -6.32 +
-%[DATE_IN_FUTURE_06_12] * -0.23 +
-%[DATE_IN_PAST_06_12] * -0.7 +
-%[DIET] * -2.22 +
-%[EXCHANGE_SERVER] * 1.6  +
-%[EXCUSE_14] * -2.03 +
-%[EXCUSE_3] * -1.57 +
-%[FORGED_HOTMAIL_RCVD] * 1.03 +
-%[FORGED_YAHOO_RCVD] * -0.96 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[HTML_FONT_COLOR_GRAY] * 2.78 +
-%[HTML_FONT_INVISIBLE] * 1    +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 2.32 +
-%[LINES_OF_YELLING] * 1.36 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * -1.66 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[NO_REAL_NAME] * -0.58 +
-%[ONLY_COST] * -2.25 +
-%[PLING_QUERY] * -2.37 +
-%[QUOTED_EMAIL_TEXT] * 1.06 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -1.43 +
-%[RISK_FREE] * -2.57 +
-%[SPAM_PHRASE_00_01] * -0.41 +
-%[SPAM_PHRASE_08_13] * -0.76 +
-%[SUBJECT_MONTH] * -0.89 +
-%[SUBJ_ALL_CAPS] * -1.53 +
-%[TRACKER_ID] * -2.21 +
-%[USER_AGENT_PINE] * 3.23 +
-%[WEB_BUGS] * 1.56 +
-%[X_ACCEPT_LANG] * 1.37
-%
-%FT_4:
-%Class 0 :
-%2.15 + 
-%[APPROVED_BY] * -0.53 +
-%[BASE64_ENC_TEXT] * 3.04 +
-%[BIG_FONT] * 0.88 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 4.01 +
-%[DATE_IN_FUTURE_06_12] * 1.09 +
-%[DIET] * 2.22 +
-%[EXCHANGE_SERVER] * -1.6 +
-%[EXCUSE_3] * 0.92 +
-%[FORGED_HOTMAIL_RCVD] * 1.32 +
-%[FORGED_YAHOO_RCVD] * 0.96 +
-%[FROM_ENDS_IN_NUMS] * 0.77 +
-%[HTML_FONT_COLOR_GRAY] * -1.85 +
-%[HTML_FONT_INVISIBLE] * -1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -2.32 +
-%[LINES_OF_YELLING] * 1.31 +
-%[MIME_HTML_NO_CHARSET] * 1.11 +
-%[MISSING_MIMEOLE] * 2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
-%[NORMAL_HTTP_TO_IP] * 1.53 +
-%[NO_REAL_NAME] * -1.53 +
-%[ONLY_COST] * 2.25 +
-%[PLING_QUERY] * 2.37 +
-%[QUOTED_EMAIL_TEXT] * -1.06 +
-%[REMOVE_PAGE] * 1.43 +
-%[RESENT_TO] * 0.31 +
-%[RISK_FREE] * 2.57 +
-%[SPAM_PHRASE_00_01] * -0.33 +
-%[SPAM_PHRASE_08_13] * 1.31 +
-%[SUBJECT_MONTH] * -0.46 +
-%[TRACKER_ID] * 1.3  +
-%[UNSUB_PAGE] * 1.28 +
-%[USER_AGENT_PINE] * -3.23 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -6.49
-%
-%Class 1 :
-%-2.15 + 
-%[APPROVED_BY] * 0.53 +
-%[BASE64_ENC_TEXT] * -3.04 +
-%[BIG_FONT] * -0.88 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -4.01 +
-%[DATE_IN_FUTURE_06_12] * -1.09 +
-%[DIET] * -2.22 +
-%[EXCHANGE_SERVER] * 1.6  +
-%[EXCUSE_3] * -0.92 +
-%[FORGED_HOTMAIL_RCVD] * -1.32 +
-%[FORGED_YAHOO_RCVD] * -0.96 +
-%[FROM_ENDS_IN_NUMS] * -0.77 +
-%[HTML_FONT_COLOR_GRAY] * 1.85 +
-%[HTML_FONT_INVISIBLE] * 1    +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 2.32 +
-%[LINES_OF_YELLING] * -1.31 +
-%[MIME_HTML_NO_CHARSET] * -1.11 +
-%[MISSING_MIMEOLE] * -2.16 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
-%[NORMAL_HTTP_TO_IP] * -1.53 +
-%[NO_REAL_NAME] * 1.53 +
-%[ONLY_COST] * -2.25 +
-%[PLING_QUERY] * -2.37 +
-%[QUOTED_EMAIL_TEXT] * 1.06 +
-%[REMOVE_PAGE] * -1.43 +
-%[RESENT_TO] * -0.31 +
-%[RISK_FREE] * -2.57 +
-%[SPAM_PHRASE_00_01] * 0.33 +
-%[SPAM_PHRASE_08_13] * -1.31 +
-%[SUBJECT_MONTH] * 0.46 +
-%[TRACKER_ID] * -1.3 +
-%[UNSUB_PAGE] * -1.28 +
-%[USER_AGENT_PINE] * 3.23 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 6.49
-%
-%
-%FT_N0#11:
-%Class 0 :
-%0.01 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 2.03 +
-%[BIG_FONT] * 0.07 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 2.17 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[FORGED_HOTMAIL_RCVD] * 0.68 +
-%[FROM_ENDS_IN_NUMS] * -0.31 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -1.23 +
-%[MISSING_MIMEOLE] * 1.62 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
-%[NORMAL_HTTP_TO_IP] * 0.52 +
-%[ONLY_COST] * 0.7  +
-%[PLING_QUERY] * 0.69 +
-%[QUOTED_EMAIL_TEXT] * -1.23 +
-%[RESENT_TO] * 1.14 +
-%[SIGNATURE_LONG_DENSE] * -1.52 +
-%[SPAM_PHRASE_00_01] * -1.06 +
-%[SUBJ_ALL_CAPS] * -1.72 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%-0.01 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -2.03 +
-%[BIG_FONT] * -0.07 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -2.17 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[FORGED_HOTMAIL_RCVD] * -0.68 +
-%[FROM_ENDS_IN_NUMS] * 0.31 +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 1.23 +
-%[MISSING_MIMEOLE] * -1.62 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
-%[NORMAL_HTTP_TO_IP] * -0.52 +
-%[ONLY_COST] * -0.7 +
-%[PLING_QUERY] * -0.69 +
-%[QUOTED_EMAIL_TEXT] * 1.23 +
-%[RESENT_TO] * -1.14 +
-%[SIGNATURE_LONG_DENSE] * 1.52 +
-%[SPAM_PHRASE_00_01] * 1.06 +
-%[SUBJ_ALL_CAPS] * 1.72 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%FT_6:
-%Class 0 :
-%-1.36 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 2.03 +
-%[BIG_FONT] * -0.36 +
-%[CLICK_BELOW] * 0.9  +
-%[CTYPE_JUST_HTML] * 2.17 +
-%[DATE_IN_FUTURE_06_12] * -1.5 +
-%[DATE_IN_PAST_06_12] * -0.71 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[FORGED_HOTMAIL_RCVD] * 1.56 +
-%[FROM_ENDS_IN_NUMS] * -0.31 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -0.33 +
-%[MISSING_MIMEOLE] * 1.62 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
-%[NORMAL_HTTP_TO_IP] * 0.52 +
-%[NO_REAL_NAME] * -0.51 +
-%[ONLY_COST] * 0.7  +
-%[PLING_QUERY] * 0.69 +
-%[QUOTED_EMAIL_TEXT] * -1.23 +
-%[REMOVE_PAGE] * 0.55 +
-%[RESENT_TO] * 1.6  +
-%[RISK_FREE] * 2.79 +
-%[SIGNATURE_LONG_DENSE] * -2.34 +
-%[SPAM_PHRASE_00_01] * -1.06 +
-%[SPAM_PHRASE_08_13] * 2.33 +
-%[SUBJECT_MONTH] * 1.49 +
-%[SUBJ_ALL_CAPS] * -1.72 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 0.97 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%1.36 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -2.03 +
-%[BIG_FONT] * 0.36 +
-%[CLICK_BELOW] * -0.9 +
-%[CTYPE_JUST_HTML] * -2.17 +
-%[DATE_IN_FUTURE_06_12] * 1.5  +
-%[DATE_IN_PAST_06_12] * 0.71 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[FORGED_HOTMAIL_RCVD] * -1.56 +
-%[FROM_ENDS_IN_NUMS] * 0.31 +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 0.33 +
-%[MISSING_MIMEOLE] * -1.62 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
-%[NORMAL_HTTP_TO_IP] * -0.52 +
-%[NO_REAL_NAME] * 0.51 +
-%[ONLY_COST] * -0.7 +
-%[PLING_QUERY] * -0.69 +
-%[QUOTED_EMAIL_TEXT] * 1.23 +
-%[REMOVE_PAGE] * -0.55 +
-%[RESENT_TO] * -1.6 +
-%[RISK_FREE] * -2.79 +
-%[SIGNATURE_LONG_DENSE] * 2.34 +
-%[SPAM_PHRASE_00_01] * 1.06 +
-%[SPAM_PHRASE_08_13] * -2.33 +
-%[SUBJECT_MONTH] * -1.49 +
-%[SUBJ_ALL_CAPS] * 1.72 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -0.97 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%FT_N0#13:
-%Class 0 :
-%0.55 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 1.29 +
-%[BIG_FONT] * 0.07 +
-%[CLICK_BELOW] * 0.52 +
-%[CTYPE_JUST_HTML] * 2.17 +
-%[DATE_IN_FUTURE_06_12] * 0.63 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[EXCUSE_14] * 1.28 +
-%[EXCUSE_3] * 0.64 +
-%[FORGED_HOTMAIL_RCVD] * 0.68 +
-%[FROM_ENDS_IN_NUMS] * -0.31 +
-%[HTML_FONT_COLOR_GRAY] * 0.66 +
-%[HTML_WITH_BGCOLOR] * -0.7 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -1.95 +
-%[MIME_HTML_NO_CHARSET] * 0.62 +
-%[MISSING_MIMEOLE] * 2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
-%[NORMAL_HTTP_TO_IP] * 0.52 +
-%[ONLY_COST] * 1.32 +
-%[PLING_QUERY] * 0.69 +
-%[QUOTED_EMAIL_TEXT] * -1.23 +
-%[REMOVE_PAGE] * 0.63 +
-%[RESENT_TO] * 1.14 +
-%[SIGNATURE_LONG_DENSE] * -1.52 +
-%[SPAM_PHRASE_00_01] * -1.06 +
-%[SPAM_PHRASE_08_13] * -0.59 +
-%[SUBJ_ALL_CAPS] * -1.72 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 1.33 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%-0.55 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -1.29 +
-%[BIG_FONT] * -0.07 +
-%[CLICK_BELOW] * -0.52 +
-%[CTYPE_JUST_HTML] * -2.17 +
-%[DATE_IN_FUTURE_06_12] * -0.63 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[EXCUSE_14] * -1.28 +
-%[EXCUSE_3] * -0.64 +
-%[FORGED_HOTMAIL_RCVD] * -0.68 +
-%[FROM_ENDS_IN_NUMS] * 0.31 +
-%[HTML_FONT_COLOR_GRAY] * -0.66 +
-%[HTML_WITH_BGCOLOR] * 0.7  +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 1.95 +
-%[MIME_HTML_NO_CHARSET] * -0.62 +
-%[MISSING_MIMEOLE] * -2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
-%[NORMAL_HTTP_TO_IP] * -0.52 +
-%[ONLY_COST] * -1.32 +
-%[PLING_QUERY] * -0.69 +
-%[QUOTED_EMAIL_TEXT] * 1.23 +
-%[REMOVE_PAGE] * -0.63 +
-%[RESENT_TO] * -1.14 +
-%[SIGNATURE_LONG_DENSE] * 1.52 +
-%[SPAM_PHRASE_00_01] * 1.06 +
-%[SPAM_PHRASE_08_13] * 0.59 +
-%[SUBJ_ALL_CAPS] * 1.72 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -1.33 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%FT_N0#14:
-%Class 0 :
-%0.39 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 1.29 +
-%[BIG_FONT] * 0.07 +
-%[CLICK_BELOW] * 0.52 +
-%[CTYPE_JUST_HTML] * 2.17 +
-%[DATE_IN_FUTURE_06_12] * 0.63 +
-%[DATE_IN_PAST_06_12] * 0.64 +
-%[DIET] * 0.63 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[EXCUSE_14] * 1.97 +
-%[EXCUSE_3] * 0.64 +
-%[FORGED_HOTMAIL_RCVD] * 1.96 +
-%[FORGED_YAHOO_RCVD] * 0.63 +
-%[FROM_ENDS_IN_NUMS] * -0.31 +
-%[HTML_FONT_COLOR_GRAY] * 0.66 +
-%[HTML_WITH_BGCOLOR] * -1.1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -1.95 +
-%[LINES_OF_YELLING] * -0.31 +
-%[MAILTO_TO_REMOVE] * 0.67 +
-%[MIME_HTML_NO_CHARSET] * 0.62 +
-%[MISSING_MIMEOLE] * 2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
-%[NORMAL_HTTP_TO_IP] * 1.16 +
-%[ONLY_COST] * 1.32 +
-%[PLING_QUERY] * 1.29 +
-%[QUOTED_EMAIL_TEXT] * -1.23 +
-%[REMOVE_PAGE] * 0.63 +
-%[RESENT_TO] * 1.14 +
-%[RISK_FREE] * 0.62 +
-%[SIGNATURE_LONG_DENSE] * -1.52 +
-%[SPAM_PHRASE_00_01] * -1.06 +
-%[SPAM_PHRASE_08_13] * -1.01 +
-%[SUBJ_ALL_CAPS] * -1.08 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 1.33 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%-0.39 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -1.29 +
-%[BIG_FONT] * -0.07 +
-%[CLICK_BELOW] * -0.52 +
-%[CTYPE_JUST_HTML] * -2.17 +
-%[DATE_IN_FUTURE_06_12] * -0.63 +
-%[DATE_IN_PAST_06_12] * -0.64 +
-%[DIET] * -0.63 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[EXCUSE_14] * -1.97 +
-%[EXCUSE_3] * -0.64 +
-%[FORGED_HOTMAIL_RCVD] * -1.96 +
-%[FORGED_YAHOO_RCVD] * -0.63 +
-%[FROM_ENDS_IN_NUMS] * 0.31 +
-%[HTML_FONT_COLOR_GRAY] * -0.66 +
-%[HTML_WITH_BGCOLOR] * 1.1  +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 1.95 +
-%[LINES_OF_YELLING] * 0.31 +
-%[MAILTO_TO_REMOVE] * -0.67 +
-%[MIME_HTML_NO_CHARSET] * -0.62 +
-%[MISSING_MIMEOLE] * -2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
-%[NORMAL_HTTP_TO_IP] * -1.16 +
-%[ONLY_COST] * -1.32 +
-%[PLING_QUERY] * -1.29 +
-%[QUOTED_EMAIL_TEXT] * 1.23 +
-%[REMOVE_PAGE] * -0.63 +
-%[RESENT_TO] * -1.14 +
-%[RISK_FREE] * -0.62 +
-%[SIGNATURE_LONG_DENSE] * 1.52 +
-%[SPAM_PHRASE_00_01] * 1.06 +
-%[SPAM_PHRASE_08_13] * 1.01 +
-%[SUBJ_ALL_CAPS] * 1.08 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -1.33 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%FT_7:
-%Class 0 :
-%-0.09 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 1.29 +
-%[BIG_FONT] * 0.07 +
-%[CLICK_BELOW] * 0.52 +
-%[CTYPE_JUST_HTML] * 5.33 +
-%[DATE_IN_FUTURE_06_12] * 0.63 +
-%[DATE_IN_PAST_06_12] * 0.64 +
-%[DIET] * 0.63 +
-%[DOMAIN_4U2] * 1.51 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[EXCUSE_14] * 1.97 +
-%[EXCUSE_3] * 0.64 +
-%[FORGED_HOTMAIL_RCVD] * 1.96 +
-%[FORGED_YAHOO_RCVD] * 0.63 +
-%[FROM_ENDS_IN_NUMS] * 2.51 +
-%[HTML_FONT_COLOR_GRAY] * 0.66 +
-%[HTML_WITH_BGCOLOR] * -1.1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -1.95 +
-%[LINES_OF_YELLING] * -0.69 +
-%[MAILTO_TO_REMOVE] * 0.67 +
-%[MIME_HTML_NO_CHARSET] * 0.62 +
-%[MISSING_MIMEOLE] * 2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
-%[NORMAL_HTTP_TO_IP] * 1.16 +
-%[ONLY_COST] * 1.32 +
-%[PLING_QUERY] * 1.29 +
-%[QUOTED_EMAIL_TEXT] * -0.13 +
-%[REMOVE_PAGE] * 0.63 +
-%[RESENT_TO] * -0.54 +
-%[RISK_FREE] * 1.3  +
-%[SIGNATURE_LONG_DENSE] * -1.52 +
-%[SPAM_PHRASE_00_01] * -1.06 +
-%[SPAM_PHRASE_08_13] * -1.01 +
-%[SUBJ_ALL_CAPS] * -0.41 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 1.33 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%0.09 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -1.29 +
-%[BIG_FONT] * -0.07 +
-%[CLICK_BELOW] * -0.52 +
-%[CTYPE_JUST_HTML] * -5.33 +
-%[DATE_IN_FUTURE_06_12] * -0.63 +
-%[DATE_IN_PAST_06_12] * -0.64 +
-%[DIET] * -0.63 +
-%[DOMAIN_4U2] * -1.51 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[EXCUSE_14] * -1.97 +
-%[EXCUSE_3] * -0.64 +
-%[FORGED_HOTMAIL_RCVD] * -1.96 +
-%[FORGED_YAHOO_RCVD] * -0.63 +
-%[FROM_ENDS_IN_NUMS] * -2.51 +
-%[HTML_FONT_COLOR_GRAY] * -0.66 +
-%[HTML_WITH_BGCOLOR] * 1.1  +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 1.95 +
-%[LINES_OF_YELLING] * 0.69 +
-%[MAILTO_TO_REMOVE] * -0.67 +
-%[MIME_HTML_NO_CHARSET] * -0.62 +
-%[MISSING_MIMEOLE] * -2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
-%[NORMAL_HTTP_TO_IP] * -1.16 +
-%[ONLY_COST] * -1.32 +
-%[PLING_QUERY] * -1.29 +
-%[QUOTED_EMAIL_TEXT] * 0.13 +
-%[REMOVE_PAGE] * -0.63 +
-%[RESENT_TO] * 0.54 +
-%[RISK_FREE] * -1.3 +
-%[SIGNATURE_LONG_DENSE] * 1.52 +
-%[SPAM_PHRASE_00_01] * 1.06 +
-%[SPAM_PHRASE_08_13] * 1.01 +
-%[SUBJ_ALL_CAPS] * 0.41 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -1.33 +
-%[X_ACCEPT_LANG] * 0.72
-%
-%FT_8:
-%Class 0 :
-%8.74 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * 1.29 +
-%[BIG_FONT] * -3.73 +
-%[CLICK_BELOW] * 0.52 +
-%[CTYPE_JUST_HTML] * 0.97 +
-%[DATE_IN_FUTURE_06_12] * 0.63 +
-%[DATE_IN_PAST_06_12] * 0.64 +
-%[DIET] * 0.63 +
-%[EXCHANGE_SERVER] * -0.91 +
-%[EXCUSE_14] * 1.97 +
-%[EXCUSE_3] * 0.64 +
-%[FORGED_HOTMAIL_RCVD] * 1.96 +
-%[FORGED_YAHOO_RCVD] * 0.63 +
-%[FROM_ENDS_IN_NUMS] * -4.38 +
-%[HTML_FONT_COLOR_GRAY] * 0.66 +
-%[HTML_WITH_BGCOLOR] * -1.1 +
-%[INVALID_DATE] * 1.11 +
-%[KNOWN_MAILING_LIST] * -1.95 +
-%[LINES_OF_YELLING] * -0.31 +
-%[MAILTO_TO_REMOVE] * 0.67 +
-%[MIME_HTML_NO_CHARSET] * 0.62 +
-%[MISSING_MIMEOLE] * 2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
-%[NORMAL_HTTP_TO_IP] * 1.16 +
-%[ONLY_COST] * 1.32 +
-%[PLING_QUERY] * 1.29 +
-%[QUOTED_EMAIL_TEXT] * -1.23 +
-%[REMOVE_PAGE] * 0.63 +
-%[RESENT_TO] * 1.14 +
-%[RISK_FREE] * 0.62 +
-%[SIGNATURE_LONG_DENSE] * -1.52 +
-%[SPAM_PHRASE_00_01] * -4.05 +
-%[SPAM_PHRASE_08_13] * -1.01 +
-%[SUBJ_ALL_CAPS] * -1.08 +
-%[USER_AGENT_PINE] * -0.72 +
-%[WEB_BUGS] * 1.33 +
-%[X_ACCEPT_LANG] * -0.72
-%
-%Class 1 :
-%-8.74 + 
-%[id] * 0    +
-%[BASE64_ENC_TEXT] * -1.29 +
-%[BIG_FONT] * 3.73 +
-%[CLICK_BELOW] * -0.52 +
-%[CTYPE_JUST_HTML] * -0.97 +
-%[DATE_IN_FUTURE_06_12] * -0.63 +
-%[DATE_IN_PAST_06_12] * -0.64 +
-%[DIET] * -0.63 +
-%[EXCHANGE_SERVER] * 0.91 +
-%[EXCUSE_14] * -1.97 +
-%[EXCUSE_3] * -0.64 +
-%[FORGED_HOTMAIL_RCVD] * -1.96 +
-%[FORGED_YAHOO_RCVD] * -0.63 +
-%[FROM_ENDS_IN_NUMS] * 4.38 +
-%[HTML_FONT_COLOR_GRAY] * -0.66 +
-%[HTML_WITH_BGCOLOR] * 1.1  +
-%[INVALID_DATE] * -1.11 +
-%[KNOWN_MAILING_LIST] * 1.95 +
-%[LINES_OF_YELLING] * 0.31 +
-%[MAILTO_TO_REMOVE] * -0.67 +
-%[MIME_HTML_NO_CHARSET] * -0.62 +
-%[MISSING_MIMEOLE] * -2.27 +
-%[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
-%[NORMAL_HTTP_TO_IP] * -1.16 +
-%[ONLY_COST] * -1.32 +
-%[PLING_QUERY] * -1.29 +
-%[QUOTED_EMAIL_TEXT] * 1.23 +
-%[REMOVE_PAGE] * -0.63 +
-%[RESENT_TO] * -1.14 +
-%[RISK_FREE] * -0.62 +
-%[SIGNATURE_LONG_DENSE] * 1.52 +
-%[SPAM_PHRASE_00_01] * 4.05 +
-%[SPAM_PHRASE_08_13] * 1.01 +
-%[SUBJ_ALL_CAPS] * 1.08 +
-%[USER_AGENT_PINE] * 0.72 +
-%[WEB_BUGS] * -1.33 +
-%[X_ACCEPT_LANG] * 0.72
+\lstset{style=customWeka}
+\begin{lstlisting}
+=== Run information ===
 
+Scheme:		  weka.classifiers.trees.FT -I 15 -F 0 -M 15 -W 0.0
+Relation:     SPAM-weka.filters.supervised.instance.SMOTE-C0-K5-P100.0
+			  -S1-weka.filters.supervised.attribute.AttributeSelection
+			  -Eweka.attributeSelection.CfsSubsetEval
+			  -Sweka.attributeSelection.BestFirst -D 1 -N 5
+Instances:    11112
+Attributes:   53
+
+id							APPROVED_BY
+BASE64_ENC_TEXT				BIG_FONT
+CLICK_BELOW					CRON_ENV
+CTYPE_JUST_HTML				DATE_IN_FUTURE_06_12
+DATE_IN_PAST_06_12			DIET
+DOMAIN_4U2					EXCHANGE_SERVER
+EXCUSE_14					EXCUSE_3
+FAILURE_NOTICE_2			FORGED_HOTMAIL_RCVD
+FORGED_YAHOO_RCVD			FROM_ENDS_IN_NUMS
+HTML_FONT_COLOR_GRAY		HTML_FONT_INVISIBLE
+HTML_WITH_BGCOLOR			INVALID_DATE
+KNOWN_MAILING_LIST			LINES_OF_YELLING
+MAILTO_TO_REMOVE			MAY_BE_FORGED
+MIME_HTML_NO_CHARSET		MISSING_MIMEOLE
+MORTGAGE_OBFU				MSG_ID_ADDED_BY_MTA_2
+NORMAL_HTTP_TO_IP			NO_REAL_NAME
+ONLY_COST					PLING_QUERY
+QUOTED_EMAIL_TEXT			REMOVE_PAGE
+RESENT_TO					RISK_FREE
+SAVE_MONEY					SIGNATURE_LONG_DENSE
+SIGNATURE_SHORT_SPARSE		SPAM_PHRASE_00_01
+SPAM_PHRASE_08_13			SUBJECT_MONTH
+SUBJ_ALL_CAPS				TRACKER_ID
+UNSUB_PAGE					USER_AGENT_PINE
+USER_AGENT_TONLINE			USER_IN_WHITELIST
+WEB_BUGS					X_ACCEPT_LANG
+target
+
+Test mode:10-fold cross-validation
+
+\end{lstlisting}
+
+
+\lstset{style=custWeka2}
+\begin{lstlisting}
+=== Classifier model (full training set) ===
+
+FT tree 
+------------------
+
+N0#1 <= 0.618916
+|   id <= 372407
+|   |   N0#3 <= 0.156641: FT_1:15/60 (4856)
+|   |   N0#3 > 0.156641
+|   |   |   N0#5 <= 0.825819
+|   |   |   |   N0#6 <= 0.513027: Class=1
+|   |   |   |   N0#6 > 0.513027: FT_3:15/90 (32)
+|   |   |   N0#5 > 0.825819: FT_4:15/75 (121)
+|   id > 372407: Class=0
+N0#1 > 0.618916
+|   N0#11 <= 0.865508: FT_6:15/45 (34)
+|   N0#11 > 0.865508
+|   |   N0#13 <= 0.995526
+|   |   |   N0#14 <= 0.973489: FT_7:15/75 (68)
+|   |   |   N0#14 > 0.973489: FT_8:15/75 (267)
+|   |   N0#13 > 0.995526: Class=0
+
+Number of Leaves  : 	9
+
+Size of the Tree : 	17
+
+FT_N0#1:
+Class 0 :
+-1.07 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 2.03 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 2.17 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[INVALID_DATE] * 1.11 +
+[MISSING_MIMEOLE] * 1.1  +
+[RESENT_TO] * 1.14 +
+[SPAM_PHRASE_00_01] * -1.44 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+1.07 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -2.03 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -2.17 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[INVALID_DATE] * -1.11 +
+[MISSING_MIMEOLE] * -1.1 +
+[RESENT_TO] * -1.14 +
+[SPAM_PHRASE_00_01] * 1.44 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 0.72
+
+
+FT_N0#3:
+Class 0 :
+-1.52 + 
+[id] * 0    +
+[APPROVED_BY] * -0.53 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 4.01 +
+[DATE_IN_FUTURE_06_12] * 1.09 +
+[DIET] * 1.37 +
+[EXCHANGE_SERVER] * -0.52 +
+[EXCUSE_3] * 0.92 +
+[FORGED_HOTMAIL_RCVD] * 1.32 +
+[FORGED_YAHOO_RCVD] * 1.39 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[HTML_FONT_COLOR_GRAY] * -0.97 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -0.68 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.87 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[ONLY_COST] * 1.44 +
+[PLING_QUERY] * 1.32 +
+[QUOTED_EMAIL_TEXT] * -1.06 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 2.03 +
+[RISK_FREE] * 1.65 +
+[SPAM_PHRASE_00_01] * -0.76 +
+[SPAM_PHRASE_08_13] * 1.31 +
+[SUBJECT_MONTH] * -0.46 +
+[TRACKER_ID] * 1.3  +
+[USER_AGENT_PINE] * -1.26 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -1.37
+
+Class 1 :
+1.52 + 
+[id] * 0    +
+[APPROVED_BY] * 0.53 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -4.01 +
+[DATE_IN_FUTURE_06_12] * -1.09 +
+[DIET] * -1.37 +
+[EXCHANGE_SERVER] * 0.52 +
+[EXCUSE_3] * -0.92 +
+[FORGED_HOTMAIL_RCVD] * -1.32 +
+[FORGED_YAHOO_RCVD] * -1.39 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[HTML_FONT_COLOR_GRAY] * 0.97 +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 0.68 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.87 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[ONLY_COST] * -1.44 +
+[PLING_QUERY] * -1.32 +
+[QUOTED_EMAIL_TEXT] * 1.06 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -2.03 +
+[RISK_FREE] * -1.65 +
+[SPAM_PHRASE_00_01] * 0.76 +
+[SPAM_PHRASE_08_13] * -1.31 +
+[SUBJECT_MONTH] * 0.46 +
+[TRACKER_ID] * -1.3 +
+[USER_AGENT_PINE] * 1.26 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 1.37
+
+FT_1:
+Class 0 :
+-1.95 + 
+[id] * 0    +
+[APPROVED_BY] * -1.04 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 4.97 +
+[CRON_ENV] * -0.54 +
+[CTYPE_JUST_HTML] * 31.85 +
+[DATE_IN_FUTURE_06_12] * 1.09 +
+[DIET] * 1.37 +
+[EXCHANGE_SERVER] * -0.52 +
+[EXCUSE_3] * 0.92 +
+[FORGED_HOTMAIL_RCVD] * 1.32 +
+[FORGED_YAHOO_RCVD] * 2.9  +
+[FROM_ENDS_IN_NUMS] * 0.36 +
+[HTML_FONT_COLOR_GRAY] * -0.97 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -0.68 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MORTGAGE_OBFU] * 2.78 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.87 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[ONLY_COST] * 1.44 +
+[PLING_QUERY] * 1.32 +
+[QUOTED_EMAIL_TEXT] * -1.58 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 2.03 +
+[RISK_FREE] * 1.65 +
+[SPAM_PHRASE_00_01] * -0.48 +
+[SPAM_PHRASE_08_13] * 1.31 +
+[SUBJECT_MONTH] * -1.83 +
+[TRACKER_ID] * 5.74 +
+[USER_AGENT_PINE] * -2.01 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -1.37
+
+Class 1 :
+1.95 + 
+[id] * 0    +
+[APPROVED_BY] * 1.04 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -4.97 +
+[CRON_ENV] * 0.54 +
+[CTYPE_JUST_HTML] * -31.85 +
+[DATE_IN_FUTURE_06_12] * -1.09 +
+[DIET] * -1.37 +
+[EXCHANGE_SERVER] * 0.52 +
+[EXCUSE_3] * -0.92 +
+[FORGED_HOTMAIL_RCVD] * -1.32 +
+[FORGED_YAHOO_RCVD] * -2.9 +
+[FROM_ENDS_IN_NUMS] * -0.36 +
+[HTML_FONT_COLOR_GRAY] * 0.97 +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 0.68 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MORTGAGE_OBFU] * -2.78 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.87 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[ONLY_COST] * -1.44 +
+[PLING_QUERY] * -1.32 +
+[QUOTED_EMAIL_TEXT] * 1.58 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -2.03 +
+[RISK_FREE] * -1.65 +
+[SPAM_PHRASE_00_01] * 0.48 +
+[SPAM_PHRASE_08_13] * -1.31 +
+[SUBJECT_MONTH] * 1.83 +
+[TRACKER_ID] * -5.74 +
+[USER_AGENT_PINE] * 2.01 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 1.37
+
+FT_N0#5:
+Class 0 :
+-0.59 + 
+[APPROVED_BY] * -0.53 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 4.01 +
+[DATE_IN_FUTURE_06_12] * 1.09 +
+[DIET] * 2.22 +
+[EXCHANGE_SERVER] * -1.6 +
+[EXCUSE_3] * 0.92 +
+[FORGED_HOTMAIL_RCVD] * 1.32 +
+[FORGED_YAHOO_RCVD] * 0.96 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[HTML_FONT_COLOR_GRAY] * -1.85 +
+[HTML_FONT_INVISIBLE] * -1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -2.32 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[ONLY_COST] * 2.25 +
+[PLING_QUERY] * 2.37 +
+[QUOTED_EMAIL_TEXT] * -1.06 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 2.03 +
+[RISK_FREE] * 2.57 +
+[SPAM_PHRASE_00_01] * -0.33 +
+[SPAM_PHRASE_08_13] * 1.31 +
+[SUBJECT_MONTH] * -0.46 +
+[TRACKER_ID] * 1.3  +
+[USER_AGENT_PINE] * -3.23 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -1.37
+
+Class 1 :
+0.59 + 
+[APPROVED_BY] * 0.53 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -4.01 +
+[DATE_IN_FUTURE_06_12] * -1.09 +
+[DIET] * -2.22 +
+[EXCHANGE_SERVER] * 1.6  +
+[EXCUSE_3] * -0.92 +
+[FORGED_HOTMAIL_RCVD] * -1.32 +
+[FORGED_YAHOO_RCVD] * -0.96 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[HTML_FONT_COLOR_GRAY] * 1.85 +
+[HTML_FONT_INVISIBLE] * 1    +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 2.32 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[ONLY_COST] * -2.25 +
+[PLING_QUERY] * -2.37 +
+[QUOTED_EMAIL_TEXT] * 1.06 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -2.03 +
+[RISK_FREE] * -2.57 +
+[SPAM_PHRASE_00_01] * 0.33 +
+[SPAM_PHRASE_08_13] * -1.31 +
+[SUBJECT_MONTH] * 0.46 +
+[TRACKER_ID] * -1.3 +
+[USER_AGENT_PINE] * 3.23 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 1.37
+
+FT_N0#6:
+Class 0 :
+-0.78 + 
+[APPROVED_BY] * -0.53 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 11.29 +
+[CTYPE_JUST_HTML] * 4.01 +
+[DATE_IN_FUTURE_06_12] * 0.23 +
+[DATE_IN_PAST_06_12] * 0.7  +
+[DIET] * 2.22 +
+[EXCHANGE_SERVER] * -1.6 +
+[EXCUSE_14] * 2.03 +
+[EXCUSE_3] * 1.57 +
+[FORGED_HOTMAIL_RCVD] * 1.32 +
+[FORGED_YAHOO_RCVD] * 0.96 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[HTML_FONT_COLOR_GRAY] * -2.78 +
+[HTML_FONT_INVISIBLE] * -1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -2.32 +
+[LINES_OF_YELLING] * -1.36 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[ONLY_COST] * 2.25 +
+[PLING_QUERY] * 2.37 +
+[QUOTED_EMAIL_TEXT] * -1.06 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 1.43 +
+[RISK_FREE] * 2.57 +
+[SPAM_PHRASE_00_01] * -0.33 +
+[SPAM_PHRASE_08_13] * 0.76 +
+[SUBJECT_MONTH] * 0.89 +
+[SUBJ_ALL_CAPS] * 1.53 +
+[TRACKER_ID] * 2.21 +
+[USER_AGENT_PINE] * -3.23 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -1.37
+
+Class 1 :
+0.78 + 
+[APPROVED_BY] * 0.53 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -11.29 +
+[CTYPE_JUST_HTML] * -4.01 +
+[DATE_IN_FUTURE_06_12] * -0.23 +
+[DATE_IN_PAST_06_12] * -0.7 +
+[DIET] * -2.22 +
+[EXCHANGE_SERVER] * 1.6  +
+[EXCUSE_14] * -2.03 +
+[EXCUSE_3] * -1.57 +
+[FORGED_HOTMAIL_RCVD] * -1.32 +
+[FORGED_YAHOO_RCVD] * -0.96 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[HTML_FONT_COLOR_GRAY] * 2.78 +
+[HTML_FONT_INVISIBLE] * 1    +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 2.32 +
+[LINES_OF_YELLING] * 1.36 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[ONLY_COST] * -2.25 +
+[PLING_QUERY] * -2.37 +
+[QUOTED_EMAIL_TEXT] * 1.06 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -1.43 +
+[RISK_FREE] * -2.57 +
+[SPAM_PHRASE_00_01] * 0.33 +
+[SPAM_PHRASE_08_13] * -0.76 +
+[SUBJECT_MONTH] * -0.89 +
+[SUBJ_ALL_CAPS] * -1.53 +
+[TRACKER_ID] * -2.21 +
+[USER_AGENT_PINE] * 3.23 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 1.37
+
+
+FT_3:
+Class 0 :
+-0.52 + 
+[id] * 0    +
+[APPROVED_BY] * -0.53 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * -0.51 +
+[CLICK_BELOW] * 11.29 +
+[CTYPE_JUST_HTML] * 6.32 +
+[DATE_IN_FUTURE_06_12] * 0.23 +
+[DATE_IN_PAST_06_12] * 0.7  +
+[DIET] * 2.22 +
+[EXCHANGE_SERVER] * -1.6 +
+[EXCUSE_14] * 2.03 +
+[EXCUSE_3] * 1.57 +
+[FORGED_HOTMAIL_RCVD] * -1.03 +
+[FORGED_YAHOO_RCVD] * 0.96 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[HTML_FONT_COLOR_GRAY] * -2.78 +
+[HTML_FONT_INVISIBLE] * -1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -2.32 +
+[LINES_OF_YELLING] * -1.36 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * 1.66 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[NO_REAL_NAME] * 0.58 +
+[ONLY_COST] * 2.25 +
+[PLING_QUERY] * 2.37 +
+[QUOTED_EMAIL_TEXT] * -1.06 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 1.43 +
+[RISK_FREE] * 2.57 +
+[SPAM_PHRASE_00_01] * 0.41 +
+[SPAM_PHRASE_08_13] * 0.76 +
+[SUBJECT_MONTH] * 0.89 +
+[SUBJ_ALL_CAPS] * 1.53 +
+[TRACKER_ID] * 2.21 +
+[USER_AGENT_PINE] * -3.23 +
+[WEB_BUGS] * -1.56 +
+[X_ACCEPT_LANG] * -1.37
+
+Class 1 :
+0.52 + 
+[id] * 0    +
+[APPROVED_BY] * 0.53 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * 0.51 +
+[CLICK_BELOW] * -11.29 +
+[CTYPE_JUST_HTML] * -6.32 +
+[DATE_IN_FUTURE_06_12] * -0.23 +
+[DATE_IN_PAST_06_12] * -0.7 +
+[DIET] * -2.22 +
+[EXCHANGE_SERVER] * 1.6  +
+[EXCUSE_14] * -2.03 +
+[EXCUSE_3] * -1.57 +
+[FORGED_HOTMAIL_RCVD] * 1.03 +
+[FORGED_YAHOO_RCVD] * -0.96 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[HTML_FONT_COLOR_GRAY] * 2.78 +
+[HTML_FONT_INVISIBLE] * 1    +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 2.32 +
+[LINES_OF_YELLING] * 1.36 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * -1.66 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[NO_REAL_NAME] * -0.58 +
+[ONLY_COST] * -2.25 +
+[PLING_QUERY] * -2.37 +
+[QUOTED_EMAIL_TEXT] * 1.06 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -1.43 +
+[RISK_FREE] * -2.57 +
+[SPAM_PHRASE_00_01] * -0.41 +
+[SPAM_PHRASE_08_13] * -0.76 +
+[SUBJECT_MONTH] * -0.89 +
+[SUBJ_ALL_CAPS] * -1.53 +
+[TRACKER_ID] * -2.21 +
+[USER_AGENT_PINE] * 3.23 +
+[WEB_BUGS] * 1.56 +
+[X_ACCEPT_LANG] * 1.37
+
+FT_4:
+Class 0 :
+2.15 + 
+[APPROVED_BY] * -0.53 +
+[BASE64_ENC_TEXT] * 3.04 +
+[BIG_FONT] * 0.88 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 4.01 +
+[DATE_IN_FUTURE_06_12] * 1.09 +
+[DIET] * 2.22 +
+[EXCHANGE_SERVER] * -1.6 +
+[EXCUSE_3] * 0.92 +
+[FORGED_HOTMAIL_RCVD] * 1.32 +
+[FORGED_YAHOO_RCVD] * 0.96 +
+[FROM_ENDS_IN_NUMS] * 0.77 +
+[HTML_FONT_COLOR_GRAY] * -1.85 +
+[HTML_FONT_INVISIBLE] * -1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -2.32 +
+[LINES_OF_YELLING] * 1.31 +
+[MIME_HTML_NO_CHARSET] * 1.11 +
+[MISSING_MIMEOLE] * 2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.39 +
+[NORMAL_HTTP_TO_IP] * 1.53 +
+[NO_REAL_NAME] * -1.53 +
+[ONLY_COST] * 2.25 +
+[PLING_QUERY] * 2.37 +
+[QUOTED_EMAIL_TEXT] * -1.06 +
+[REMOVE_PAGE] * 1.43 +
+[RESENT_TO] * 0.31 +
+[RISK_FREE] * 2.57 +
+[SPAM_PHRASE_00_01] * -0.33 +
+[SPAM_PHRASE_08_13] * 1.31 +
+[SUBJECT_MONTH] * -0.46 +
+[TRACKER_ID] * 1.3  +
+[UNSUB_PAGE] * 1.28 +
+[USER_AGENT_PINE] * -3.23 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -6.49
+
+Class 1 :
+-2.15 + 
+[APPROVED_BY] * 0.53 +
+[BASE64_ENC_TEXT] * -3.04 +
+[BIG_FONT] * -0.88 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -4.01 +
+[DATE_IN_FUTURE_06_12] * -1.09 +
+[DIET] * -2.22 +
+[EXCHANGE_SERVER] * 1.6  +
+[EXCUSE_3] * -0.92 +
+[FORGED_HOTMAIL_RCVD] * -1.32 +
+[FORGED_YAHOO_RCVD] * -0.96 +
+[FROM_ENDS_IN_NUMS] * -0.77 +
+[HTML_FONT_COLOR_GRAY] * 1.85 +
+[HTML_FONT_INVISIBLE] * 1    +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 2.32 +
+[LINES_OF_YELLING] * -1.31 +
+[MIME_HTML_NO_CHARSET] * -1.11 +
+[MISSING_MIMEOLE] * -2.16 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.39 +
+[NORMAL_HTTP_TO_IP] * -1.53 +
+[NO_REAL_NAME] * 1.53 +
+[ONLY_COST] * -2.25 +
+[PLING_QUERY] * -2.37 +
+[QUOTED_EMAIL_TEXT] * 1.06 +
+[REMOVE_PAGE] * -1.43 +
+[RESENT_TO] * -0.31 +
+[RISK_FREE] * -2.57 +
+[SPAM_PHRASE_00_01] * 0.33 +
+[SPAM_PHRASE_08_13] * -1.31 +
+[SUBJECT_MONTH] * 0.46 +
+[TRACKER_ID] * -1.3 +
+[UNSUB_PAGE] * -1.28 +
+[USER_AGENT_PINE] * 3.23 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 6.49
+
+
+FT_N0#11:
+Class 0 :
+0.01 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 2.03 +
+[BIG_FONT] * 0.07 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 2.17 +
+[EXCHANGE_SERVER] * -0.91 +
+[FORGED_HOTMAIL_RCVD] * 0.68 +
+[FROM_ENDS_IN_NUMS] * -0.31 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -1.23 +
+[MISSING_MIMEOLE] * 1.62 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
+[NORMAL_HTTP_TO_IP] * 0.52 +
+[ONLY_COST] * 0.7  +
+[PLING_QUERY] * 0.69 +
+[QUOTED_EMAIL_TEXT] * -1.23 +
+[RESENT_TO] * 1.14 +
+[SIGNATURE_LONG_DENSE] * -1.52 +
+[SPAM_PHRASE_00_01] * -1.06 +
+[SUBJ_ALL_CAPS] * -1.72 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+-0.01 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -2.03 +
+[BIG_FONT] * -0.07 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -2.17 +
+[EXCHANGE_SERVER] * 0.91 +
+[FORGED_HOTMAIL_RCVD] * -0.68 +
+[FROM_ENDS_IN_NUMS] * 0.31 +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 1.23 +
+[MISSING_MIMEOLE] * -1.62 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
+[NORMAL_HTTP_TO_IP] * -0.52 +
+[ONLY_COST] * -0.7 +
+[PLING_QUERY] * -0.69 +
+[QUOTED_EMAIL_TEXT] * 1.23 +
+[RESENT_TO] * -1.14 +
+[SIGNATURE_LONG_DENSE] * 1.52 +
+[SPAM_PHRASE_00_01] * 1.06 +
+[SUBJ_ALL_CAPS] * 1.72 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 0.72
+
+FT_6:
+Class 0 :
+-1.36 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 2.03 +
+[BIG_FONT] * -0.36 +
+[CLICK_BELOW] * 0.9  +
+[CTYPE_JUST_HTML] * 2.17 +
+[DATE_IN_FUTURE_06_12] * -1.5 +
+[DATE_IN_PAST_06_12] * -0.71 +
+[EXCHANGE_SERVER] * -0.91 +
+[FORGED_HOTMAIL_RCVD] * 1.56 +
+[FROM_ENDS_IN_NUMS] * -0.31 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -0.33 +
+[MISSING_MIMEOLE] * 1.62 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
+[NORMAL_HTTP_TO_IP] * 0.52 +
+[NO_REAL_NAME] * -0.51 +
+[ONLY_COST] * 0.7  +
+[PLING_QUERY] * 0.69 +
+[QUOTED_EMAIL_TEXT] * -1.23 +
+[REMOVE_PAGE] * 0.55 +
+[RESENT_TO] * 1.6  +
+[RISK_FREE] * 2.79 +
+[SIGNATURE_LONG_DENSE] * -2.34 +
+[SPAM_PHRASE_00_01] * -1.06 +
+[SPAM_PHRASE_08_13] * 2.33 +
+[SUBJECT_MONTH] * 1.49 +
+[SUBJ_ALL_CAPS] * -1.72 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 0.97 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+1.36 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -2.03 +
+[BIG_FONT] * 0.36 +
+[CLICK_BELOW] * -0.9 +
+[CTYPE_JUST_HTML] * -2.17 +
+[DATE_IN_FUTURE_06_12] * 1.5  +
+[DATE_IN_PAST_06_12] * 0.71 +
+[EXCHANGE_SERVER] * 0.91 +
+[FORGED_HOTMAIL_RCVD] * -1.56 +
+[FROM_ENDS_IN_NUMS] * 0.31 +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 0.33 +
+[MISSING_MIMEOLE] * -1.62 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
+[NORMAL_HTTP_TO_IP] * -0.52 +
+[NO_REAL_NAME] * 0.51 +
+[ONLY_COST] * -0.7 +
+[PLING_QUERY] * -0.69 +
+[QUOTED_EMAIL_TEXT] * 1.23 +
+[REMOVE_PAGE] * -0.55 +
+[RESENT_TO] * -1.6 +
+[RISK_FREE] * -2.79 +
+[SIGNATURE_LONG_DENSE] * 2.34 +
+[SPAM_PHRASE_00_01] * 1.06 +
+[SPAM_PHRASE_08_13] * -2.33 +
+[SUBJECT_MONTH] * -1.49 +
+[SUBJ_ALL_CAPS] * 1.72 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -0.97 +
+[X_ACCEPT_LANG] * 0.72
+
+FT_N0#13:
+Class 0 :
+0.55 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 1.29 +
+[BIG_FONT] * 0.07 +
+[CLICK_BELOW] * 0.52 +
+[CTYPE_JUST_HTML] * 2.17 +
+[DATE_IN_FUTURE_06_12] * 0.63 +
+[EXCHANGE_SERVER] * -0.91 +
+[EXCUSE_14] * 1.28 +
+[EXCUSE_3] * 0.64 +
+[FORGED_HOTMAIL_RCVD] * 0.68 +
+[FROM_ENDS_IN_NUMS] * -0.31 +
+[HTML_FONT_COLOR_GRAY] * 0.66 +
+[HTML_WITH_BGCOLOR] * -0.7 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -1.95 +
+[MIME_HTML_NO_CHARSET] * 0.62 +
+[MISSING_MIMEOLE] * 2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * 0.65 +
+[NORMAL_HTTP_TO_IP] * 0.52 +
+[ONLY_COST] * 1.32 +
+[PLING_QUERY] * 0.69 +
+[QUOTED_EMAIL_TEXT] * -1.23 +
+[REMOVE_PAGE] * 0.63 +
+[RESENT_TO] * 1.14 +
+[SIGNATURE_LONG_DENSE] * -1.52 +
+[SPAM_PHRASE_00_01] * -1.06 +
+[SPAM_PHRASE_08_13] * -0.59 +
+[SUBJ_ALL_CAPS] * -1.72 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 1.33 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+-0.55 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -1.29 +
+[BIG_FONT] * -0.07 +
+[CLICK_BELOW] * -0.52 +
+[CTYPE_JUST_HTML] * -2.17 +
+[DATE_IN_FUTURE_06_12] * -0.63 +
+[EXCHANGE_SERVER] * 0.91 +
+[EXCUSE_14] * -1.28 +
+[EXCUSE_3] * -0.64 +
+[FORGED_HOTMAIL_RCVD] * -0.68 +
+[FROM_ENDS_IN_NUMS] * 0.31 +
+[HTML_FONT_COLOR_GRAY] * -0.66 +
+[HTML_WITH_BGCOLOR] * 0.7  +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 1.95 +
+[MIME_HTML_NO_CHARSET] * -0.62 +
+[MISSING_MIMEOLE] * -2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * -0.65 +
+[NORMAL_HTTP_TO_IP] * -0.52 +
+[ONLY_COST] * -1.32 +
+[PLING_QUERY] * -0.69 +
+[QUOTED_EMAIL_TEXT] * 1.23 +
+[REMOVE_PAGE] * -0.63 +
+[RESENT_TO] * -1.14 +
+[SIGNATURE_LONG_DENSE] * 1.52 +
+[SPAM_PHRASE_00_01] * 1.06 +
+[SPAM_PHRASE_08_13] * 0.59 +
+[SUBJ_ALL_CAPS] * 1.72 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -1.33 +
+[X_ACCEPT_LANG] * 0.72
+
+FT_N0#14:
+Class 0 :
+0.39 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 1.29 +
+[BIG_FONT] * 0.07 +
+[CLICK_BELOW] * 0.52 +
+[CTYPE_JUST_HTML] * 2.17 +
+[DATE_IN_FUTURE_06_12] * 0.63 +
+[DATE_IN_PAST_06_12] * 0.64 +
+[DIET] * 0.63 +
+[EXCHANGE_SERVER] * -0.91 +
+[EXCUSE_14] * 1.97 +
+[EXCUSE_3] * 0.64 +
+[FORGED_HOTMAIL_RCVD] * 1.96 +
+[FORGED_YAHOO_RCVD] * 0.63 +
+[FROM_ENDS_IN_NUMS] * -0.31 +
+[HTML_FONT_COLOR_GRAY] * 0.66 +
+[HTML_WITH_BGCOLOR] * -1.1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -1.95 +
+[LINES_OF_YELLING] * -0.31 +
+[MAILTO_TO_REMOVE] * 0.67 +
+[MIME_HTML_NO_CHARSET] * 0.62 +
+[MISSING_MIMEOLE] * 2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
+[NORMAL_HTTP_TO_IP] * 1.16 +
+[ONLY_COST] * 1.32 +
+[PLING_QUERY] * 1.29 +
+[QUOTED_EMAIL_TEXT] * -1.23 +
+[REMOVE_PAGE] * 0.63 +
+[RESENT_TO] * 1.14 +
+[RISK_FREE] * 0.62 +
+[SIGNATURE_LONG_DENSE] * -1.52 +
+[SPAM_PHRASE_00_01] * -1.06 +
+[SPAM_PHRASE_08_13] * -1.01 +
+[SUBJ_ALL_CAPS] * -1.08 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 1.33 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+-0.39 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -1.29 +
+[BIG_FONT] * -0.07 +
+[CLICK_BELOW] * -0.52 +
+[CTYPE_JUST_HTML] * -2.17 +
+[DATE_IN_FUTURE_06_12] * -0.63 +
+[DATE_IN_PAST_06_12] * -0.64 +
+[DIET] * -0.63 +
+[EXCHANGE_SERVER] * 0.91 +
+[EXCUSE_14] * -1.97 +
+[EXCUSE_3] * -0.64 +
+[FORGED_HOTMAIL_RCVD] * -1.96 +
+[FORGED_YAHOO_RCVD] * -0.63 +
+[FROM_ENDS_IN_NUMS] * 0.31 +
+[HTML_FONT_COLOR_GRAY] * -0.66 +
+[HTML_WITH_BGCOLOR] * 1.1  +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 1.95 +
+[LINES_OF_YELLING] * 0.31 +
+[MAILTO_TO_REMOVE] * -0.67 +
+[MIME_HTML_NO_CHARSET] * -0.62 +
+[MISSING_MIMEOLE] * -2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
+[NORMAL_HTTP_TO_IP] * -1.16 +
+[ONLY_COST] * -1.32 +
+[PLING_QUERY] * -1.29 +
+[QUOTED_EMAIL_TEXT] * 1.23 +
+[REMOVE_PAGE] * -0.63 +
+[RESENT_TO] * -1.14 +
+[RISK_FREE] * -0.62 +
+[SIGNATURE_LONG_DENSE] * 1.52 +
+[SPAM_PHRASE_00_01] * 1.06 +
+[SPAM_PHRASE_08_13] * 1.01 +
+[SUBJ_ALL_CAPS] * 1.08 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -1.33 +
+[X_ACCEPT_LANG] * 0.72
+
+FT_7:
+Class 0 :
+-0.09 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 1.29 +
+[BIG_FONT] * 0.07 +
+[CLICK_BELOW] * 0.52 +
+[CTYPE_JUST_HTML] * 5.33 +
+[DATE_IN_FUTURE_06_12] * 0.63 +
+[DATE_IN_PAST_06_12] * 0.64 +
+[DIET] * 0.63 +
+[DOMAIN_4U2] * 1.51 +
+[EXCHANGE_SERVER] * -0.91 +
+[EXCUSE_14] * 1.97 +
+[EXCUSE_3] * 0.64 +
+[FORGED_HOTMAIL_RCVD] * 1.96 +
+[FORGED_YAHOO_RCVD] * 0.63 +
+[FROM_ENDS_IN_NUMS] * 2.51 +
+[HTML_FONT_COLOR_GRAY] * 0.66 +
+[HTML_WITH_BGCOLOR] * -1.1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -1.95 +
+[LINES_OF_YELLING] * -0.69 +
+[MAILTO_TO_REMOVE] * 0.67 +
+[MIME_HTML_NO_CHARSET] * 0.62 +
+[MISSING_MIMEOLE] * 2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
+[NORMAL_HTTP_TO_IP] * 1.16 +
+[ONLY_COST] * 1.32 +
+[PLING_QUERY] * 1.29 +
+[QUOTED_EMAIL_TEXT] * -0.13 +
+[REMOVE_PAGE] * 0.63 +
+[RESENT_TO] * -0.54 +
+[RISK_FREE] * 1.3  +
+[SIGNATURE_LONG_DENSE] * -1.52 +
+[SPAM_PHRASE_00_01] * -1.06 +
+[SPAM_PHRASE_08_13] * -1.01 +
+[SUBJ_ALL_CAPS] * -0.41 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 1.33 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+0.09 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -1.29 +
+[BIG_FONT] * -0.07 +
+[CLICK_BELOW] * -0.52 +
+[CTYPE_JUST_HTML] * -5.33 +
+[DATE_IN_FUTURE_06_12] * -0.63 +
+[DATE_IN_PAST_06_12] * -0.64 +
+[DIET] * -0.63 +
+[DOMAIN_4U2] * -1.51 +
+[EXCHANGE_SERVER] * 0.91 +
+[EXCUSE_14] * -1.97 +
+[EXCUSE_3] * -0.64 +
+[FORGED_HOTMAIL_RCVD] * -1.96 +
+[FORGED_YAHOO_RCVD] * -0.63 +
+[FROM_ENDS_IN_NUMS] * -2.51 +
+[HTML_FONT_COLOR_GRAY] * -0.66 +
+[HTML_WITH_BGCOLOR] * 1.1  +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 1.95 +
+[LINES_OF_YELLING] * 0.69 +
+[MAILTO_TO_REMOVE] * -0.67 +
+[MIME_HTML_NO_CHARSET] * -0.62 +
+[MISSING_MIMEOLE] * -2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
+[NORMAL_HTTP_TO_IP] * -1.16 +
+[ONLY_COST] * -1.32 +
+[PLING_QUERY] * -1.29 +
+[QUOTED_EMAIL_TEXT] * 0.13 +
+[REMOVE_PAGE] * -0.63 +
+[RESENT_TO] * 0.54 +
+[RISK_FREE] * -1.3 +
+[SIGNATURE_LONG_DENSE] * 1.52 +
+[SPAM_PHRASE_00_01] * 1.06 +
+[SPAM_PHRASE_08_13] * 1.01 +
+[SUBJ_ALL_CAPS] * 0.41 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -1.33 +
+[X_ACCEPT_LANG] * 0.72
+
+FT_8:
+Class 0 :
+8.74 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * 1.29 +
+[BIG_FONT] * -3.73 +
+[CLICK_BELOW] * 0.52 +
+[CTYPE_JUST_HTML] * 0.97 +
+[DATE_IN_FUTURE_06_12] * 0.63 +
+[DATE_IN_PAST_06_12] * 0.64 +
+[DIET] * 0.63 +
+[EXCHANGE_SERVER] * -0.91 +
+[EXCUSE_14] * 1.97 +
+[EXCUSE_3] * 0.64 +
+[FORGED_HOTMAIL_RCVD] * 1.96 +
+[FORGED_YAHOO_RCVD] * 0.63 +
+[FROM_ENDS_IN_NUMS] * -4.38 +
+[HTML_FONT_COLOR_GRAY] * 0.66 +
+[HTML_WITH_BGCOLOR] * -1.1 +
+[INVALID_DATE] * 1.11 +
+[KNOWN_MAILING_LIST] * -1.95 +
+[LINES_OF_YELLING] * -0.31 +
+[MAILTO_TO_REMOVE] * 0.67 +
+[MIME_HTML_NO_CHARSET] * 0.62 +
+[MISSING_MIMEOLE] * 2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * 1.26 +
+[NORMAL_HTTP_TO_IP] * 1.16 +
+[ONLY_COST] * 1.32 +
+[PLING_QUERY] * 1.29 +
+[QUOTED_EMAIL_TEXT] * -1.23 +
+[REMOVE_PAGE] * 0.63 +
+[RESENT_TO] * 1.14 +
+[RISK_FREE] * 0.62 +
+[SIGNATURE_LONG_DENSE] * -1.52 +
+[SPAM_PHRASE_00_01] * -4.05 +
+[SPAM_PHRASE_08_13] * -1.01 +
+[SUBJ_ALL_CAPS] * -1.08 +
+[USER_AGENT_PINE] * -0.72 +
+[WEB_BUGS] * 1.33 +
+[X_ACCEPT_LANG] * -0.72
+
+Class 1 :
+-8.74 + 
+[id] * 0    +
+[BASE64_ENC_TEXT] * -1.29 +
+[BIG_FONT] * 3.73 +
+[CLICK_BELOW] * -0.52 +
+[CTYPE_JUST_HTML] * -0.97 +
+[DATE_IN_FUTURE_06_12] * -0.63 +
+[DATE_IN_PAST_06_12] * -0.64 +
+[DIET] * -0.63 +
+[EXCHANGE_SERVER] * 0.91 +
+[EXCUSE_14] * -1.97 +
+[EXCUSE_3] * -0.64 +
+[FORGED_HOTMAIL_RCVD] * -1.96 +
+[FORGED_YAHOO_RCVD] * -0.63 +
+[FROM_ENDS_IN_NUMS] * 4.38 +
+[HTML_FONT_COLOR_GRAY] * -0.66 +
+[HTML_WITH_BGCOLOR] * 1.1  +
+[INVALID_DATE] * -1.11 +
+[KNOWN_MAILING_LIST] * 1.95 +
+[LINES_OF_YELLING] * 0.31 +
+[MAILTO_TO_REMOVE] * -0.67 +
+[MIME_HTML_NO_CHARSET] * -0.62 +
+[MISSING_MIMEOLE] * -2.27 +
+[MSG_ID_ADDED_BY_MTA_2] * -1.26 +
+[NORMAL_HTTP_TO_IP] * -1.16 +
+[ONLY_COST] * -1.32 +
+[PLING_QUERY] * -1.29 +
+[QUOTED_EMAIL_TEXT] * 1.23 +
+[REMOVE_PAGE] * -0.63 +
+[RESENT_TO] * -1.14 +
+[RISK_FREE] * -0.62 +
+[SIGNATURE_LONG_DENSE] * 1.52 +
+[SPAM_PHRASE_00_01] * 4.05 +
+[SPAM_PHRASE_08_13] * 1.01 +
+[SUBJ_ALL_CAPS] * 1.08 +
+[USER_AGENT_PINE] * 0.72 +
+[WEB_BUGS] * -1.33 +
+[X_ACCEPT_LANG] * 0.72
+\end{lstlisting}
+	
 \section{Valutazione del modello}
 
 I risultati estratti da weka sono i seguenti: 

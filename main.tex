@@ -19,7 +19,7 @@
 \usepackage{algorithmic}
 \usepackage{listings}
 
-\lstset{ %
+\lstdefinestyle{customAlg}{
 	basicstyle=\scriptsize\rmfamily,    
 	breakatwhitespace=true,
 	breaklines=true,                 
@@ -45,6 +45,55 @@
 	aboveskip=1pt, 
 	belowskip=1pt,
 }
+
+\lstdefinestyle{customWeka}{
+	basicstyle=\scriptsize\rmfamily,    
+	breakatwhitespace=true,
+	breaklines=true,                 
+	commentstyle=\color{green!50!black}, 
+	escapeinside={\%*}{*)},          
+	extendedchars=true,              
+	frame=none,                    % adds a frame around the code
+	keepspaces=false,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\bfseries\color{blue!50!black},       % keyword style
+	morekeywords={Attributes,Instances,Relation,Scheme, Test mode, Number of Leaves, Size of the Tree},
+	deletekeywords={new, function, and, set, of, with, record, array},                        
+	numbers=none,    % where to put the line-numbers; possible values are (none, left, right)
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                
+	showstringspaces=false,         
+	showtabs=false,                  
+	tabsize=10,                       % sets default tabsize to 2 spaces
+	mathescape=true,
+	columns=fullflexible,
+	aboveskip=1pt, 
+	belowskip=1pt,
+}
+
+\lstdefinestyle{custWeka2}{
+	basicstyle=\scriptsize\rmfamily,    
+	breakatwhitespace=true,
+	breaklines=true,                 
+	commentstyle=\color{green!50!black}, 
+	escapeinside={\%*}{*)},          
+	extendedchars=true,              
+	frame=none,                    % adds a frame around the code
+	keepspaces=false,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\bfseries\color{blue!50!black},       % keyword style
+	morekeywords={FT tree, Number of Leaves, Size of the Tree},
+	deletekeywords={new, function, and, set, of, with, record, array},                        
+	numbers=none,    % where to put the line-numbers; possible values are (none, left, right)
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                
+	showstringspaces=false,         
+	showtabs=false,                  
+	tabsize=10,                       % sets default tabsize to 2 spaces
+	mathescape=true,
+	columns=fullflexible,
+	aboveskip=1pt, 
+	belowskip=1pt,
+}
+
 
 \long\def\symbolfootnote[#1]#2{\begingroup%
 \def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
