@@ -1,15 +1,18 @@
 \chapter{Introduzione}
-Nell'era dell'information Overload, dove giornalmente si producono quantità considerevoli di dati, memorizzati su opportuni database aziendali e non, potrebbe risultare utile utilizzare degli strumenti in grado produrre automaticamente della conoscenza a partire da questa mole di dati. Una metodologia propensa a fare ciò, è la metodologia KDD (\emph{Knowledge Discovery Databases}). 
+Nell'era dell'information Overload, dove giornalmente si producono quantità considerevoli di dati, memorizzati su opportuni database aziendali e non, potrebbe risultare opportuno utilizzare degli strumenti in grado produrre automaticamente della conoscenza a partire da questa mole di dati. Una metodologia propensa a fare ciò, è la metodologia KDD (\emph{Knowledge Discovery Databases}). 
 La prima definizione da attribuire a questa metodologia è stata quella di:
 
 \emph{Intero \textbf{processo} di estrazione di conoscenza, dalla raccolta e pre-processing dei dati, fino alla interpretazione dei risultati"\cite{DBLP:conf/kdd/1995}}
-
-
-Successivamente Fayyad et al.,hanno raffinato tale definizione trasformandola in: 
-
-\emph{Knowledge discovery is the nontrivial extraction of implicit, previously unknown, and potentially useful information from data.}
-\cite{citeulike:1550195} Definendo quindi il processo KDD come un processo in grado di estrarre dai dati delle informazioni non banali, sconosciute e potenzialmente utili. Il processo KDD si articola in diverse fasi cosi come mostrato in figura \ref{kddprocess}.
-
+Successivamente Fayyad et al. hanno raffinato tale definizione trasformandola in: 
+\emph{Knowledge discovery is the nontrivial extraction of implicit, previously unknown, and potentially useful information from data.}\cite{citeulike:1550195} 
+Secondo questo raffinamento, il processo KDD viene definito come un processo in grado di estrarre a partire da diverse fonti dati, informazioni non banali, sconosciute e potenzialmente utili. 
+\begin{itemize}
+	\item \emph{Nontrivial}: some search or inference is involved; that is, it is not a straightforward computation of predefined quantities (e.g.,computing an average value);
+	\item \emph{Implicit}: information is implicit in the data and not explicitly formulated; explicit information is extracted by other techniques (e.g., database querying);
+	\item \emph{Unknown}: information should be novel; novelty depends on the assumed frame of reference. For instance,If Driver-Education-Course = Yes Then Age > 16 is tautological for humans, but new for a machine.
+	\item \emph{Useful}: Information can help to achieve a goal of the system or the user. Patterns completely unrelated to current goals are of little use and do not constitute knowledge within the given situation.
+\end{itemize}
+Il processo KDD si articola in diverse fasi cosi come mostrato in figura \ref{kddprocess}.
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=0.8\textwidth]{./images/kddprocess.png}
