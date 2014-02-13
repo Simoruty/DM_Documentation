@@ -15,7 +15,6 @@ Queste percentuali risultano essere molto elevate principalmente a causa della f
 \item Saturazione della propria casella di posta, anche se al giorno d'oggi si dispone di una capienza elevata;
 \item Perdita di tempo abbastanza considerevole da parte del ricevente nel filtrare queste email.
 \end{itemize}
-
 Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di queste email di spam, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam in maniera tutto sommato efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, ma supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
 SpamAssassin è considerato uno dei filtri antispam più efficaci, specialmente se usato congiuntamente con un database antispam.\cite{wiki:SpamAssassin}
 
@@ -29,15 +28,11 @@ una popolare suite di software per il machine learning scritta in Java sviluppat
     \item Ampia gamma di tecniche di preprocessing e modellazione dei dati;
     \item Facile da usare grazie alla GUI;
 \end{itemize}
-
 Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellata nella sperimentazione è lo sperimentatore stesso.
-
 \subsection{Vincoli}
 	Non sono presenti nè vincoli temporali, nè problemi legali legati alla diffusione del dataset in questione.
-
 \subsection{Assunzioni}
 	Si assume che i dati di cui si intende disporre siano liberamente accessibili e che non siano falsi o errati.
-
 \section{Obiettivi di Business}
 	Secondo quanto detto in precedenza, l'obiettivo di business di questo progetto consiste nell'individuazione delle email di spam attraverso l'utilizzo di tecniche di Data Mining.
 
@@ -59,20 +54,17 @@ Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellat
 
 \section{Analisi Costi-Benefici}
 Per quanto riguarda i costi inerenti al processo di KDD, l'unico costo che si avrà, sarà in termini di risorse temporali utilizzate per la realizzazione e relativa verifica dei risultati che il classificatore produrrà.
-
 Invece, i benefici che si otterranno da questo processo, saranno quelli che andranno a sopperire a ciò che è stato detto in precedenza nel paragrafo \ref{Background}.
 
 \section{Piano di Progetto}
 Il piano di progetto prevede la realizzazione rigorosa delle fasi definite dal modello di processo CRISP-DM (figura \ref{CRISPDM}).
 In particolar modo, per ogni fase del modello, verrà definito un report riassuntivo : 
-
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=1\textwidth]{./images/Metodologia_CRISP_DM.png}
 	\caption{Report CRISP-DM}
 	\label{Report_CRISPDM}
 \end{figure}
-
 Dal punto di vista di sforzo computazionale, oltre il 70 \% del tempo speso viene impiegato nella realizzazione delle fasi di \textit{Data Understanding} e di \textit{Data Preparation}, mentre il restante 30 \% per le fasi rimanenti.
 Questo potrebbe portare alla necessità di dover rieseguire principalmente la fase di Data Preparation e, qualora i risultati dovessero dare esiti negativi, rieseguire anche la fase di Data Understanding in quanto ci potrebbero essere eventuali incomprensioni dei dati presi in considerazione.
-Per quanto riguarda il tempo necessario a concludere il progetto, si prevede un massimo di due settimane.
+Per quanto riguarda il tempo necessario a concludere il progetto, si prevede un massimo di tre settimane.
