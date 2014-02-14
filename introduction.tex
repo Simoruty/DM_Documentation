@@ -7,26 +7,24 @@ Successivamente Fayyad et al. hanno raffinato tale definizione trasformandola in
 \emph{Knowledge discovery is the nontrivial extraction of implicit, previously unknown, and potentially useful information from data.}\cite{citeulike:1550195} 
 Secondo questo raffinamento, il processo KDD viene definito come un processo in grado di estrarre a partire da diverse fonti dati, informazioni non banali, sconosciute e potenzialmente utili. 
 \begin{itemize}
-	\item \emph{Nontrivial}: some search or inference is involved; that is, it is not a straightforward computation of predefined quantities (e.g.,computing an average value);
-	\item \emph{Implicit}: information is implicit in the data and not explicitly formulated; explicit information is extracted by other techniques (e.g., database querying);
-	\item \emph{Unknown}: information should be novel; novelty depends on the assumed frame of reference. For instance,If Driver-Education-Course = Yes Then Age > 16 is tautological for humans, but new for a machine.
-	\item \emph{Useful}: Information can help to achieve a goal of the system or the user. Patterns completely unrelated to current goals are of little use and do not constitute knowledge within the given situation.
+	\item \emph{Nontrivial}: Devono essere coinvolte inferenze ottenute attraverso una computazione non banale dei valori originali presenti nel dataset;
+	\item \emph{Implicit}: L'informazione deve essere implicita nei dati e non esplicitamente formulata; le informazioni esplicite sono estratte da altre tecniche quali query dirette sul dataset;
+	\item \emph{Unknown}: Le informazioni scoperte devono apportare nuova conoscenza al dominio nel quale sono state trovate;
+	\item \emph{Useful}: Le informazioni devono aiutare a raggiungere l'obiettivo che il sistema si prefiggeva di soddisfare. I pattern completamente non relazionati con l'obiettivo attuale o poco utili, non costituiscono conoscenza con la situazione data.
 \end{itemize}
 Il processo KDD si articola in diverse fasi cosi come mostrato in figura \ref{kddprocess}.
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=0.8\textwidth]{./images/kddprocess.png}
+\includegraphics[width=0.5\textwidth]{./images/kddprocess.png}
 \caption{Processo KDD}
 \label{kddprocess}
 \end{figure}
-
-Il Data mining rappresenta la fase principale del processo KDD, il cui compito può consistere o nell'adattare un modello esistente ai dati a disposizione, oppure nel determinare dei possibili pattern ricorrenti tra i dati osservati utilizzando o delle tecniche di machine learning oppure delle tecniche statistiche. 
+Il Data mining rappresenta la fase principale del processo KDD, il cui compito può consistere o nell'adattare un modello esistente ai dati a disposizione, oppure nel determinare dei possibili pattern ricorrenti tra i dati osservati utilizzando o tecniche di machine learning oppure tecniche statistiche. 
 
 \section{CRISP-DM}
 Per l'applicazione del processo di KDD si seguirà il modello del CRISP-DM (\emph{\textbf{CR}oss \textbf{I}ndustry \textbf{S}tandard \textbf{P}rocess for \textbf{D}ata \textbf{M}ining})
-\cite{wirth2000crisp}
-, in quanto, tale modello, risulta essere lo standard riconosciuto a livello industriale per la conduzione dei processi di KDD.
-Il CRISP-DM si compone di sei fasi il cui ordine non è prestabilito in modo vincolante ma può variare da applicazione ad applicazione. Tipicamente le fasi di cui si compone il modello, vengono eseguite come mostrato in figura \ref{CRISPDM}.
+\cite{wirth2000crisp}. Tale modello, viene considerato come standard riconosciuto a livello industriale per la conduzione dei processi di KDD.
+Il CRISP-DM si compone di sei fasi il cui ordine di esecuzione non è prestabilito in modo vincolante, ma può variare da applicazione ad applicazione. Tipicamente le fasi di cui si compone il modello, vengono eseguite come mostrato in figura \ref{CRISPDM}.
 
 \begin{figure}[hbtp]
 \centering
