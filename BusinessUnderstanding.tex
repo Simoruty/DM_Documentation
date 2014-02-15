@@ -17,7 +17,7 @@ Queste percentuali risultano essere molto elevate principalmente a causa della f
 \item Saturazione della propria casella di posta, anche se al giorno d'oggi si dispone di una capienza elevata;
 \item Perdita di tempo abbastanza considerevole da parte del ricevente nel filtrare queste email.
 \end{itemize}
-Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di questo tipo di email, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam abbastanza efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, ma supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
+Nel corso degli anni, il desiderio di automatizzare il rilevamento e relativa selezione di questo tipo di email, ha portato alla creazione e diffusione di numerosi progetti software e di prodotti commerciali in grado di filtrare lo spam in modo abbastanza efficiente; uno dei più diffusi è \textit{SpamAssassin} \footnote{\url{http://spamassassin.apache.org/}}, programma opensource rilasciato sotto licenza Apache 2.0. Si basa su regole di confronto del contesto, ma supporta anche regole basate su DNS, checksum e filtraggio statistico, inoltre supporta programmi esterni e database online.
 SpamAssassin è considerato uno dei filtri antispam più efficaci, specialmente se usato congiuntamente con un database antispam.\cite{wiki:SpamAssassin}
 
 \subsection{Risorse}
@@ -36,22 +36,15 @@ Per quanto riguarda invece il personale umano, l'unica risorsa umana interpellat
 \subsection{Assunzioni}
 	Si assume che i dati di cui si intende disporre siano liberamente accessibili e che non siano falsi o errati.
 \section{Obiettivi di Business}
-	Secondo quanto detto in precedenza, l'obiettivo di business di questo progetto consiste nell'individuazione delle email di spam attraverso l'utilizzo di tecniche predittive di Data Mining.
+	Secondo quanto detto in precedenza, l'obiettivo di business di questo progetto consiste nella creazione di un filtro anti-spam in grado di eliminare il 99\% di spam dalle email ricevute giornalmente.
 \subsection{Task di Data Mining}
 	\label{task}
 	Il task da realizzare è di tipo \textit{predittivo}, in particolar modo, sarà un task di \textit{classificazione}. L'obiettivo sarà quindi quello di creare un classificatore che sia in grado di etichettare correttamente le nuove email come \textit{spam} o \textit{nospam} sulla base del training set dato in pasto al classificatore. 
 
 \section{Criteri di successo}
-	Il processo KDD andrà a buon fine qualora siano rispettate due condizioni:
-	\begin{itemize}
-		\item 	Nel set di email ottenute dopo aver effettuato il filtraggio, potranno essere ammesse fino ad un massimo dell'1\% di email di spam;
-				%Nel risultato del filtraggio, il numero di email di spam deve essere limitato all' 1\% della totalità;
-				%Condizione necessaria: filtrare le email con un massimo dell'1\% di spam accettato.				
-		\item	Minimizzare il numero di messaggi di spam che passeranno attraverso il filtro.
-	\end{itemize}
-
+	Il processo KDD andrà a buon fine qualora il sistema di filtraggio che si andrà a creare, sarà in grado di eliminare almeno il 99 \% di email di spam.
 \section{Glossario dei termini}
-\textbf{Messaggi di spam}: "\textit{Lo spamming, detto anche fare spam o spammare, è l'invio di messaggi indesiderati (generalmente commerciali). Può essere attuato attraverso qualunque sistema di comunicazione, ma il più usato è Internet, attraverso messaggi di posta elettronica, chat, tag board o forum.}" (cit. Wikipedia)\cite{wiki:Spam}
+\textbf{Messaggi di spam}: Lo spamming, detto anche fare spam o spammare, è l'invio di messaggi indesiderati (generalmente commerciali). Può essere attuato attraverso qualunque sistema di comunicazione, ma il più usato è Internet, attraverso messaggi di posta elettronica, chat, tag board o forum. (cit. Wikipedia)\cite{wiki:Spam}
 
 \section{Analisi Costi-Benefici}
 Per quanto riguarda i costi inerenti al processo KDD, l'unico costo che si avrà, sarà in termini di risorse temporali utilizzate per la realizzazione e relativa verifica dei risultati che il classificatore produrrà.
@@ -66,6 +59,6 @@ In particolar modo, per ogni fase del modello, verrà definito un report riassun
 	\caption{Report CRISP-DM}
 	\label{Report_CRISPDM}
 \end{figure}
-Dal punto di vista di sforzo computazionale, oltre il 70\% del tempo speso è stato impiegato nella realizzazione delle fasi di \textit{Data Understanding} e di \textit{Data Preparation}, mentre il restante 30 \% per le fasi rimanenti.
+Dal punto di vista di sforzo computazionale, oltre il 60\% del tempo speso è stato impiegato nella realizzazione delle fasi di \textit{Data Understanding} e di \textit{Data Preparation}, mentre il restante 40 \% per le fasi rimanenti.
 Questo potrebbe portare alla necessità di dover rieseguire principalmente la fase di Data Preparation e, qualora i risultati dovessero dare esiti negativi, rieseguire anche la fase di Data Understanding in quanto ci potrebbero essere eventuali incomprensioni dei dati presi in considerazione.
 Per quanto riguarda il tempo necessario a concludere il progetto, si prevede un massimo di tre settimane.
