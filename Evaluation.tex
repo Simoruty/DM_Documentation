@@ -11,19 +11,18 @@ In questa fase si andranno a valutare i risultati ottenuti dall'intero processo 
 \section{Valutazione rispetto agli obiettivi di business}
 I risultati ottenuti, mostrati nello schema \ref{Risultati}, possono essere considerati positivi rispetto agli obiettivi di business, in quanto supera il 99 \% di correttezza richiesto dal task \ref{task}. 
 Tuttavia, al fine di tentare di migliorare ulteriormente il sistema di classificazione, sono state testate le varianti che il modello FT offriva (\emph{Alberi funzionali ai soli nodi intermedi} \ref{Alberi funzionali ai soli nodi intermedi} e \emph{Alberi funzionali ai soli nodi foglia} \ref{Alberi funzionali ai soli nodi foglia}). Per fare ciò, è stato necessario variare il parametro modelType rispettivamente in \emph{FT Inner} e \emph{FT Leaves}.
-
-Inoltre, per completezza, è stato fatto un esperimento controllato avente 3 fattori con m livelli:
+Inoltre, per completezza, è stato fatto un esperimento controllato avente 3 fattori con n livelli:
 
 %sono state sperimentate altre configurazioni sul dataset combinando tutti gli algoritmi definiti finora :
 \textbf{Sampling} con 2 livelli:
 \begin{itemize}
 	\item Con SMOTE;
-	\item Senza SMOTE;
+	\item Senza SMOTE.
 \end{itemize}
 \textbf{Feature Selection} con 2 livelli:
 \begin{itemize}
 	\item Con CfsSubsetEval;
-	\item Senza CfsSubsetEval;
+	\item Senza CfsSubsetEval.
 \end{itemize}
 \textbf{Classifiers} con 3 livelli:
 \begin{itemize}
@@ -150,7 +149,6 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	 a      b   <-- classified as
 	3064   48   |      a = yes
 	44     4844 |      b = no
-	
 	\end{verbatim}
 }
 
@@ -699,7 +697,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 
 \section{Considerazioni}
 Riepilogando, le migliori performance sul dataset utilizzato si ottengono applicando il ricampionamento, non eliminando le feature ed utilizzando come modello un albero decisionale avente solo costanti alle foglie; da questo si deduce come gli attributi eliminati nella feature selection, pur contenendo molti missing value, non apportano rumori alla classificazione.
-Un'altra considerazione da fare, riguarda il campionamento; Il bilanciamento del dataset ha apportato dei benefici considerevoli alla classificazione portando ad un incremento del quasi +1 \% di classificazione corretta nella maggior parte delle configurazioni aventi SMOTE.
+Un'altra considerazione da fare, riguarda il campionamento; Il bilanciamento del dataset ha apportato dei benefici considerevoli alla classificazione portando a un incremento del quasi +1 \% di classificazione corretta nella maggior parte delle configurazioni aventi SMOTE.
 
 \begin{table}[htbp]
 	\begin{tabular}{l r}

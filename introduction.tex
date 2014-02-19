@@ -1,13 +1,16 @@
 \chapter{Introduzione}
-Nell'era dell'information Overload, dove giornalmente si producono quantità considerevoli di dati, memorizzati su opportuni database aziendali e non, potrebbe risultare opportuno utilizzare degli strumenti in grado produrre automaticamente della conoscenza a partire da questa mole di dati. Una metodologia propensa a fare ciò, è la metodologia KDD (\emph{Knowledge Discovery Databases}). 
+Nell'era dell'information Overload, dove giornalmente si producono quantità considerevoli di dati, memorizzati su opportuni database aziendali e non, potrebbe risultare opportuno utilizzare degli strumenti in grado produrre automaticamente della conoscenza a partire da questa mole di dati. Una metodologia propensa a fare ciò, è la metodologia KDD (Knowledge Discovery Databases). 
 La prima definizione da attribuire a questa metodologia è stata quella di:
 
-\emph{Intero processo di estrazione di conoscenza, dalla raccolta e pre-processing dei dati, fino alla interpretazione dei risultati"\cite{DBLP:conf/kdd/1995}}
+\begin{mydef}
+	Intero processo di estrazione di conoscenza, dalla raccolta e pre-processing dei dati, fino alla interpretazione dei risultati.\cite{DBLP:conf/kdd/1995}
+\end{mydef}
+Successivamente Fayyad et al. hanno raffinato tale definizione trasformandola in:
 
-Successivamente Fayyad et al. hanno raffinato tale definizione trasformandola in: 
-\emph{Knowledge discovery is the nontrivial extraction of implicit, previously unknown, and potentially useful information from data.}\cite{citeulike:1550195} 
-
-Secondo questo raffinamento, il processo KDD viene definito come un processo in grado di estrarre a partire da diverse fonti dati, informazioni non banali, sconosciute e potenzialmente utili. 
+\begin{mydef}
+	Knowledge discovery is the nontrivial extraction of implicit, previously unknown, and potentially useful information from data.\cite{citeulike:1550195} 
+\end{mydef} 
+Secondo questo raffinamento, il KDD process viene definito come un processo in grado di estrarre a partire da diverse fonti dati, informazioni non banali, sconosciute e potenzialmente utili. 
 \begin{itemize}
 	\item \emph{Nontrivial}: Devono essere coinvolte inferenze ottenute attraverso una computazione non banale dei valori originali presenti nel dataset;
 	\item \emph{Implicit}: L'informazione deve essere implicita nei dati e non esplicitamente formulata; le informazioni esplicite sono estratte da altre tecniche quali query dirette sul dataset;
@@ -25,12 +28,14 @@ Il Data mining rappresenta la fase principale del processo KDD, il cui compito p
 
 \section{CRISP-DM}
 Per l'applicazione del processo di KDD si seguirà il modello del CRISP-DM (\emph{\textbf{CR}oss \textbf{I}ndustry \textbf{S}tandard \textbf{P}rocess for \textbf{D}ata \textbf{M}ining})
-\cite{wirth2000crisp}. Tale modello, viene considerato come standard riconosciuto a livello industriale per la conduzione dei processi di KDD.
-Il CRISP-DM si compone di sei fasi il cui ordine di esecuzione non è prestabilito in modo vincolante, ma può variare da applicazione ad applicazione. Tipicamente le fasi di cui si compone il modello, vengono eseguite come mostrato in figura \ref{CRISPDM}.
-\begin{figure}[hbtp]
-\centering
-\includegraphics[width=0.4\textwidth]{./images/CRISPDM.png}
-\caption{CRISP-DM}
-\label{CRISPDM}
-\end{figure}
+\cite{wirth2000crisp}. 
+
+\begin{wrapfigure}[12]{r}{.4\textwidth}
+	\centering
+	\includegraphics[width=0.4\textwidth]{./images/CRISPDM.png}
+	\label{CRISPDM}
+\end{wrapfigure}
+
+Tale modello, viene considerato come standard riconosciuto a livello industriale per la conduzione dei processi di KDD.
+Il CRISP-DM si compone di sei fasi il cui ordine di esecuzione non è prestabilito in modo vincolante, ma può variare da applicazione ad applicazione. Tipicamente le fasi di cui si compone il modello, vengono eseguite come mostrato in figura.
 Di seguito verranno esaminate le singole fasi in maniera più approfondita e per ognuna di essa, verrà illustrato l'utilizzo fatto all'interno del contesto del progetto preso in esame.

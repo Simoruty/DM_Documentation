@@ -2,14 +2,13 @@
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./images/CRISPDM_2.png}
-	\caption{CRISP-DM - Data Understanding}
 	\label{CRISPDM_2}
 \end{figure}
 \section{Raccolta dei dati}
 Il dataset preso in esame essendo oggetto della DMC 2003 Competition, è liberamente scaricabile dal sito \url{http://www.data-mining-cup.de/en/review/dmc-2003/}. 
 
 \section{Descrizione dei dati}
-Il dataset usato come training set è composto da 8000 istanze rappresentanti le email. Ogni istanza è caratterizzata da 834 attributi, di cui uno \textit{target}, atto ad etichettare l'istanza come \textit{spam} o \textit{no-spam}, ed un attributo identificativo numerico (\textit{id}). Di seguito gli attributi che caratterizzano le email presenti nel dataset:
+Il dataset usato come training set è composto da 8000 istanze rappresentanti le email. Ogni istanza è caratterizzata da 834 attributi, di cui uno \textit{target}, atto a etichettare l'istanza come \textit{spam} o \textit{no-spam}, ed un attributo identificativo numerico (\textit{id}). Di seguito gli attributi che caratterizzano le email presenti nel dataset:
 %Training set: 8000 Istanze 834 Attributi = 833 + Target
 %data\_dmc2003\_train.txt ... 
 
@@ -856,7 +855,7 @@ Il dataset usato come training set è composto da 8000 istanze rappresentanti le
 \end{multicols}
 
 
-Tutti gli attributi, ad esclusione dell'\emph{id} e del \emph{target}, sono attributi di tipo:
+Tutti gli attributi, a esclusione dell'\emph{id} e del \emph{target}, sono attributi di tipo:
 \begin{itemize}
 	\item Categorico;
 	\item Nominale;
@@ -904,16 +903,17 @@ Al fine di verificare la qualità dei dati presenti nel dataset, è necessario a
 
 \section{Esplorazione dei dati}
 Considerata la tipologia degli attributi, al fine di esplorare la conformazione dei dati, è possibile utilizzare solo grafici inerenti la frequenza con cui una feature è presente sui dati. In particolare sono stati creati degli istogrammi rappresentanti le feature più rilevanti rispetto al campo target.
-\begin{figure}[hbtp]
- 	\centering
- 	\includegraphics[width=0.9\textwidth]{./images/Histogram_No.png}
- 	\caption{Istogramma attributi - Classe No}
- 	\label{NoHist}
-\end{figure}
 
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=0.9\textwidth]{./images/Histogram_Yes.png}
-	\caption{Istogramma attributi - Classe Yes}
-	\label{YesHist}
-\end{figure}
+	\begin{figure}[hbtp]
+		\centering
+		\includegraphics[width=1\textwidth]{./images/Histogram_No.png}
+		\caption{Istogramma attributi - Classe No}
+		\label{NoHist}
+	\end{figure}
+	
+	\begin{figure}[hbtp]
+		\centering
+		\includegraphics[width=1\textwidth]{./images/Histogram_Yes.png}
+		\caption{Istogramma attributi - Classe Yes}
+		\label{YesHist}
+	\end{figure}
