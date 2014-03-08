@@ -13,28 +13,22 @@ Ai fini della classificazione, si è deciso di modellare il dataset realizzando 
 \section{Rappresentazione del Modello}
 L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla costruzione di alberi 'funzionali', i quali potrebbero avere funzioni di regressione logistica ai nodi e/o alle foglie interne. L'algoritmo, cosi come descritto in \cite{Gama:2004:FT:990375.990395}, è in grado di gestire:
 \begin{itemize}
-	\item variabili target (binarie o multi-classe);
-	\item attributi numerici;
-	\item attributi nominali;
-	\item missing values.
+	\item variabili target (binarie o multi-classe)
+	\item attributi numerici
+	\item attributi nominali
+	\item missing values
 \end{itemize}
 %Classifier for building 'Functional trees', which are classification trees  that could have logistic regression functions at the inner nodes and/or leaves. The algorithm can deal with binary and multi-class target variables, numeric and nominal attributes and missing values.\cite{Gama2004}
 
 \paragraph{Functional Trees}
 \subparagraph{Growning phase}
-	Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale risulta essere molto simile all'algoritmo standard per la costruzione degli alberi decisionali, fatta eccezione per alcuni passaggi; In particolare, nelle fasi 3 e 4, si vanno a creare nuovi attributi i cui valori saranno ottenuti tramite la valorizzazione delle funzioni di regressione costruite sulla base degli attributi originali. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Innanzitutto il modello verrà costruito usando la funzione costruttore creata tramite l'ausilio degli esempi che ricadono in un determinato nodo. La funzione costruttore deve essere un classificatore o un regressore, a seconda della tipologia di task da risolvere. Ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo valore di questo attributo sarà ottenuto calcolando la probabilità che quell'esempio appartenga a una delle classi date; Per fare ciò, si andrà a utilizzare la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi. Successivamente questi nuovi attributi verranno utilizzati per la creazione del modello.
+	Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale risulta essere molto simile all'algoritmo standard per la costruzione degli alberi decisionali, fatta eccezione per alcuni passaggi; In particolare, nella fase di growning, si vanno a creare nuovi attributi derivati dalla valorizzazione delle funzioni di regressione costruite sulla base degli attributi originali. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Innanzitutto il modello verrà costruito usando la funzione costruttore creata tramite l'ausilio degli esempi che ricadono in un determinato nodo. La funzione costruttore deve essere un classificatore o un regressore, a seconda della tipologia di task da risolvere. Ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo valore di questo attributo sarà ottenuto calcolando la probabilità che quell'esempio appartenga a una delle classi date; Per fare ciò, si andrà a utilizzare la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi. Successivamente questi nuovi attributi verranno utilizzati per la creazione del modello. Inoltre, la cardinalità dei nuovi attributi da creare, sarà pari al numero di classi.
 	Il modello costruito dall'algoritmo potrà avere due tipologie di nodi decisionali: 
 	\begin{itemize}
-		\item Nodi basati sul test di uno degli attributi originali;
+		\item nodi basati sul test di uno degli attributi originali;
 		\item Nodi valorizzati sulla base della funzione costruita.
 	\end{itemize} 
 	Nel secondo caso, si ha la possibilità di usare un modello lineare generalizzato (GLM) come costruttore di attributi; in questo caso, ogni nuovo attributo è ottenuto tramite combinazione lineare degli attributi di partenza. I nodi decisionali basati sui nuovi attributi, definiscono un piano di decisione multivariato.
-
-%Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale risulta essere molto simile all'algoritmo standard per la costruzione degli alberi decisionali, fatta eccezione per alcuni passaggi; In particolare, nelle fasi 3 e 4, si vanno a creare nuovi attributi i cui valori saranno ottenuti tramite delle funzioni di regressione costruite sulla base degli attributi originali. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Nella fase 3, il modello viene costruito usando la funzione costruttore creata tramite l'ausilio degli esempi che ricadono in un determinato nodo.La funzione costruttore deve essere un classificatore o un regressore, a seconda della tipologia di task da risolvere. Ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo valore di questo attributo sarà ottenuto calcolando la probabilità che quell'esempio appartenga ad una delle classi date; Per fare ciò si andrà ad utilizzare la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi (Fase 7). Successivamente, nella fase 4, questi nuovi attributi verranno utilizzati per la creazione del modello.
-%Il modello costruito dall'algoritmo ha due tipi di nodi decisionali: Quelli basati sul test di uno degli attributi originali, e quelli basati sul valore della funzione costruttore. Quando si usa un modello lineare generalizzato (GLM) come costruttore di attributi, ogni nuovo attributo è una combinazione lineare degli attributi originali. I nodi decisionali basati sugli attributi costruiti, definiscono un piano di decisione multivariato.
-
-%Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale è mostrato di seguito. Questo algoritmo è molto simile a molti altri, fatta eccezione nella fase di costruzione (Fasi 3 e 4). Qui viene creata una nuova funzione e mappata ai nuovi attributi creati. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Nella fase 3, il modello viene costruito usando la funzione costruttore. Questo viene fatto usando solo gli esempi che ricadono in questo nodo. Successivamente, nella fase 4, il modello viene mappato ai nuovi attributi. La funzione costruttore deve essere o un classificatore o un regressore in base alla tipologia di problema. Il numero dei nuovi attributi da creare, sarà uguale al numero delle classi che si hanno a disposizione; Infine, la funzione costruttore è mappata ad un nuovo attributo. Nella fase 3, ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo attributo-valore sarà la probabilità che quell'esempio appartenga ad una delle classi date dal modello costruito.
-%Il valore di ogni nuovo attributo viene valutato usando la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi (Fase 7). Il modello costruito dall'algoritmo ha due tipi di nodi decisionali: Quelli basati sul test di uno degli attributi originali, e quelli basati sul valore della funzione costruttore. Quando si usa un modello lineare generalizzato (GLM) come costruttore di attributi, ogni nuovo attributo è una combinazione lineare degli attributi originali. I nodi decisionali basati sugli attributi costruiti, definiscono un piano di decisione multivariato.
 
 %\begin{figure}[hbtp]
 %	\centering
@@ -59,36 +53,15 @@ L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla cost
 	\end{lstlisting}
 \end{algorithm}
 
-%\textbf{Function GrowTree(Dataset, Constructor)}
-%\begin{enumerate}
-%	\item If $Stop\_Criterion(DataSet)$
-%	\begin{itemize}
-%		\item Return a Leaf Node with a constant value.
-%	\end{itemize}
-%	\item Construct a model $\Phi$ using Constructor
-%	\item For each example $\vec{x} \in DataSet$
-%	\begin{itemize}
-%		\item Compute $\hat y = \Phi(\vec{x})$
-%		\item Extend $\vec{x}$ with new attributes $\hat y$.
-%	\end{itemize}
-%	\item Select the attribute of original as well as of newly constructed attributes that maximizes some merit-function \label{selection}
-%	\item For each partition $i$ of the DataSet using the selected attribute
-%	\begin{itemize}
-%		\item $Tree_{i} = GrowTree (Dataset_{i},Constructor)$
-%	\end{itemize}
-%	\item Return a $Tree$, as a decision node based on the selected attribute, contaning the $\Phi$ model, and descendants $Tree_{i}$.
-%\end{enumerate}
-%\textbf{End Function}
-
 \subparagraph{Prune Phase}
-	Una volta creato l'albero, si passerà alla fase di potatura dell'albero appena costruito. L'algoritmo prevede la visitata dell'albero usando un approccio bottom-up (Post-visita). Per ogni nodo non foglia vengono stimati due valori quantitativi: 
+	Una volta creato l'albero, si passerà alla fase di pruning in modo tale da ridurre l'overfitting dell'albero sul training set. L'algoritmo prevede la visitata dell'albero usando un approccio bottom-up (Post-visita). Per ogni nodo non foglia vengono stimati due valori quantitativi: 
 \begin{itemize}
-	\item Errore statico;
-	\item Errore di Backed-up.
+	\item errore statico
+	\item errore di Backed-up
 \end{itemize}
-L'\textbf{errore statico} è la stima dell'errore qualora il nodo dovesse essere foglia.
-L'\textbf{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di backed-up è maggiore o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore attribuito dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo; inoltre, tale probabilità non può essere determinata con certezza. A tale scopo, per un dato livello di confidenza, consideriamo un intervallo di confidenza [$L_{cf}$; $U_{cf}$] con una probabilità di 1-$cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$), ottenuto tramite errore di campionamento della distribuzione, sta a indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita usato. In caso di classificazione, con perdita 0-1, l'errore seguirà una distribuzione binomiale (\cite{mitchellbook}).
-Una procedura simile è utilizzata per stimare l'errore di costruzione. (Fase 4)
+L'\emph{errore statico} è la stima dell'errore qualora il nodo dovesse essere foglia.
+L'\emph{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di backed-up è maggiore o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore attribuito dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo; inoltre, tale probabilità non può essere determinata con certezza. A tale scopo, per un dato livello di confidenza, consideriamo un intervallo di confidenza [$L_{cf}$; $U_{cf}$] con una probabilità di 1-$cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$), ottenuto tramite errore di campionamento della distribuzione, sta a indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita\footnote{ La funzione di perdita riflette le conseguenze negative associate alla decisione "sbagliata"} usato. In caso di classificazione, con perdita 0-1, l'errore seguirà una distribuzione binomiale \cite{mitchellbook}.
+Una procedura simile è utilizzata per stimare l'errore di costruzione ($Constructor\_Error$).
 
 % \begin{figure}[hbtp]
 % 	\centering

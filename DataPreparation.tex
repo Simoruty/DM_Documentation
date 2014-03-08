@@ -6,16 +6,16 @@
 	\caption{CRISP-DM - Data Preparation}
 	\label{CRISPDM_3}
 \end{figure}
-In questa fase si andranno a modellare i dati presenti nel dataset al fine di poter essere utilizzabili nelle successive fasi del CRISP-DRM.
+In questa fase si andranno a modellare i dati presenti nel dataset al fine di poter essere utilizzabili nelle successive fasi del CRISP-DM.
 \section{Criteri di Inclusione/Esclusione dei dati}
 La totalità dei dati presenti nel dataset verrà utilizzata per il processo di KDD; non verrà fatta nessuna esclusione di istanza.
 \section{Sampling data}
 Visto il quantitativo di istanze disponibili (8000 istanze), si è preferito non ridurre la cardinalità delle istanze attraverso il campionamento.
 \section{Feature Selection}
 \label{Feature Selection}
-Per quanto riguarda la fase di feature selection, si è deciso di effettuare una selezione tra gli attributi presenti in quanto, molti di questi, presentano valori nulli nella maggior parte delle istanze del dataset. Questo potrebbe, non solo non portare benefici al processo, ma anche peggiorare l'efficienza dell'algoritmo.
+Per quanto riguarda la fase di feature selection, si è deciso di effettuare una selezione tra gli attributi presenti in quanto, molti di questi, presentano missing values nella maggior parte delle istanze del dataset. Questo potrebbe, non solo non portare benefici al processo, ma anche peggiorare l'efficienza dell'algoritmo.
 
-Come algoritmo di feature selection, si è scelto il \textit{CfsSubsetEval}, il quale valuta il miglior subset degli attributi considerando la singola correlazione di ognuno con l'attributo di classe. Si sceglierà il subset con la più alta correlazione con l'attributo di classe, ma allo stesso tempo, con una bassa correlazione con gli altri attributi. La ricerca nello spazio del subset degli attributi viene realizzata attraverso la strategia best first cercando di avvicinarsi a un risultato ottimale in maniera greedy tagliando lo spazio di ricerca con la tecnica del backtracking.\cite{Hall1998}
+Come algoritmo di feature selection, si è scelto il \emph{CfsSubsetEval}, il quale valuta il miglior subset degli attributi considerando la singola correlazione di ognuno con l'attributo di classe. Si sceglierà il subset con la più alta correlazione con l'attributo di classe, ma allo stesso tempo, con una bassa correlazione con gli altri attributi. La ricerca nello spazio del subset degli attributi viene realizzata attraverso la strategia best first cercando di avvicinarsi a un risultato ottimale in maniera greedy tagliando lo spazio di ricerca con la tecnica del backtracking.\cite{Hall1998}
 L'algoritmo può operare in tre modi:
 \begin{itemize}
 	\item partire da un insieme di feature vuoto e incrementarlo aggiungendo le più predittive;
