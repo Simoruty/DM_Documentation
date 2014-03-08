@@ -46,16 +46,16 @@ L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla cost
 \begin{algorithm}
 	\caption{Function GrowTree(Dataset, Constructor)}
 	\begin{lstlisting}
-		If $Stop\_Criterion(DataSet)$
-			Return a Leaf Node with a constant value.
-		Construct a model $\Phi$ using Constructor
-		For each example $\vec{x} \in DataSet$
-			Compute $\hat y = \Phi(\vec{x})$
-			Extend $\vec{x}$ with new attributes $\hat y$.
-		Select the attribute of original as well as of newly constructed attributes that maximizes some merit-function
-		For each partition $i$ of the DataSet using the selected attribute
-			$Tree_{i} = GrowTree (Dataset_{i},Constructor)$
-		Return a $Tree$, as a decision node based on the selected attribute, contaning the $\Phi$ model, and descendants $Tree_{i}$.
+  If $Stop\_Criterion(DataSet)$
+     Return a Leaf Node with a constant value.
+  Construct a model $\Phi$ using Constructor
+  For each example $\vec{x} \in DataSet$
+     Compute $\hat y = \Phi(\vec{x})$
+     Extend $\vec{x}$ with new attributes $\hat y$.
+  Select the attribute of original as well as of newly constructed attributes that maximizes some merit-function
+  For each partition $i$ of the DataSet using the selected attribute
+     $Tree_{i} = GrowTree (Dataset_{i},Constructor)$
+  Return a $Tree$, as a decision node based on the selected attribute, contaning the $\Phi$ model, and descendants $Tree_{i}$.
 	\end{lstlisting}
 \end{algorithm}
 
@@ -99,22 +99,22 @@ Una procedura simile è utilizzata per stimare l'errore di costruzione. (Fase 4)
 \begin{algorithm}
 	\caption{Function Prune (Tree)}
 	\begin{lstlisting}
-		Estimate Leaf_Error as the error at this node
-		If Tree is leaf 
-			Return Leaf_Error
-		Estimate Constructor_Error as the estimated error of $\Phi$
-		For each descendent $i$
-			Let $p_i$ the probability that an example goes through branch $i$
-			Backed_Up_Error $+= p_i \times Prune \left(Tree_i\right)$
-		If argmin (Leaf_Error, Constructor_Error, Backed_up_error)
-			Is Leaf_Error
-				Tree = Leaf
-				Tree_Error = Leaf_Error
-			Is Model Error
-				Tree = Constructor Leaf
-				Tree_Error = Constructor_Error
-			Is Backed_Up_Error
-				Tree_Error = Backed_Up_Error
+  Estimate Leaf_Error as the error at this node
+  If Tree is leaf 
+     Return Leaf_Error
+  Estimate Constructor_Error as the estimated error of $\Phi$
+  For each descendent $i$
+     Let $p_i$ the probability that an example goes through branch $i$
+     Backed_Up_Error $+= p_i \times Prune \left(Tree_i\right)$
+  If argmin (Leaf_Error, Constructor_Error, Backed_up_error)
+     Is Leaf_Error
+        Tree = Leaf
+        Tree_Error = Leaf_Error
+     Is Model Error
+        Tree = Constructor Leaf
+        Tree_Error = Constructor_Error
+     Is Backed_Up_Error
+        Tree_Error = Backed_Up_Error
 	\end{lstlisting}
 \end{algorithm}
 
@@ -178,27 +178,13 @@ I parametri impostati per l'algoritmo Functional Tree in weka, saranno i seguent
 	\item weightTrimBeta: 0.0
 \end{itemize}
 \end{multicols}
-%\begin{table}[htbp]
-%	\begin{center}		
-%		\begin{tabular}{ l | l }
-%			binSplit & False \\
-%			debug & False \\
-%			errorOnProbabilities & False \\
-%			minNumInstances & 15 \\
-%			\textbf{modelType} & \textbf{FT} \\
-%			numBoostingIterations & 15 \\
-%			useAIC & False \\
-%			weightTrimBeta & 0.0 \\
-%		\end{tabular}
-%	\end{center}
-%\end{table}
 Il modello seguente è stato costruito usando la configurazione:
 \begin{itemize}
 	\item Approccio ibrido FT (\ref{FT Hybrid});
 	\item Feature selection fatta con CfsSubsetEval (\ref{Feature Selection});
 	\item Sampling fatto con SMOTE (\ref{SMOTE}).
 \end{itemize}	
-{\small
+{\footnotesize
 \begin{verbatim}
 === Run information ===
 
@@ -1256,10 +1242,10 @@ I risultati estratti da weka sono i seguenti:
 	
 	=== Detailed Accuracy By Class ===
 	
-	                TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
-	                0.989     0.009      0.993     0.989     0.991      0.995      yes
-	                0.991     0.011      0.986     0.991     0.989      0.995      no
-	Weighted Avg.   0.99      0.01       0.99      0.99      0.99       0.995
+            TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+            0.989     0.009      0.993     0.989     0.991      0.995      yes
+            0.991     0.011      0.986     0.991     0.989      0.995      no
+	Mean    0.99      0.01       0.99      0.99      0.99       0.995
 	
 	=== Confusion Matrix ===
 	
