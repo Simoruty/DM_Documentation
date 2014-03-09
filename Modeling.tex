@@ -112,7 +112,7 @@ Tuttavia, a ogni nodo viene costruita la funzione costruttore che verrà poi uti
 
 \paragraph{Alberi funzionali ai soli nodi intermedi}
 \label{Alberi funzionali ai soli nodi intermedi}
-Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra l'errore di  Backed-up e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE (\cite{Gama97}). Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
+Utilizzando l'approccio FT-Inner, si otterranno degli alberi funzionali nel quale i modelli multivariati verranno usati esclusivamente ai nodi decisionali (nodi interni) e non verranno mai usati come classificatori nei nodi foglia. In questo caso, l'algoritmo di pruning verrà limitato alla sola scelta tra l'errore di  Backed-up e l'errore statico, facendo in modo che, nelle foglie, siano presenti solo i valori costanti utili alla classificazione diretta. Questo approccio è utilizzato in sistemi come LTREE \cite{Gama97}. Un albero funzionale FT-Inner divide lo spazio di input in superfici decisionali oblique. I dati in ogni regione vengono adattati usando la costante che minimizzi la funzione di perdita data.
 %\paragraph{Functional inner nodes only} We denote as FT-Inner the approach to functional trees where the multivariate models are used exclusively at decision nodes (internal nodes) and not used as classifiers in leaves. In our algorithm, restricting the pruning algorithm to choose only between the Backed-up-Error and the Static error generates this kind of model. In this case all leaves predict a constant value. This is the strategy used in systems like LMDT (Utgoff & Brodley, 1991), OC1 (Murthy, Kasif, & Salzberg, 1994), LTREE (Gama, 1997), and QUEST (Loh & Shih, 1997). A FT-Inner functional tree divides the input space into oblique decision surfaces. The data in each region is fitted with a constant that minimizes the given loss function. %
 \paragraph{Alberi funzionali ibridi}
 \label{FT Hybrid}
@@ -138,9 +138,9 @@ I parametri impostati per l'algoritmo Functional Tree in weka, saranno i seguent
 
 Il modello seguente è stato costruito usando la configurazione:
 \begin{itemize}
-	\item approccio ibrido FT (\ref{FT Hybrid})
 	\item feature selection fatta con CfsSubsetEval (\ref{Feature Selection})
 	\item sampling fatto con SMOTE (\ref{SMOTE})
+	\item approccio ibrido FT (\ref{FT Hybrid})
 \end{itemize}	
 {\footnotesize
 \begin{verbatim}
@@ -1201,18 +1201,18 @@ I risultati estratti da weka sono i seguenti:
 	Root relative squared error             18.8205 %
 	Total Number of Instances            11112     
 	
-	=== Detailed Accuracy By Class ===
+=== Detailed Accuracy By Class ===
 	
-            TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
-            0.989     0.009      0.993     0.989     0.991      0.995      yes
-            0.991     0.011      0.986     0.991     0.989      0.995      no
-    Mean    0.99      0.01       0.99      0.99      0.99       0.995
+        TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+        0.989     0.009      0.993     0.989     0.991      0.995      yes
+        0.991     0.011      0.986     0.991     0.989      0.995      no
+Mean    0.99      0.01       0.99      0.99      0.99       0.995
 	
-	=== Confusion Matrix ===
+=== Confusion Matrix ===
 	
-	yes   no   <-- classified as
-	6157  67 
-	43    4845
+    yes   no   <-- classified as
+    6157  67 
+    43    4845
 	
 \end{verbatim}
 }
