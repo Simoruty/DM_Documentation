@@ -368,18 +368,21 @@ Riepilogando, le migliori performance sul dataset utilizzato, si sono ottenute a
 Un'altra considerazione da fare, riguarda il campionamento; il bilanciamento del dataset ha apportato dei benefici considerevoli alla classificazione portando a un incremento del quasi +1 \% di classificazione corretta nella maggior parte delle configurazioni aventi SMOTE.
 
 \begin{table}[htbp]
-	\begin{tabular}{l r}
-		FT Leaves - SMOTE & 99.2441 \\
-		FT Leaves & 99.0750 \\
-		FT Leaves - SMOTE - CFSubsetEval & 99.0731 \\
-		FT - SMOTE - CFSubsetEval & 99.0101 \\
-		FT Inner - SMOTE - CFSubsetEval & 99.0011 \\		
-		FT - SMOTE & 98.9201 \\
-		FT & 98.8750 \\
-		FT Inner - SMOTE & 98.8571 \\
-		FT Leaves - CFSubsetEval & 98.7625 \\ 
-		FT - CFSubsetEval & 98.7250 \\
-		FT Inner - CFSubsetEval & 98.7000 \\
-		FT Inner & 98.5000 \\
+	\centering
+	\begin{tabular}{r c c | r}
+		                      \multicolumn{3}{c}{\textbf{Configuration}}                       & \textbf{Result} \\
+		\rule[-2ex]{0pt}{4.5ex}\emph{Classifiers} & \emph{Sampling} & \emph{Feature Selection} &  \\ \hline
+		         \rule[-2ex]{0pt}{4.5ex}FT Leaves & SMOTE           &                          & 99.2441         \\
+		          \rule[-2ex]{0pt}{1ex} FT Leaves &                 &                          & 99.0750         \\
+		          \rule[-2ex]{0pt}{1ex} FT Leaves & SMOTE           & CFSubsetEval             & 99.0731         \\
+		                  \rule[-2ex]{0pt}{1ex}FT & SMOTE           & CFSubsetEval             & 99.0101         \\
+		            \rule[-2ex]{0pt}{1ex}FT Inner & SMOTE           & CFSubsetEval             & 99.0011         \\
+		                 \rule[-2ex]{0pt}{1ex} FT & SMOTE           &                          & 98.9201         \\
+		                  \rule[-2ex]{0pt}{1ex}FT &                 &                          & 98.8750         \\
+		            \rule[-2ex]{0pt}{1ex}FT Inner & SMOTE           &                          & 98.8571         \\
+		           \rule[-2ex]{0pt}{1ex}FT Leaves &                 & CFSubsetEval             & 98.7625         \\
+		                  \rule[-2ex]{0pt}{1ex}FT &                 & CFSubsetEval             & 98.7250         \\
+		            \rule[-2ex]{0pt}{1ex}FT Inner &                 & CFSubsetEval             & 98.7000         \\
+		            \rule[-2ex]{0pt}{1ex}FT Inner &                 &                          & 98.5000
 	\end{tabular}
 \end{table}
