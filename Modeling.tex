@@ -22,13 +22,13 @@ L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla cost
 
 \paragraph{Functional Trees}
 \subparagraph{Growning phase}
-	Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale risulta essere molto simile all'algoritmo standard per la costruzione degli alberi decisionali, fatta eccezione per alcuni passaggi; In particolare, nella fase di growning, si vanno a creare nuovi attributi derivati dalla valorizzazione delle funzioni di regressione costruite sulla base degli attributi originali. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Innanzitutto il modello verrà costruito usando la funzione costruttore creata tramite l'ausilio degli esempi che ricadono in un determinato nodo. La funzione costruttore deve essere un classificatore o un regressore, a seconda della tipologia di task da risolvere. Ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo valore di questo attributo sarà ottenuto calcolando la probabilità che quell'esempio appartenga a una delle classi date; Per fare ciò, si andrà a utilizzare la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi. Successivamente questi nuovi attributi verranno utilizzati per la creazione del modello. Inoltre, la cardinalità dei nuovi attributi da creare, sarà pari al numero di classi.
+	Dato un set di esempi e un costruttore di attributi, l'algoritmo generale usato per la costruzione dell'albero funzionale risulta essere molto simile all'algoritmo standard per la costruzione degli alberi decisionali, fatta eccezione per alcuni passaggi; In particolare, nella fase di growning, si vanno a creare nuovi attributi derivati dalla valorizzazione delle funzioni di regressione costruite sulla base degli attributi originali. Ci sono alcuni aspetti di questo algoritmo che devono essere esplicitati. Innanzitutto il modello verrà costruito usando la funzione costruttore creata tramite l'ausilio degli esempi che ricadono in un determinato nodo. La funzione costruttore deve essere un classificatore o un regressore, a seconda della tipologia di task da risolvere. Ogni nuovo attributo è computato come valore predetto dalla funzione costruita per ogni esempio. In caso di classificazione, ogni nuovo valore di questo attributo sarà ottenuto calcolando la probabilità che quell'esempio appartenga a una delle classi date (\emph{LinearBayes Classifier} \cite{DBLP:conf/sbia/Gama00}; Per fare ciò, si andrà a utilizzare la funzione di merito di un albero univariato tenendo conto sempre dei valori originali degli attributi (i.e. \emph{Gain Ratio}). Successivamente questi nuovi attributi verranno utilizzati per la creazione del modello. Inoltre, la cardinalità dei nuovi attributi da creare, sarà pari al numero di classi.
 	Il modello costruito dall'algoritmo potrà avere due tipologie di nodi decisionali: 
 	\begin{itemize}
-		\item nodi basati sul test di uno degli attributi originali;
-		\item Nodi valorizzati sulla base della funzione costruita.
+		\item nodi basati sul test eseguiti su un attributo originale;
+		\item nodi valorizzati sulla base della funzione costruita.
 	\end{itemize} 
-	Nel secondo caso, si ha la possibilità di usare un modello lineare generalizzato (GLM) come costruttore di attributi; in questo caso, ogni nuovo attributo è ottenuto tramite combinazione lineare degli attributi di partenza. I nodi decisionali basati sui nuovi attributi, definiscono un piano di decisione multivariato.
+	Nel secondo caso, si andrà a usare un modello lineare generalizzato per costruire i nuovi attributi; in questo caso, ogni nuovo attributo è ottenuto tramite combinazione lineare degli attributi di partenza. I nodi decisionali basati sui nuovi attributi permettono di  definire un piano di decisione multivariato.
 
 %\begin{figure}[hbtp]
 %	\centering
@@ -59,8 +59,15 @@ L'algoritmo Functional Tree è un algoritmo di classificazione basato sulla cost
 	\item errore statico
 	\item errore di Backed-up
 \end{itemize}
-L'\emph{errore statico} è la stima dell'errore qualora il nodo dovesse essere foglia.
-L'\emph{errore di backed-up} è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo. Se l'errore di backed-up è maggiore o uguale all'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore attribuito dalla classe di maggioranza del nodo. L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo; inoltre, tale probabilità non può essere determinata con certezza. A tale scopo, per un dato livello di confidenza, consideriamo un intervallo di confidenza [$L_{cf}$; $U_{cf}$] con una probabilità di 1-$cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$), ottenuto tramite errore di campionamento della distribuzione, sta a indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita\footnote{ La funzione di perdita riflette le conseguenze negative associate alla decisione "sbagliata"} usato. In caso di classificazione, con perdita 0-1, l'errore seguirà una distribuzione binomiale \cite{mitchellbook}.
+L'\emph{errore statico} indica la probabilità di misclassification ad un nodo $v$ ignorando i suoi sottoalberi figli.
+$$e(v) = P (class \neq C)|v$$
+L'\emph{errore di backed-up}, invece, è la somma pesata della stima degli errori di tutti i sotto alberi del nodo corrente $v$. La stima dell'errore di ogni ramo è pesato usando la probabilità che un esempio appartenga al ramo.
+$$E(T)=p_1E(T_1)+p_2E(T_2)+\dots$$ 
+Se l'errore di backed-up dovesse essere maggiore o uguale dell'errore statico, il nodo verrà sostituito da una foglia avente come valore, il valore attribuito dalla classe di maggioranza del nodo.
+L'errore a $T$ diventerà quindi il minimo trai 2 errori calcolati in precedenza.
+
+$$ E(T) = \min \left( e \left( v \right), ~ \sum_i p_i E \left( T_i \right) \right) $$
+L'aspetto fondamentale dell'algoritmo di potatura è l'errore stimato nella fase 1. Ad ogni nodo, sarà necessario stimare la probabilità dell'errore dato l'errore nel campione degli esempi che ricadono in questo nodo; inoltre, tale probabilità non può essere determinata con certezza. A tale scopo, per un dato livello di confidenza, consideriamo un intervallo di confidenza $\left[L_{cf}~;~U_{cf}\right]$ con una probabilità di $1-cf$ che contenga l'errore reale. Cosi come in \cite{Quinlan:1993a}, il limite superiore dell'intervallo di confidenza ($U_{cf}$), ottenuto tramite errore di campionamento della distribuzione, sta a indicare la \emph{stima pessimistica} dell'errore reale. L'intervallo di confidenza per l'errore dipende dalla funzione di perdita\footnote{ La funzione di perdita riflette le conseguenze negative associate alla decisione "sbagliata"} usato. In caso di classificazione, con perdita 0-1, l'errore seguirà una distribuzione binomiale \cite{mitchellbook}.
 Una procedura simile è utilizzata per stimare l'errore di costruzione ($Constructor\_Error$).
 
 % \begin{figure}[hbtp]
@@ -90,11 +97,11 @@ Una procedura simile è utilizzata per stimare l'errore di costruzione ($Constru
         Tree_Error = Backed_Up_Error
 	\end{lstlisting}
 \end{algorithm}
-
 L'algoritmo di potatura sarà in grado di produrre due diversi tipi di foglie: 
 \begin{itemize}
-	\item Foglie standard che predicono una \emph{costante}, qualora o l'errore di backed-up o l'errore statico risulti essere inferiore all'errore del costruttore;	
-	\item Foglie \emph{costruttrici} in grado di predire il valore della funzione costruttrice appresa (in fase di crescita) a quel nodo qualora l'errore della funzione costruttrice risulti essere inferiore agli altri due errori da prendere in considerazione.
+	\item Nodi foglia in grado di predire direttamente la classe da attribuire al nuovo esempio, nel caso in cui $$\min (E_{Backed\_Up}~,~E_{Static\_Error}) < E_{Constructor\_Error}$$	
+	\item Nodi foglia contenenti la funzione costruttrice creata in fase di growing nel caso in cui
+	$$\min (E_{Backed\_Up}~,~E_{Static\_Error}) > E_{Constructor\_Error}$$
 \end{itemize}
 Si ottengono cosi due modelli concettualmente differenti in base a questa differenziazione, più un terzo modello ibrido.
 
@@ -151,22 +158,26 @@ I parametri impostati per l'algoritmo Functional Tree in weka, saranno i seguent
 	\item weightTrimBeta: 0.0
 \end{itemize}
 \end{multicols}
+
 Il modello seguente è stato costruito usando la configurazione:
 \begin{itemize}
-	\item Approccio ibrido FT (\ref{FT Hybrid});
-	\item Feature selection fatta con CfsSubsetEval (\ref{Feature Selection});
-	\item Sampling fatto con SMOTE (\ref{SMOTE}).
+	\item approccio ibrido FT (\ref{FT Hybrid})
+	\item feature selection fatta con CfsSubsetEval (\ref{Feature Selection})
+	\item sampling fatto con SMOTE (\ref{SMOTE})
 \end{itemize}	
 {\footnotesize
 \begin{verbatim}
 === Run information ===
 
-Scheme:		weka.classifiers.trees.FT -I 15 -F 0 -M 15 -W 0.0
+Scheme:     weka.classifiers.trees.FT -I 15 -F 0 -M 15 -W 0.0
+
 Relation:   SPAM-weka.filters.supervised.instance.SMOTE-C0-K5-P100.0-S1-
-weka.filters.supervised.attribute.AttributeSelection-
-Eweka.attributeSelection.CfsSubsetEval-
-Sweka.attributeSelection.BestFirst -D 1 -N 5
+            weka.filters.supervised.attribute.AttributeSelection-
+            Eweka.attributeSelection.CfsSubsetEval-
+            Sweka.attributeSelection.BestFirst -D 1 -N 5
+
 Instances:  11112
+
 Attributes: 53	
 \end{verbatim}
 \begin{multicols}{2}
@@ -1218,13 +1229,14 @@ I risultati estratti da weka sono i seguenti:
             TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
             0.989     0.009      0.993     0.989     0.991      0.995      yes
             0.991     0.011      0.986     0.991     0.989      0.995      no
-	Mean    0.99      0.01       0.99      0.99      0.99       0.995
+    Mean    0.99      0.01       0.99      0.99      0.99       0.995
 	
 	=== Confusion Matrix ===
 	
 	yes   no   <-- classified as
 	6157  67 
 	43    4845
+	
 \end{verbatim}
 }
 %\begin{table}[htbp]

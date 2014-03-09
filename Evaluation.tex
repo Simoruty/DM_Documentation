@@ -12,23 +12,22 @@ In questa fase si andranno a valutare i risultati ottenuti dall'intero processo 
 I risultati ottenuti, mostrati nello schema \ref{Risultati}, possono essere considerati positivi rispetto agli obiettivi di business, in quanto supera il 99 \% di correttezza richiesto dal task \ref{task}. 
 Tuttavia, al fine di tentare di migliorare ulteriormente il sistema di classificazione, sono state testate le varianti che il modello FT offriva (\emph{Alberi funzionali ai soli nodi intermedi} \ref{Alberi funzionali ai soli nodi intermedi} e \emph{Alberi funzionali ai soli nodi foglia} \ref{Alberi funzionali ai soli nodi foglia}). Per fare ciò, è stato necessario variare il parametro modelType rispettivamente in \emph{FT Inner} e \emph{FT Leaves}.
 Inoltre, per completezza, è stato fatto un esperimento controllato avente 3 fattori con n livelli:
-
 %sono state sperimentate altre configurazioni sul dataset combinando tutti gli algoritmi definiti finora :
 \textbf{Sampling} con 2 livelli:
 \begin{itemize}
-	\item Con SMOTE;
-	\item Senza SMOTE.
+	\item con SMOTE
+	\item senza SMOTE
 \end{itemize}
 \textbf{Feature Selection} con 2 livelli:
 \begin{itemize}
-	\item Con CfsSubsetEval;
-	\item Senza CfsSubsetEval.
+	\item con CfsSubsetEval
+	\item senza CfsSubsetEval
 \end{itemize}
 \textbf{Classifiers} con 3 livelli:
 \begin{itemize}
-	\item FT;
-	\item FT-Leaves;
-	\item FT-Inner.
+	\item FT
+	\item FT-Leaves
+	\item FT-Inner
 \end{itemize}
 Di seguito verranno riportati i risultati ottenuti da queste configurazioni. 
 \subsection{Risultati Configurazioni}
