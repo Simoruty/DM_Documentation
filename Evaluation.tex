@@ -7,7 +7,7 @@
 	\label{CRISPDM_5}
 \end{figure}
 In questa fase si andranno a valutare i risultati ottenuti dall'intero processo CRISP-DM fatto finora. Se tale valutazione risulta essere non positiva rispetto a ciò che il sistema si prefiggeva di fare, si passerà alla definizione di altri parametri o alla scelta di altri tipi di algoritmi per effettuare la classificazione.
-
+\pagebreak
 \section{Valutazione rispetto agli obiettivi di business}
 I risultati ottenuti, mostrati nello schema \ref{Risultati}, possono essere considerati positivi rispetto agli obiettivi di business, in quanto supera il 99 \% di correttezza richiesto dal task \ref{task}. 
 Tuttavia, al fine di tentare di migliorare ulteriormente il sistema di classificazione, sono state testate le varianti che il modello FT offriva (\emph{Alberi funzionali ai soli nodi intermedi} \ref{Alberi funzionali ai soli nodi intermedi} e \emph{Alberi funzionali ai soli nodi foglia} \ref{Alberi funzionali ai soli nodi foglia}). Per fare ciò, è stato necessario variare il parametro modelType rispettivamente in \emph{FT Inner} e \emph{FT Leaves}.
@@ -38,20 +38,19 @@ Inoltre, per completezza, è stato fatto un esperimento controllato avente 3 fat
 %	\item FT-Inner
 %\end{itemize}
 %\end{multicols}
-
-
+\vspace{0.5cm}
 \textbf{Sampling}:
 \begin{itemize}
 	\item con SMOTE
 	\item senza SMOTE
 \end{itemize}
-
+\vspace{0.5cm}
 \textbf{Feature Selection}:
 \begin{itemize}
 	\item con CfsSubsetEval
 	\item senza CfsSubsetEval
 \end{itemize}
-
+\vspace{0.5cm}
 \textbf{Classifiers}:
 \begin{itemize}
 	\item FT
@@ -59,10 +58,11 @@ Inoltre, per completezza, è stato fatto un esperimento controllato avente 3 fat
 	\item FT-Inner
 \end{itemize}
 
-Di seguito verranno riportati i risultati ottenuti da queste configurazioni. 
+Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
+\pagebreak 
 \subsection{Risultati Configurazioni}
 \paragraph{FT - Original Dataset}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 		=== Stratified cross-validation ===
 		=== Summary ===
@@ -92,7 +92,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 }
 
 \paragraph{FT - CfsSubsetEval}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -121,8 +121,9 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	\end{verbatim}
 }
 
+\pagebreak
 \paragraph{FT - SMOTE}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -152,7 +153,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 }
 
 \paragraph{FT Inner - Original}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -181,8 +182,9 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	\end{verbatim}
 }
 
+\pagebreak
 \paragraph{FT Inner - CfsSubsetEval}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -212,7 +214,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 }
 
 \paragraph{FT Inner - SMOTE}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -241,8 +243,9 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	\end{verbatim}
 }
 
+\pagebreak
 \paragraph{FT Inner - SMOTE - CfsSubsetEval}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -272,7 +275,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 }
 
 \paragraph{FT Leaves - Original}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -302,8 +305,9 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	\end{verbatim}
 }
 
+\pagebreak
 \paragraph{FT Leaves - CfsSubsetEval}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -334,7 +338,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 }
 
 \paragraph{FT Leaves - SMOTE}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -362,9 +366,9 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	26     4862 |    b = no
 	\end{verbatim}
 }
-
+\pagebreak
 \paragraph{FT Leaves - SMOTE - CfsSubsetEval}
-{\footnotesize
+{\scriptsize
 	\begin{verbatim}
 	=== Stratified cross-validation ===
 	=== Summary ===
@@ -392,7 +396,7 @@ Di seguito verranno riportati i risultati ottenuti da queste configurazioni.
 	28     4860 |    b = no	
 	\end{verbatim}
 }
-
+\pagebreak
 \section{Considerazioni}
 Riepilogando, le migliori performance sul dataset utilizzato, si sono ottenute applicando il ricampionamento, non eliminando le feature ed utilizzando come modello un albero decisionale avente solo costanti alle foglie; da questo si deduce come gli attributi eliminati nella feature selection, pur contenendo molti missing value, non apportano rumori alla classificazione.
 Un'altra considerazione da fare, riguarda il campionamento; il bilanciamento del dataset ha apportato dei benefici considerevoli alla classificazione portando a un incremento del quasi +1 \% di classificazione corretta nella maggior parte delle configurazioni aventi SMOTE.
